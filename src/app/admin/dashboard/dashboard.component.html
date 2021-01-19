@@ -1,1 +1,160 @@
-<p>dashboard works!</p>
+<!-- Heading -->
+<h1 class="mt-5 pt-5">Admin Dashboard <em class="float-end far fa-question-circle help mt-3" data-bs-toggle="collapse"
+    data-bs-target="#help" aria-expanded="false" aria-controls="help"></em></h1>
+<hr>
+
+<!-- Help -->
+<!-- TODO: handleiding invullen -->
+<div class="collapse mb-3" id="help">
+  <div class="card">
+    <div class="card-header">Handleiding Admin Dashboard</div>
+    <div class="card-body">
+      <p class="my-2 p-0">Korte handleiding met wat extra uitleg over hoe deze pagina werkt. (+ evt ondersteunende
+        afbeeldingen)</p>
+      <p class="my-2 p-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut iste animi id ducimus ea obcaecati
+        nesciunt, suscipitest necessitatibus culpa quis odit, quod optio officia sequi amet laboriosam consequatur
+        deleniti.</p>
+      <p class="my-2 p-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut iste animi id ducimus ea obcaecati
+        nesciunt, suscipitest necessitatibus culpa quis odit, quod optio officia sequi amet laboriosam consequatur
+        deleniti.</p>
+      <p class="my-2 p-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut iste animi id ducimus ea obcaecati
+        nesciunt, suscipitest necessitatibus culpa quis odit, quod optio officia sequi amet laboriosam consequatur
+        deleniti.</p>
+    </div>
+
+  </div>
+</div>
+
+<!-- Content -->
+
+<!-- Zoekbalk -->
+<div class="row">
+  <div class="col-12 col-lg-8">
+    <div class="form-floating mb-3">
+      <input type="text" class="form-control" id="search" placeholder="Zoeken">
+      <label for="search">Zoeken</label>
+    </div>
+  </div>
+  <div class="col-12 col-lg-4">
+    <div class="form-floating">
+      <select class="form-select" id="floatingSelect">
+        <option selected>Alle Rollen</option>
+        <option value="1">Groendienst</option>
+        <option value="2">Participatie</option>
+        <option value="3">Communicatie</option>
+      </select>
+      <label for="floatingSelect">Kies rol</label>
+    </div>
+  </div>
+</div>
+
+<div class="d-grid">
+  <div class="card mb-3">
+    <div class="card-body">
+      <div class="overflow-auto">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Voornaam</th>
+              <th scope="col">Familienaam</th>
+              <th scope="col">Emailadres</th>
+              <th scope="col">Username</th>
+              <th scope="col">Rol</th>
+              <th scope="col">Admin</th>
+              <th scope="col">Aangemaakt op</th>
+              <th scope="col">Acties</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">1</th>
+              <td>Rita</td>
+              <td>Peeters</td>
+              <td>rita.peeters@herentals.be</td>
+              <td>rita.peeters</td>
+              <td>Communicatie</td>
+              <td>Ja</td>
+              <td>11-04-2008</td>
+              <td>
+                <em class="far fa-edit actions mr-4"></em>
+                <em class="far fa-trash-alt actions mx-3"></em>
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">2</th>
+              <td>Jean</td>
+              <td>Jansen</td>
+              <td>jean.jansens@herentals.be</td>
+              <td>jean.jansens</td>
+              <td>Communicatie</td>
+              <td>Nee</td>
+              <td>11-04-2008</td>
+              <td>
+                <em class="far fa-edit actions mr-4"></em>
+                <em class="far fa-trash-alt actions mx-3"></em>
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">3</th>
+              <td>Emma</td>
+              <td>Timmermans</td>
+              <td>emma.timmermans@herentals.be</td>
+              <td>emma.timmermans</td>
+              <td>Participatie</td>
+              <td>Nee</td>
+              <td>11-04-2008</td>
+              <td>
+                <em class="far fa-edit actions mr-4"></em>
+                <em class="far fa-trash-alt actions mx-3"></em>
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">4</th>
+              <td>Bert</td>
+              <td>Maes</td>
+              <td>bert.maes@herentals.be</td>
+              <td>bert.maes</td>
+              <td>Participatie</td>
+              <td>Ja</td>
+              <td>11-04-2008</td>
+              <td>
+                <em class="far fa-edit actions mr-4"></em>
+                <em class="far fa-trash-alt actions mx-3"></em>
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">5</th>
+              <td>Bob</td>
+              <td>Thijs</td>
+              <td>bob.thijs@herentals.be</td>
+              <td>bob.thijs</td>
+              <td>Groendienst</td>
+              <td>Nee</td>
+              <td>11-04-2008</td>
+              <td>
+                <em class="far fa-edit actions mr-4"></em>
+                <em class="far fa-trash-alt actions mx-3"></em>
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">6</th>
+              <td>Marie</td>
+              <td>Jacobs</td>
+              <td>marie.jacobs@herentals.be</td>
+              <td>marie.jacobs</td>
+              <td>Groendienst</td>
+              <td>Nee</td>
+              <td>11-04-2008</td>
+              <td>
+                <em class="far fa-edit actions mr-4"></em>
+                <em class="far fa-trash-alt actions mx-3"></em>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <a class="btn btn-outline-dark btn-md mb-3">Gebruiker toevoegen</a>
+</div>

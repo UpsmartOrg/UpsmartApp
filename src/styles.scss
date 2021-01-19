@@ -42,4 +42,13 @@ body {
       color: $primary;
     }
   }
+
+  .actions {
+    font-size: 110%;
+    color: #000;
+
+    &:hover {
+      color: $primary;
+    }
+  }
 }
