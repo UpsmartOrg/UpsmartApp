@@ -4,6 +4,7 @@ import { NavigationComponent } from './navigation/navigation.component';
 import { FooterComponent } from './footer/footer.component';
 import { AlertComponent } from './alert/alert.component';
 import { MaterialModule } from './material.module';
+import { RouterModule } from '@angular/router';
 
 
 @NgModule({
@@ -15,6 +16,7 @@ import { MaterialModule } from './material.module';
   imports: [
     CommonModule,
     MaterialModule,
+    RouterModule
   ],
   exports: [
     NavigationComponent,

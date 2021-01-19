@@ -1,2 +1,32 @@
 // Bootstrap import
 @import "../node_modules/bootstrap/scss/bootstrap";
+
+@font-face {
+  font-family: 'Titillium Regular';
+  src: url('/assets/fonts/titilliumweb-regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Titillium Bold';
+  src: url('/assets/fonts/titilliumweb-bold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Titillium Light';
+  src: url('/assets/fonts/titilliumweb-light.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Titillium Italic';
+  src: url('/assets/fonts/titilliumweb-italic.ttf') format('truetype');
+}
+
+body {
+  font-family: 'Titillium Regular', sans-serif;
+
+  .nav-item {
+    a {
+      font-size: 130%;
+    }
+  }
+}
