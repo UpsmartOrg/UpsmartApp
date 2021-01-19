@@ -16,13 +16,13 @@ const routes: Routes = [
   { path: 'admin/dashboard', component: AdminDashboardComponent },
 
   // Garbage Collection routes
-  { path: 'groendienst/dashboard', component: CommunicationDashboardComponent },
+  { path: 'groendienst/dashboard', component: GarbageDashboardComponent },
 
   // Participation routes
-  { path: 'participatie/dashboard', component: GarbageDashboardComponent },
+  { path: 'participatie/dashboard', component: ParticipationDashboardComponent },
 
   // Communication routes
-  { path: 'communicatie/dashboard', component: ParticipationDashboardComponent },
+  { path: 'communicatie/dashboard', component: CommunicationDashboardComponent },
 
   // Profiel routes
   { path: 'profiel', component: HomeComponent },
