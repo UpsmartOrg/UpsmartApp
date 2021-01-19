@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { NavigationComponent } from './navigation/navigation.component';
 import { FooterComponent } from './footer/footer.component';
 import { AlertComponent } from './alert/alert.component';
+import { MaterialModule } from './material.module';
 
 
 @NgModule({
@@ -13,6 +14,7 @@ import { AlertComponent } from './alert/alert.component';
   ],
   imports: [
     CommonModule,
+    MaterialModule,
   ],
   exports: [
     NavigationComponent,
