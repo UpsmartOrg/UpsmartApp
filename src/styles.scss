@@ -1,3 +1,8 @@
+$primary: #AC162C;
+$danger: #db0021;
+
+$navbar-light-active-color: $primary;
+
 // Bootstrap import
 @import "../node_modules/bootstrap/scss/bootstrap";
 
@@ -27,6 +32,14 @@ body {
   .nav-item {
     a {
       font-size: 130%;
+    }
+  }
+
+  .help {
+    font-size: 80%;
+
+    &:hover {
+      color: $primary;
     }
   }
 }

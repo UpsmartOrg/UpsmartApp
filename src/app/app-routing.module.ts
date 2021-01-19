@@ -26,7 +26,7 @@ const routes: Routes = [
 
   // Profiel routes
   { path: 'profiel', component: HomeComponent },
-  { path: 'logout', component: HomeComponent },
+  { path: 'logout', redirectTo: '', component: HomeComponent },
 
   // Error 404
   { path: '**', component: Error404Component },
