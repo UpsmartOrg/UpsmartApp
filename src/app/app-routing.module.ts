@@ -6,6 +6,7 @@ import { GarbageDashboardComponent } from './garbage-collection/dashboard/dashbo
 import { ParticipationDashboardComponent } from './participation/dashboard/dashboard.component';
 import { Error404Component } from './error/error404/error404.component';
 import { HomeComponent } from './home/home.component';
+import { ProfileComponent } from './profile/profile.component';
 
 const routes: Routes = [
   // Home routes
@@ -25,7 +26,7 @@ const routes: Routes = [
   { path: 'communicatie/dashboard', component: CommunicationDashboardComponent },
 
   // Profiel routes
-  { path: 'profiel', component: HomeComponent },
+  { path: 'profiel', component: ProfileComponent },
   { path: 'logout', redirectTo: '', component: HomeComponent },
 
   // Error 404
