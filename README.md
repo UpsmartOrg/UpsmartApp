@@ -1,5 +1,7 @@
 # Herentals Smart City
-project by [UPSMART](http://upsmart.seppealaerts.be)
+Smart City project by [UPSMART](http://upsmart.seppealaerts.be)
+
+Backend api: https://github.com/JasperGuldentops/upsmart-app-api
 
 
 ## Development server
