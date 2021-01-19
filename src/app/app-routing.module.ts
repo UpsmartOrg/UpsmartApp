@@ -1,7 +1,36 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AdminDashboardComponent } from './admin/dashboard/dashboard.component';
+import { CommunicationDashboardComponent } from './communication/dashboard/dashboard.component';
+import { GarbageDashboardComponent } from './garbage-collection/dashboard/dashboard.component';
+import { ParticipationDashboardComponent } from './participation/dashboard/dashboard.component';
+import { Error404Component } from './error/error404/error404.component';
+import { HomeComponent } from './home/home.component';
 
-const routes: Routes = [];
+const routes: Routes = [
+  // Home routes
+  { path: '', component: HomeComponent },
+  { path: 'home', component: HomeComponent },
+
+  // Admin routes
+  { path: 'admin/dashboard', component: AdminDashboardComponent },
+
+  // Garbage Collection routes
+  { path: 'groendienst/dashboard', component: CommunicationDashboardComponent },
+
+  // Participation routes
+  { path: 'participatie/dashboard', component: GarbageDashboardComponent },
+
+  // Communication routes
+  { path: 'communicatie/dashboard', component: ParticipationDashboardComponent },
+
+  // Profiel routes
+  { path: 'profiel', component: HomeComponent },
+  { path: 'logout', component: HomeComponent },
+
+  // Error 404
+  { path: '**', component: Error404Component },
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
