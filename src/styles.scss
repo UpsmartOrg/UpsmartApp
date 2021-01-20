@@ -51,4 +51,14 @@ body {
       color: $primary;
     }
   }
+
+  footer {
+    a {
+      text-decoration: none;
+    }
+  }
+
+  .font-weight-bold {
+    font-family: 'Titillium Bold', sans-serif;
+  }
 }
