@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -8,11 +9,15 @@ import { Title } from '@angular/platform-browser';
 })
 export class ParticipationDashboardComponent implements OnInit {
 
-  constructor(private titleService: Title) {
+  constructor(private titleService: Title, private router: Router) {
     this.titleService.setTitle("Participatie Dashboard - Smart City Herentals");
   }
 
   ngOnInit(): void {
+  }
+
+  redirectTo(route: string) {
+    this.router.navigateByUrl(route);
   }
 
 }

@@ -7,6 +7,7 @@ import { ParticipationDashboardComponent } from './participation/dashboard/dashb
 import { Error404Component } from './error/error404/error404.component';
 import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
+import { AddSurveyComponent } from './participation/add-survey/add-survey.component';
 
 const routes: Routes = [
   // Home routes
@@ -21,6 +22,7 @@ const routes: Routes = [
 
   // Participation routes
   { path: 'participatie/dashboard', component: ParticipationDashboardComponent },
+  { path: 'participatie/enquete-toevoegen', component: AddSurveyComponent },
 
   // Communication routes
   { path: 'communicatie/dashboard', component: CommunicationDashboardComponent },
