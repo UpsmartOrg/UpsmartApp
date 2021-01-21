@@ -5,6 +5,7 @@ import { FooterComponent } from './footer/footer.component';
 import { AlertComponent } from './alert/alert.component';
 import { MaterialModule } from './material.module';
 import { RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -16,12 +17,14 @@ import { RouterModule } from '@angular/router';
   imports: [
     CommonModule,
     MaterialModule,
-    RouterModule
+    RouterModule,
+    FormsModule
   ],
   exports: [
     NavigationComponent,
     FooterComponent,
     AlertComponent,
+    FormsModule
   ],
 })
 
