@@ -8,8 +8,12 @@ import { Error404Component } from './error/error404/error404.component';
 import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AddSurveyComponent } from './participation/add-survey/add-survey.component';
+import { LoginComponent } from './login/login.component';
 
 const routes: Routes = [
+  // Login routes
+  { path: 'login', component: LoginComponent },
+
   // Home routes
   { path: '', component: HomeComponent },
   { path: 'home', component: HomeComponent },

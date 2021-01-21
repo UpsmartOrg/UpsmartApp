@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-error404',
@@ -7,9 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class Error404Component implements OnInit {
 
-  constructor() { }
+  constructor(private titleService: Title, private router: Router) {
+    this.titleService.setTitle("404 - Smart City Herentals");
+  }
 
   ngOnInit(): void {
+  }
+
+  redirectTo(route: string) {
+    this.router.navigateByUrl(route);
   }
 
 }
