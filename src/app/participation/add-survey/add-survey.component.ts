@@ -12,4 +12,8 @@ export class AddSurveyComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  addSurvey(){
+    
+  }
+
 }
