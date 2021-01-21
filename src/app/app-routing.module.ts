@@ -9,6 +9,11 @@ import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AddSurveyComponent } from './participation/add-survey/add-survey.component';
 import { LoginComponent } from './login/login.component';
+import { AddUserComponent } from './admin/add-user/add-user.component';
+import { EditUserComponent } from './admin/edit-user/edit-user.component';
+import { EditSurveyComponent } from './participation/edit-survey/edit-survey.component';
+import { EditMessageComponent } from './communication/edit-message/edit-message.component';
+import { AddMessageComponent } from './communication/add-message/add-message.component';
 
 const routes: Routes = [
   // Login routes
@@ -20,6 +25,8 @@ const routes: Routes = [
 
   // Admin routes
   { path: 'admin/dashboard', component: AdminDashboardComponent },
+  { path: 'admin/gebruiker-toevoegen', component: AddUserComponent },
+  { path: 'admin/gebruiker-wijzigen', component: EditUserComponent },
 
   // Garbage Collection routes
   { path: 'groendienst/dashboard', component: GarbageDashboardComponent },
@@ -27,9 +34,12 @@ const routes: Routes = [
   // Participation routes
   { path: 'participatie/dashboard', component: ParticipationDashboardComponent },
   { path: 'participatie/enquete-toevoegen', component: AddSurveyComponent },
+  { path: 'participatie/enquete-wijzigen', component: EditSurveyComponent },
 
   // Communication routes
   { path: 'communicatie/dashboard', component: CommunicationDashboardComponent },
+  { path: 'communicatie/bericht-toevoegen', component: AddMessageComponent },
+  { path: 'communicatie/bericht-wijzigen', component: EditMessageComponent },
 
   // Profiel routes
   { path: 'profiel', component: ProfileComponent },
