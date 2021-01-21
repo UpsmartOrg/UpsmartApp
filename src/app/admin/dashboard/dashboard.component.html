@@ -31,14 +31,16 @@
 <div class="row mb-3">
   <div class="col-12 col-lg-8">
     <div class="form-floating mb-3">
-      <input type="text" class="form-control" id="search" placeholder="Zoeken">
+      <input type="text" class="form-control" id="search" placeholder="Zoeken" 
+      [(ngModel)]="searchWord" (change)="filterUsers()">
       <label for="search">Zoeken</label>
     </div>
   </div>
   <div class="col-12 col-lg-4">
     <div class="form-floating">
-      <select class="form-select" id="floatingSelect">
-        <option selected>Alle rollen</option>
+      <select class="form-select" id="floatingSelect" 
+      [(ngModel)]="searchRoleID" (change)="filterUsers()">
+        <option value="0" selected>Alle Rollen</option>
         <option value="1">Groendienst</option>
         <option value="2">Participatie</option>
         <option value="3">Communicatie</option>
@@ -68,8 +70,22 @@
               <th scope="col">Acties</th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
+          <tbody *ngIf="users">
+            <tr *ngFor="let user of users; let i = index">
+              <td>{{ i + 1 }}</td>
+              <td>{{ user.first_name }}</td>
+              <td>{{ user.last_name }}</td>
+              <td>{{ user.email }}</td>
+              <td>{{ user.username }}</td>
+              <td>{{ user.role?.name}}</td>
+              <td>{{ user.is_admin ? 'Ja': 'Nee'}}</td>
+              <td>{{ user.created_at | date:'dd-MM-yyyy'}}</td>
+              <td>
+                <em class="far fa-edit actions mr-4"></em>
+                <em class="far fa-trash-alt actions mx-3"></em>
+              </td>
+            </tr>
+            <!-- <tr>
               <th scope="row">1</th>
               <td>Rita</td>
               <td>Peeters</td>
@@ -166,7 +182,7 @@
                 <em class="far fa-edit actions mr-4"></em>
                 <em class="far fa-trash-alt actions mx-3"></em>
               </td>
-            </tr>
+            </tr> -->
           </tbody>
         </table>
       </div>
