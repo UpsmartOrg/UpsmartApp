@@ -1,5 +1,5 @@
 <!-- Heading -->
-<h1 class="mt-5 pt-5">Enquete Toevoegen <em class="float-end far fa-question-circle help mt-3" data-bs-toggle="collapse"
+<h1 class="mt-5 pt-5">Enquête Toevoegen <em class="float-end far fa-question-circle help mt-3" data-bs-toggle="collapse"
     data-bs-target="#help" aria-expanded="false" aria-controls="help"></em></h1>
 <hr>
 
@@ -26,4 +26,74 @@
 
 <!-- Content -->
 
+<h2 class="mt-5 h3">Algemeen</h2>
+<hr>
+<div class="mb-3">
+  <label for="title" class="form-label">Titel</label>
+  <input type="text" class="form-control" id="title">
+</div>
+<div class="mb-3">
+  <label for="description" class="form-label">Beschrijving</label>
+  <textarea class="form-control" id="description" rows="3"></textarea>
+</div>
 
+<h2 class="mt-5 h3">Vragen <em class="float-end far fa-plus-square mt-2" (click)="addSurvey()"></em></h2>
+<hr>
+<div class="card card-header mb-3">
+  <p class="m-0 p-0">Vraag 1: Uw naam <em class="far fa-trash-alt float-end mt-1"></em></p>
+</div>
+<div class="card shadow-sm">
+  <div class="card-header">Vraag 2:</div>
+  <div class="card-body">
+    <div class="p-4">
+      <div class="mb-3">
+        <label for="title" class="form-label">Titel</label>
+        <input type="text" class="form-control" id="title">
+      </div>
+
+      <div class="mb-3">
+        <label for="description" class="form-label">Extra info</label>
+        <textarea class="form-control" id="description" rows="2"></textarea>
+      </div>
+
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+        <label class="form-check-label" for="flexRadioDefault1">
+          Open vraag
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+        <label class="form-check-label" for="flexRadioDefault2">
+          Multiple choice vraag
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+        <label class="form-check-label" for="flexRadioDefault2">
+          Dropdown vraag
+        </label>
+      </div>
+      <div class="card mt-3">
+        <div class="card-header">Antwoorden:</div>
+        <div class="card-body">
+          <div class="p-4">
+            <div class="mb-3">
+              <label for="answer1" class="form-label">Antwoord 1</label>
+              <input type="text" class="form-control" id="answer1">
+            </div>
+            <div class="mb-3">
+              <label for="answer2" class="form-label">Antwoord 2</label>
+              <input type="text" class="form-control" id="answer2">
+            </div>
+            <p class="h3"><em class="fas fa-plus-circle"></em></p>
+          </div>
+        </div>
+      </div>
+      <button type="button" class="btn btn-primary mt-3 text-uppercase">Vraag toevoegen</button>
+    </div>
+  </div>
+</div>
+<div class="d-grid">
+  <button type="button" class="btn btn-primary mt-3 text-uppercase">Enquête opslaan</button>
+</div>
