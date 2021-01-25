@@ -19,4 +19,16 @@ export class AdminService {
   getUsersWithRole(): Observable<User[]> {
     return this.http.get<User[]>(this.url + '/api/users/withrole');
   }
+
+  getUser(user_id: number): Observable<User> {
+    return this.http.get<User>(this.url + '/api/users/' + user_id);
+  }
+
+  addUser(user: User): Observable<User> {
+    return this.http.post<User>(this.url + '/api/users/', user);
+  }
+
+  updateUser(user: User): Observable<User> {
+    return this.http.put<User>(this.url + '/api/users/', user);
+  }
 }

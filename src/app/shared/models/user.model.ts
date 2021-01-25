@@ -7,13 +7,12 @@ export class User {
         public last_name: string,
         public email: string, 
         public username: string,
-        public role_id: number,
-        public is_admin: boolean,
+        public is_extern: boolean,
         public created_at: Date,
 
         //Optioneel
         public password?: string,
-        public role?: { name: string }
+        public user_roles?: { role: Role }[]
     ) { }
 
 }
