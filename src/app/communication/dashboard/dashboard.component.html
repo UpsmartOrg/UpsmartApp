@@ -62,7 +62,18 @@
               <th scope="col">Acties</th>
             </tr>
           </thead>
-          <tbody *ngIf="messages">
+          <tbody *ngIf="messages.length == 0">
+            <tr>
+              <th colspan="5" scope="row">
+                <div class="d-flex justify-content-center my-2">
+                  <div class="d-flex align-items-center">
+                    <div class="spinner-border ms-auto" role="status" aria-hidden="true"></div>
+                  </div>
+                </div>
+              </th>
+            </tr>
+          </tbody>
+          <tbody *ngIf="messages.length > 0">
             <tr *ngFor="let message of messages; let i = index">
               <th scope="row">{{ i + 1 }}</th>
               <td>{{ message.title }}</td>
@@ -73,36 +84,6 @@
                 <em class="far fa-trash-alt actions mx-3" (click)="deleteMessage(message.id)"></em>
               </td>
             </tr>
-            <!-- <tr>
-              <th scope="row">1</th>
-              <td>Start aanleg fietsweg</td>
-              <td>Rita Peeters</td>
-              <td>20-01-2021</td>
-              <td>
-                <em class="far fa-edit actions mr-4"></em>
-                <em class="far fa-trash-alt actions mx-3"></em>
-              </td>
-            </tr>
-            <tr>
-              <th scope="row">2</th>
-              <td>Werken in het centrum</td>
-              <td>Rita Peeters</td>
-              <td>11-01-2021</td>
-              <td>
-                <em class="far fa-edit actions mr-4"></em>
-                <em class="far fa-trash-alt actions mx-3"></em>
-              </td>
-            </tr>
-            <tr>
-              <th scope="row">3</th>
-              <td> Corona update januari</td>
-              <td>Jean Jansens</td>
-              <td>30-12-2020</td>
-              <td>
-                <em class="far fa-edit actions mr-4"></em>
-                <em class="far fa-trash-alt actions mx-3"></em>
-              </td>
-            </tr> -->
           </tbody>
         </table>
       </div>
