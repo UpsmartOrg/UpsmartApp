@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { UserRole } from 'src/app/shared/models/user-role.model';
 import { User } from 'src/app/shared/models/user.model';
 import { AdminService } from '../services/admin.service';
 
@@ -13,8 +14,18 @@ export class EditUserComponent implements OnInit {
   userID!: number;
   user!: User;
 
-  constructor(private router: Router, private aRoute: ActivatedRoute, private adminService: AdminService) { 
-    this.userID = this.aRoute.snapshot.params['userID'];
+  adminRole = false;
+  groendienstRole = false;
+  participatieRole = false;
+  communicatieRole = false;
+
+  groenID = 1;
+  participatieID = 2;
+  communicatieID=3;
+  adminID = 4;
+
+  constructor(private router: Router, private activeRoute: ActivatedRoute, private adminService: AdminService) { 
+    this.userID = this.activeRoute.snapshot.params['userID'];
     this.loadUser();
   }
 
@@ -22,14 +33,51 @@ export class EditUserComponent implements OnInit {
   }
 
   loadUser() {
-    this.adminService.getUser(this.userID).subscribe(
-      result => this.user = result
+    this.adminService.getUserWithRole(this.userID).subscribe(
+      result => this.user = result,
+      error => console.log(error),
+      () => this.loadUserRoles(this.user)
     )
   }
 
+  loadUserRoles(user: User) {
+    user.user_roles?.forEach(userRole => {
+      switch (userRole.role_id) {
+        case 1:
+          this.groendienstRole = true;
+          break;
+        case 2:
+          this.participatieRole = true;
+          break;
+        case 3:
+          this.communicatieRole = true;
+          break;
+        case 4:
+          this.adminRole = true;
+          break;
+        default:
+          break;
+      }
+    })
+  }
+
   updateUser() {
-    this.adminService.updateUser(this.user);
-    //this.router.navigate(['/admin/dashboard']);
+    this.adminService.updateUser(this.user).subscribe(
+      result => console.log(result),
+      error => console.log(error),
+      () => this.router.navigate(['/admin/dashboard'])
+    );
+  }
+
+  updateRoles(roleid: number) {
+    var index = this.user.user_roles?.findIndex(ur => ur.role_id == roleid, 1);
+
+    if(index == -1) {
+      this.user.user_roles?.push(new UserRole(this.user.id, roleid, 0));
+    }
+    else {
+      this.user.user_roles?.splice(this.user.user_roles.findIndex(ur => ur.role_id == roleid), 1);
+    }
   }
 
 }

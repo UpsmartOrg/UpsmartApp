@@ -63,7 +63,7 @@ export class AdminDashboardComponent implements OnInit {
   checkRoles(user: User, searchRoleID: number): boolean {
     let containsRole = false;
     user.user_roles?.forEach(userRole => {
-      if (userRole.role.id == this.searchRoleID) {
+      if (userRole.role?.id == this.searchRoleID) {
         containsRole = true;
       }
     })

@@ -1,4 +1,5 @@
 import { Role } from "./role.model";
+import { UserRole } from "./user-role.model";
 
 export class User {
     constructor(
@@ -12,7 +13,7 @@ export class User {
 
         //Optioneel
         public password?: string,
-        public user_roles?: { role: Role }[]
+        public user_roles?: UserRole[]
     ) { }
-
+    
 }

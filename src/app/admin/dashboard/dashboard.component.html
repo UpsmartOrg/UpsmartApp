@@ -78,8 +78,8 @@
               <td>{{ user.email }}</td>
               <td>{{ user.username }}</td>
               <td>
-                <span *ngFor="let user_role of user.user_roles">
-                  {{ user_role.role.name.substring(0,3) }}
+                <span *ngFor="let user_role of user.user_roles; let j = index">
+                  {{ user_role.role?.name?.substring(0,3) }}{{ user.user_roles && user.user_roles.length > j+1 ? ',': ''}}
                 </span>
               </td>
               <td>{{ user.is_extern ? 'Ja': 'Nee'}}</td>
