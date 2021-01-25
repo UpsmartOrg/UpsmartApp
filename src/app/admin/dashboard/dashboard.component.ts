@@ -30,7 +30,7 @@ export class AdminDashboardComponent implements OnInit {
   }
 
   loadUsers() {
-    this.usersCache = this.adminService.getUsersWithRole();
+    this.usersCache = this.adminService.getUsersWithRoles();
     //Als dit niet werkt online, gebruik de versie in commentaar (dubbele HTTP request)
     this.usersCache.subscribe(
       result => this.users = result
@@ -83,7 +83,17 @@ export class AdminDashboardComponent implements OnInit {
   }
 
   deleteUser(userID: number) {
-
+    this.adminService.deleteUser(userID).subscribe(
+      () => this.removeFromUserList(userID)
+    );
   }
 
+  removeFromUserList(userID: number) {
+    this.usersCache = this.usersCache.pipe(
+      map(array => {
+        return array.filter(user => user.id != userID)
+      })
+    );
+    this.filterUsers();
+  }
 }

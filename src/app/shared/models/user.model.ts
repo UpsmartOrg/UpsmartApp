@@ -9,10 +9,11 @@ export class User {
         public email: string, 
         public username: string,
         public is_extern: boolean,
-        public created_at: Date,
 
         //Optioneel
         public password?: string,
+        public password_confirmation?: string,
+        public created_at?: Date,
         public user_roles?: UserRole[]
     ) { }
     

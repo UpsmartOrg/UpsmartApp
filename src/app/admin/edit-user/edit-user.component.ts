@@ -33,7 +33,7 @@ export class EditUserComponent implements OnInit {
   }
 
   loadUser() {
-    this.adminService.getUserWithRole(this.userID).subscribe(
+    this.adminService.getUserWithRoles(this.userID).subscribe(
       result => this.user = result,
       error => console.log(error),
       () => this.loadUserRoles(this.user)
