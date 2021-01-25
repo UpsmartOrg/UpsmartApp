@@ -64,8 +64,8 @@
               <th scope="col">Familienaam</th>
               <th scope="col">Emailadres</th>
               <th scope="col">Username</th>
-              <th scope="col">Rol</th>
-              <th scope="col">Admin</th>
+              <th scope="col">Rollen</th>
+              <th scope="col">Externe</th>
               <th scope="col">Aangemaakt op</th>
               <th scope="col">Acties</th>
             </tr>
@@ -77,12 +77,16 @@
               <td>{{ user.last_name }}</td>
               <td>{{ user.email }}</td>
               <td>{{ user.username }}</td>
-              <td>{{ user.role?.name}}</td>
-              <td>{{ user.is_admin ? 'Ja': 'Nee'}}</td>
+              <td>
+                <span *ngFor="let user_role of user.user_roles">
+                  {{ user_role.role.name.substring(0,3) }}
+                </span>
+              </td>
+              <td>{{ user.is_extern ? 'Ja': 'Nee'}}</td>
               <td>{{ user.created_at | date:'dd-MM-yyyy'}}</td>
               <td>
-                <em class="far fa-edit actions mr-4"></em>
-                <em class="far fa-trash-alt actions mx-3"></em>
+                <em class="far fa-edit actions mr-4" (click)="editUser(user.id)"></em>
+                <em class="far fa-trash-alt actions mx-3" (click)="deleteUser(user.id)"></em>
               </td>
             </tr>
             <!-- <tr>

@@ -26,7 +26,7 @@ const routes: Routes = [
   // Admin routes
   { path: 'admin/dashboard', component: AdminDashboardComponent },
   { path: 'admin/gebruiker-toevoegen', component: AddUserComponent },
-  { path: 'admin/gebruiker-wijzigen', component: EditUserComponent },
+  { path: 'admin/gebruiker-wijzigen/:userID', component: EditUserComponent },
 
   // Garbage Collection routes
   { path: 'groendienst/dashboard', component: GarbageDashboardComponent },

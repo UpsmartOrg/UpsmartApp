@@ -1,1 +1,102 @@
-<p>edit-user works!</p>
+<!-- Heading -->
+<h1 class="mt-5 pt-5">
+    <span *ngIf="user; else loadingSpan">{{ user.first_name }} Wijzigen</span>
+    <ng-template #loadingSpan>Laden</ng-template>
+
+    <em class="float-end far fa-question-circle help mt-3" data-bs-toggle="collapse" 
+    data-bs-target="#help" aria-expanded="false" aria-controls="help"></em></h1>
+<hr>
+<!-- Help -->
+<!-- TODO: handleiding invullen -->
+<div class="collapse mb-3" id="help">
+  <div class="card">
+    <div class="card-header">Handleiding Gebruiker Toevoegen</div>
+    <div class="card-body">
+      <p class="my-2 p-0">Korte handleiding met wat extra uitleg over hoe deze pagina werkt. (+ evt ondersteunende
+        afbeeldingen)</p>
+      <p class="my-2 p-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut iste animi id ducimus ea obcaecati
+        nesciunt, suscipitest necessitatibus culpa quis odit, quod optio officia sequi amet laboriosam consequatur
+        deleniti.</p>
+      <p class="my-2 p-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut iste animi id ducimus ea obcaecati
+        nesciunt, suscipitest necessitatibus culpa quis odit, quod optio officia sequi amet laboriosam consequatur
+        deleniti.</p>
+      <p class="my-2 p-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut iste animi id ducimus ea obcaecati
+        nesciunt, suscipitest necessitatibus culpa quis odit, quod optio officia sequi amet laboriosam consequatur
+        deleniti.</p>
+    </div>
+
+  </div>
+</div>
+
+<!-- Content -->
+<div *ngIf="user">
+    <div class="row">
+        <div class="col-lg">
+          <div class="mb-3">
+            <label for="firstName" class="form-label">Voornaam</label>
+            <input type="text" class="form-control" id="firstName" placeholder="vb: Jan"
+            [(ngModel)]="user.first_name">
+          </div>
+        </div>
+        <div class="col-lg">
+          <div class="mb-3">
+            <label for="lastName" class="form-label">Familienaam</label>
+            <input type="text" class="form-control" id="lastName" placeholder="vb: Janssen"
+            [(ngModel)]="user.last_name">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg">
+          <div class="mb-3">
+            <label for="email" class="form-label">Emailadres</label>
+            <input type="email" class="form-control" id="email" placeholder="vb: janjanssen@voorbeeld.com"
+            [(ngModel)]="user.email">
+          </div>
+        </div>
+        <div class="col-lg">
+          <div class="mb-3">
+            <label for="username" class="form-label">Username</label>
+            <input type="text" class="form-control" id="username" placeholder="vb: janjanssen"
+            [(ngModel)]="user.username">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="mb-3 mt-3">
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" id="admin" value="admin">
+              <label class="form-check-label" for="admin">Admin</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" id="trashCollection" value="trashCollection">
+              <label class="form-check-label" for="trashCollection">Groendienst</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" id="participation" value="participation">
+              <label class="form-check-label" for="participation">Participatie</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" id="communication" value="communication">
+              <label class="form-check-label" for="communication">Communicatie</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="form-check mb-3 mt-3">
+            <input class="form-check-input" type="checkbox" id="external">
+            <label class="form-check-label" for="external">
+              Externe medewerker
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="row mb-5">
+        <div class="col">
+          <button type="button" class="btn btn-primary mt-3 text-uppercase" (click)="updateUser()">Gebruiker wijzigen</button>
+        </div>
+      </div>
+</div>
