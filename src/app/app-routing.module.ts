@@ -39,7 +39,7 @@ const routes: Routes = [
   // Communication routes
   { path: 'communicatie/dashboard', component: CommunicationDashboardComponent },
   { path: 'communicatie/bericht-toevoegen', component: AddMessageComponent },
-  { path: 'communicatie/bericht-wijzigen', component: EditMessageComponent },
+  { path: 'communicatie/bericht-wijzigen/:messageID', component: EditMessageComponent },
 
   // Profiel routes
   { path: 'profiel', component: ProfileComponent },

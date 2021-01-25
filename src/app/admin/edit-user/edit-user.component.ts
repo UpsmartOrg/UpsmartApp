@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from 'src/app/shared/models/user.model';
 import { AdminService } from '../services/admin.service';
@@ -13,7 +14,8 @@ export class EditUserComponent implements OnInit {
   userID!: number;
   user!: User;
 
-  constructor(private router: Router, private aRoute: ActivatedRoute, private adminService: AdminService) { 
+  constructor(private titleService: Title, private router: Router, private aRoute: ActivatedRoute, private adminService: AdminService) {
+    this.titleService.setTitle("Gebruiker Wijzigen - Smart City Herentals");
     this.userID = this.aRoute.snapshot.params['userID'];
     this.loadUser();
   }

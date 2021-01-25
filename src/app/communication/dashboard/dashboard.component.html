@@ -62,8 +62,18 @@
               <th scope="col">Acties</th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
+          <tbody *ngIf="messages">
+            <tr *ngFor="let message of messages; let i = index">
+              <th scope="row">{{ i + 1 }}</th>
+              <td>{{ message.title }}</td>
+              <td>{{ message.user.first_name }} {{ message.user.last_name }}</td>
+              <td>{{ message.created_at | date:'dd-MM-yyyy' }}</td>
+              <td>
+                <em class="far fa-edit actions mr-4" (click)="editMessage(message.id)"></em>
+                <em class="far fa-trash-alt actions mx-3" (click)="deleteMessage(message.id)"></em>
+              </td>
+            </tr>
+            <!-- <tr>
               <th scope="row">1</th>
               <td>Start aanleg fietsweg</td>
               <td>Rita Peeters</td>
@@ -92,7 +102,7 @@
                 <em class="far fa-edit actions mr-4"></em>
                 <em class="far fa-trash-alt actions mx-3"></em>
               </td>
-            </tr>
+            </tr> -->
           </tbody>
         </table>
       </div>

@@ -33,7 +33,7 @@ export class AdminDashboardComponent implements OnInit {
     this.usersCache = this.adminService.getUsersWithRole();
     //Als dit niet werkt online, gebruik de versie in commentaar (dubbele HTTP request)
     this.usersCache.subscribe(
-      result => this.users = result
+      result => this.users = result,
     )
     // this.adminService.getUsersWithRole().subscribe(
     //   result => this.users = result,
@@ -43,16 +43,16 @@ export class AdminDashboardComponent implements OnInit {
   filterUsers() {
     this.usersCache.pipe(
       map(array => {
-        return array.filter(user => this.searchRoleID == 0 ? true : 
+        return array.filter(user => this.searchRoleID == 0 ? true :
           //user.user_roles?.toString().includes(this.searchRoleID.toString())
           //user.user_roles?.forEach(userRole => userRole.role.id == this.searchRoleID)
           this.checkRoles(user, this.searchRoleID)
         )
-      }),map(array => {
+      }), map(array => {
         return array.filter(user => this.searchWord == null ? true : (
-            user.first_name.toLowerCase().includes(this.searchWord.toLowerCase()) ||
-            user.last_name.toLowerCase().includes(this.searchWord.toLowerCase()) ||
-            user.email.toLowerCase().includes(this.searchWord.toLowerCase())
+          user.first_name.toLowerCase().includes(this.searchWord.toLowerCase()) ||
+          user.last_name.toLowerCase().includes(this.searchWord.toLowerCase()) ||
+          user.email.toLowerCase().includes(this.searchWord.toLowerCase())
         ))
       })
     ).subscribe(
