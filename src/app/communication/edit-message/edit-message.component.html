@@ -38,7 +38,12 @@
 
 <div class="row mb-5">
   <div class="col">
-    <button type="button" class="btn btn-primary mt-3 text-uppercase" (click)="updateMessage()">Bericht
-      wijzigen</button>
+    <button type="button" class="btn btn-primary mt-3 text-uppercase" (click)="updateMessage()" *ngIf="! loading">
+      <span> Bericht wijzigen</span>
+    </button>
+    <button class="btn btn-primary mt-3 text-uppercase" type="button" disabled *ngIf="loading">
+      <span class="spinner-border spinner-border-sm mb-1" role="status" aria-hidden="true"></span>
+      Laden...
+    </button>
   </div>
 </div>

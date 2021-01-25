@@ -13,6 +13,7 @@ export class EditMessageComponent implements OnInit {
 
   messageID!: number;
   message!: Message;
+  loading: boolean = false;
 
   constructor(private titleService: Title, private router: Router, private route: ActivatedRoute, private communicationService: CommunicationService) {
     this.titleService.setTitle("Bericht Wijzigen - Smart City Herentals");
@@ -30,8 +31,11 @@ export class EditMessageComponent implements OnInit {
   }
 
   updateMessage() {
-    this.communicationService.updateMessage(this.message).subscribe();
-    this.router.navigate(['/communicatie/dashboard']);
+    this.loading = true;
+    this.communicationService.updateMessage(this.message).subscribe(
+      result => this.router.navigate(['/communicatie/dashboard'])
+    );
+    ;
   }
 
 }
