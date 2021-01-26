@@ -15,11 +15,6 @@ export class EditUserComponent implements OnInit {
   userID!: number;
   user!: User;
 
-<<<<<<< HEAD
-  constructor(private titleService: Title, private router: Router, private aRoute: ActivatedRoute, private adminService: AdminService) {
-    this.titleService.setTitle("Gebruiker Wijzigen - Smart City Herentals");
-    this.userID = this.aRoute.snapshot.params['userID'];
-=======
   adminRole = false;
   groendienstRole = false;
   participatieRole = false;
@@ -27,12 +22,11 @@ export class EditUserComponent implements OnInit {
 
   groenID = 1;
   participatieID = 2;
-  communicatieID=3;
+  communicatieID = 3;
   adminID = 4;
 
-  constructor(private router: Router, private activeRoute: ActivatedRoute, private adminService: AdminService) { 
+  constructor(private router: Router, private activeRoute: ActivatedRoute, private adminService: AdminService) {
     this.userID = this.activeRoute.snapshot.params['userID'];
->>>>>>> 704d30589b280b3edfb94e79ce205835899a6f7e
     this.loadUser();
   }
 
@@ -79,7 +73,7 @@ export class EditUserComponent implements OnInit {
   updateRoles(roleid: number) {
     var index = this.user.user_roles?.findIndex(ur => ur.role_id == roleid, 1);
 
-    if(index == -1) {
+    if (index == -1) {
       this.user.user_roles?.push(new UserRole(this.user.id, roleid, 0));
     }
     else {
