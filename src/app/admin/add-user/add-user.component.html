@@ -30,13 +30,15 @@
   <div class="col-lg">
     <div class="mb-3">
       <label for="firstName" class="form-label">Voornaam</label>
-      <input type="text" class="form-control" id="firstName" placeholder="vb: Jan">
+      <input type="text" class="form-control" id="firstName" placeholder="vb: Jan" 
+        [(ngModel)]="user.first_name">
     </div>
   </div>
   <div class="col-lg">
     <div class="mb-3">
       <label for="lastName" class="form-label">Familienaam</label>
-      <input type="text" class="form-control" id="lastName" placeholder="vb: Janssen">
+      <input type="text" class="form-control" id="lastName" placeholder="vb: Janssen" 
+        [(ngModel)]="user.last_name">
     </div>
   </div>
 </div>
@@ -44,42 +46,76 @@
   <div class="col-lg">
     <div class="mb-3">
       <label for="email" class="form-label">Emailadres</label>
-      <input type="email" class="form-control" id="email" placeholder="vb: janjanssen@voorbeeld.com">
+      <input type="email" class="form-control" id="email" placeholder="vb: janjanssen@voorbeeld.com"
+        [(ngModel)]="user.email">
     </div>
   </div>
   <div class="col-lg">
     <div class="mb-3">
       <label for="username" class="form-label">Username</label>
-      <input type="text" class="form-control" id="username" placeholder="vb: janjanssen">
+      <input type="text" class="form-control" id="username" placeholder="vb: janjanssen" 
+        [(ngModel)]="user.username">
     </div>
   </div>
 </div>
+
 <div class="row">
   <div class="col-lg-6">
     <div class="mb-3">
-      <label for="rol" class="form-label">Rol</label>
-      <select class="form-select" id="rol">
-        <option disabled selected>Kies Rol</option>
-        <option value="1">Groendienst</option>
-        <option value="2">Communicatie</option>
-        <option value="3">Participatie</option>
-        <option value="4">Extern</option>
-      </select>
+      <label for="Pw" class="form-label">Wachtwoord</label>
+      <input type="password" class="form-control" id="Pw" 
+        [(ngModel)]="user.password">
+    </div>
+  </div>
+  <div class="col-lg-6">
+    <div class="mb-3">
+      <label for="PwRepeat" class="form-label">Herhaal wachtwoord</label>
+      <input type="password" class="form-control" id="PwRepeat" 
+        [(ngModel)]="user.password_confirmation">
     </div>
   </div>
 </div>
+
+<div class="row">
+  <div class="col-lg-6">
+    <div class="mb-3 mt-3">
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" id="admin" value="admin" 
+        [(ngModel)]="adminRole" (change)="updateRoles(adminID)">
+        <label class="form-check-label" for="admin">Admin</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" id="trashCollection" value="trashCollection" 
+        [(ngModel)]="groendienstRole" (change)="updateRoles(groenID)">
+        <label class="form-check-label" for="trashCollection">Groendienst</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" id="participation" value="participation" 
+        [(ngModel)]="participatieRole" (change)="updateRoles(participatieID)">
+        <label class="form-check-label" for="participation">Participatie</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" id="communication" value="communication" 
+        [(ngModel)]="communicatieRole" (change)="updateRoles(communicatieID)">
+        <label class="form-check-label" for="communication">Communicatie</label>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="row">
   <div class="col">
     <div class="form-check mb-3 mt-3">
-      <input class="form-check-input" type="checkbox" value="" id="admin">
-      <label class="form-check-label" for="admin">
-        Admin
+      <input class="form-check-input" type="checkbox" id="external" 
+      [(ngModel)]="user.is_extern">
+      <label class="form-check-label" for="external">
+        Externe medewerker
       </label>
     </div>
   </div>
 </div>
 <div class="row mb-5">
   <div class="col">
-    <button type="button" class="btn btn-primary mt-3 text-uppercase">Gebruiker toevoegen</button>
+    <button type="button" class="btn btn-primary mt-3 text-uppercase" (click)="addUser()">Gebruiker toevoegen</button>
   </div>
 </div>
