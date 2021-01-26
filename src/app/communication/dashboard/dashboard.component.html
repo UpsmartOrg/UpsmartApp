@@ -81,7 +81,7 @@
               <td>{{ message.created_at | date:'dd-MM-yyyy' }}</td>
               <td>
                 <em class="far fa-edit actions mr-4" (click)="editMessage(message.id)"></em>
-                <em class="far fa-trash-alt actions mx-3" (click)="deleteMessage(message.id)"></em>
+                <em class="far fa-trash-alt actions mx-3" (click)="deleteDialog(message)"></em>
               </td>
             </tr>
           </tbody>
@@ -91,4 +91,8 @@
   </div>
   <a class="btn btn-primary btn-md mb-3 text-uppercase" (click)="redirectTo('/communicatie/bericht-toevoegen')">Bericht
     toevoegen</a>
+</div>
+
+<div class="modal-dialog modal-dialog-scrollable" id="deleteModal">
+  ...
 </div>

@@ -4,6 +4,7 @@ import { NavigationComponent } from './navigation/navigation.component';
 import { FooterComponent } from './footer/footer.component';
 import { AlertComponent } from './alert/alert.component';
 import { MaterialModule } from './material.module';
+import { WarningDialogComponent } from './dialogs/warning-dialog/warning-dialog.component';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
@@ -11,7 +12,8 @@ import { FormsModule } from '@angular/forms';
   declarations: [
     NavigationComponent,
     FooterComponent,
-    AlertComponent
+    AlertComponent,
+    WarningDialogComponent
   ],
   imports: [
     CommonModule,

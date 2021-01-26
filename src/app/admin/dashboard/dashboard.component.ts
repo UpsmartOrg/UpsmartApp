@@ -5,7 +5,7 @@ import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { WarningDialogComponent } from 'src/app/admin/dialogs/warning-dialog/warning-dialog.component';
+import { WarningDialogComponent } from 'src/app/shared/dialogs/warning-dialog/warning-dialog.component';
 import { User } from 'src/app/shared/models/user.model';
 import { AdminService } from '../services/admin.service';
 
@@ -92,13 +92,13 @@ export class AdminDashboardComponent implements OnInit {
     // if (user.id == this.authenticatedUser.userID) {
     //   const dialogRef = this.dialog.open(ErrorDialogComponent, { data: "You can't delete yourself", height: '400px', width: '400px' });
     // }
-    var message: string = "Are you sure you want to delete the user: " 
-      + user.first_name + " " + user.last_name + " ?\n"
+    var message: string = "Ben je zeker dat je de gebruiker "
+      + user.first_name.toUpperCase() + " " + user.last_name.toUpperCase() + " wil verwijderen?\n"
 
     const dialogRef = this.dialog.open(WarningDialogComponent, {
       data: message,
       height: '300',
-      width: '500'
+      width: '500',
     });
     dialogRef.afterClosed().subscribe(
       result => {

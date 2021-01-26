@@ -25,6 +25,10 @@ export class CommunicationService {
     return this.http.put<Message>(this.url + '/information/' + message.id, message);
   }
 
+  deleteMessage(id: number) {
+    return this.http.delete<Message>(this.url + '/information/' + id);
+  }
+
   getUsers(): Observable<User[]> {
     return this.http.get<User[]>(this.url + '/users');
   }
