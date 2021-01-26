@@ -64,19 +64,23 @@
     <div class="col-lg-6">
       <div class="mb-3 mt-3">
         <div class="form-check form-check-inline">
-          <input class="form-check-input" type="checkbox" id="admin" value="admin">
+          <input class="form-check-input" type="checkbox" id="admin" value="admin" [(ngModel)]="adminRole"
+            (change)="updateRoles(adminID)">
           <label class="form-check-label" for="admin">Admin</label>
         </div>
         <div class="form-check form-check-inline">
-          <input class="form-check-input" type="checkbox" id="trashCollection" value="trashCollection">
+          <input class="form-check-input" type="checkbox" id="trashCollection" value="trashCollection"
+            [(ngModel)]="groendienstRole" (change)="updateRoles(groenID)">
           <label class="form-check-label" for="trashCollection">Groendienst</label>
         </div>
         <div class="form-check form-check-inline">
-          <input class="form-check-input" type="checkbox" id="participation" value="participation">
+          <input class="form-check-input" type="checkbox" id="participation" value="participation"
+            [(ngModel)]="participatieRole" (change)="updateRoles(participatieID)">
           <label class="form-check-label" for="participation">Participatie</label>
         </div>
         <div class="form-check form-check-inline">
-          <input class="form-check-input" type="checkbox" id="communication" value="communication">
+          <input class="form-check-input" type="checkbox" id="communication" value="communication"
+            [(ngModel)]="communicatieRole" (change)="updateRoles(communicatieID)">
           <label class="form-check-label" for="communication">Communicatie</label>
         </div>
       </div>
@@ -85,7 +89,7 @@
   <div class="row">
     <div class="col">
       <div class="form-check mb-3 mt-3">
-        <input class="form-check-input" type="checkbox" id="external">
+        <input class="form-check-input" type="checkbox" id="external" [(ngModel)]="user.is_extern">
         <label class="form-check-label" for="external">
           Externe medewerker
         </label>
