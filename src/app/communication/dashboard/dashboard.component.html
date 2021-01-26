@@ -31,16 +31,16 @@
 <div class="row mb-3">
   <div class="col-12 col-lg-8">
     <div class="form-floating mb-3">
-      <input type="text" class="form-control" id="search" placeholder="Zoeken">
+      <input type="text" class="form-control" id="search" placeholder="Zoeken" [(ngModel)]="searchWord"
+        (ngModelChange)="filterMessages()">
       <label for="search">Zoeken</label>
     </div>
   </div>
   <div class="col-12 col-lg-4">
     <div class="form-floating">
-      <select class="form-select" id="floatingSelect">
-        <option selected>Alle gebruikers</option>
-        <option value="1">Rita Peeters</option>
-        <option value="2">Jean Jansens</option>
+      <select class="form-select" id="floatingSelect" [(ngModel)]="searchUserID" (ngModelChange)="filterMessages()">
+        <option selected value="0">Alle gebruikers</option>
+        <option *ngFor="let user of users" [value]="user.id">{{ user.first_name }} {{ user.last_name }}</option>
       </select>
       <label for="floatingSelect">Aangemaakt door</label>
     </div>

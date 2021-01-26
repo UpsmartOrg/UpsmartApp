@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Message } from 'src/app/shared/models/message.model';
+import { User } from 'src/app/shared/models/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +23,10 @@ export class CommunicationService {
 
   updateMessage(message: Message): Observable<Message> {
     return this.http.put<Message>(this.url + '/information/' + message.id, message);
+  }
 
+  getUsers(): Observable<User[]> {
+    return this.http.get<User[]>(this.url + '/users');
   }
 
 
