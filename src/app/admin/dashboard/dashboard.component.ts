@@ -1,9 +1,11 @@
 import { stringify } from '@angular/compiler/src/util';
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { WarningDialogComponent } from 'src/app/admin/dialogs/warning-dialog/warning-dialog.component';
 import { User } from 'src/app/shared/models/user.model';
 import { AdminService } from '../services/admin.service';
 
@@ -20,7 +22,7 @@ export class AdminDashboardComponent implements OnInit {
   searchWord: string = '';
   searchRoleID: number = 0;
 
-  constructor(private titleService: Title, private router: Router, private adminService: AdminService) {
+  constructor(private titleService: Title, private router: Router, private adminService: AdminService, public dialog: MatDialog) {
 
     this.titleService.setTitle("Admin Dashboard - Smart City Herentals");
     this.loadUsers();
@@ -80,6 +82,30 @@ export class AdminDashboardComponent implements OnInit {
 
   editUser(userID: number) {
     this.router.navigate(['admin/gebruiker-wijzigen/' + userID]);
+  }
+
+  deleteDialog(user: User) {
+    this.openDialog(user);
+  }
+  openDialog(user: User): void {
+    //Make sure the user doesn't delete himself
+    // if (user.id == this.authenticatedUser.userID) {
+    //   const dialogRef = this.dialog.open(ErrorDialogComponent, { data: "You can't delete yourself", height: '400px', width: '400px' });
+    // }
+    var message: string = "Are you sure you want to delete the user: " 
+      + user.first_name + " " + user.last_name + " ?\n"
+
+    const dialogRef = this.dialog.open(WarningDialogComponent, {
+      data: message,
+      height: '300',
+      width: '500'
+    });
+    dialogRef.afterClosed().subscribe(
+      result => {
+        if (result == "confirm") {
+          this.deleteUser(user.id);
+        }
+      });
   }
 
   deleteUser(userID: number) {

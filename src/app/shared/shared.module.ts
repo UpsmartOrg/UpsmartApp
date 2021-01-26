@@ -7,12 +7,11 @@ import { MaterialModule } from './material.module';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
-
 @NgModule({
   declarations: [
     NavigationComponent,
     FooterComponent,
-    AlertComponent,
+    AlertComponent
   ],
   imports: [
     CommonModule,
