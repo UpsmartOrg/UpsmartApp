@@ -8,7 +8,7 @@ import { Error404Component } from './error/error404/error404.component';
 import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AddSurveyComponent } from './participation/add-survey/add-survey.component';
-import { LoginComponent } from './login/login.component';
+import { LoginComponent } from './account/login/login.component';
 import { AddUserComponent } from './admin/add-user/add-user.component';
 import { EditUserComponent } from './admin/edit-user/edit-user.component';
 import { EditSurveyComponent } from './participation/edit-survey/edit-survey.component';
