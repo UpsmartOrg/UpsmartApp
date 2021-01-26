@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserRole } from 'src/app/shared/models/user-role.model';
 import { User } from 'src/app/shared/models/user.model';
@@ -21,10 +22,10 @@ export class EditUserComponent implements OnInit {
 
   groenID = 1;
   participatieID = 2;
-  communicatieID=3;
+  communicatieID = 3;
   adminID = 4;
 
-  constructor(private router: Router, private activeRoute: ActivatedRoute, private adminService: AdminService) { 
+  constructor(private router: Router, private activeRoute: ActivatedRoute, private adminService: AdminService) {
     this.userID = this.activeRoute.snapshot.params['userID'];
     this.loadUser();
   }
@@ -72,7 +73,7 @@ export class EditUserComponent implements OnInit {
   updateRoles(roleid: number) {
     var index = this.user.user_roles?.findIndex(ur => ur.role_id == roleid, 1);
 
-    if(index == -1) {
+    if (index == -1) {
       this.user.user_roles?.push(new UserRole(this.user.id, roleid, 0));
     }
     else {

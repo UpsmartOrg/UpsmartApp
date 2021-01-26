@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
+import { Router } from '@angular/router';
+import { Message } from '../../shared/models/message.model';
+import { CommunicationService } from '../services/communication.service';
 
 @Component({
   selector: 'app-add-message',
@@ -7,7 +11,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddMessageComponent implements OnInit {
 
-  constructor() { }
+  constructor(private titleService: Title, private router: Router, private communicationService: CommunicationService) {
+    this.titleService.setTitle("Bericht Toevoegen - Smart City Herentals");
+   }
 
   ngOnInit(): void {
   }

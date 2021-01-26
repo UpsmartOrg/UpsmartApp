@@ -31,16 +31,16 @@
 <div class="row mb-3">
   <div class="col-12 col-lg-8">
     <div class="form-floating mb-3">
-      <input type="text" class="form-control" id="search" placeholder="Zoeken">
+      <input type="text" class="form-control" id="search" placeholder="Zoeken" [(ngModel)]="searchWord"
+        (ngModelChange)="filterMessages()">
       <label for="search">Zoeken</label>
     </div>
   </div>
   <div class="col-12 col-lg-4">
     <div class="form-floating">
-      <select class="form-select" id="floatingSelect">
-        <option selected>Alle gebruikers</option>
-        <option value="1">Rita Peeters</option>
-        <option value="2">Jean Jansens</option>
+      <select class="form-select" id="floatingSelect" [(ngModel)]="searchUserID" (ngModelChange)="filterMessages()">
+        <option selected value="0">Alle gebruikers</option>
+        <option *ngFor="let user of users" [value]="user.id">{{ user.first_name }} {{ user.last_name }}</option>
       </select>
       <label for="floatingSelect">Aangemaakt door</label>
     </div>
@@ -62,35 +62,26 @@
               <th scope="col">Acties</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody *ngIf="messages.length == 0">
             <tr>
-              <th scope="row">1</th>
-              <td>Start aanleg fietsweg</td>
-              <td>Rita Peeters</td>
-              <td>20-01-2021</td>
-              <td>
-                <em class="far fa-edit actions mr-4"></em>
-                <em class="far fa-trash-alt actions mx-3"></em>
-              </td>
+              <th colspan="5" scope="row">
+                <div class="d-flex justify-content-center my-2">
+                  <div class="d-flex align-items-center">
+                    <div class="spinner-border ms-auto" role="status" aria-hidden="true"></div>
+                  </div>
+                </div>
+              </th>
             </tr>
-            <tr>
-              <th scope="row">2</th>
-              <td>Werken in het centrum</td>
-              <td>Rita Peeters</td>
-              <td>11-01-2021</td>
+          </tbody>
+          <tbody *ngIf="messages.length > 0">
+            <tr *ngFor="let message of messages; let i = index">
+              <th scope="row">{{ i + 1 }}</th>
+              <td>{{ message.title }}</td>
+              <td>{{ message.user.first_name }} {{ message.user.last_name }}</td>
+              <td>{{ message.created_at | date:'dd-MM-yyyy' }}</td>
               <td>
-                <em class="far fa-edit actions mr-4"></em>
-                <em class="far fa-trash-alt actions mx-3"></em>
-              </td>
-            </tr>
-            <tr>
-              <th scope="row">3</th>
-              <td> Corona update januari</td>
-              <td>Jean Jansens</td>
-              <td>30-12-2020</td>
-              <td>
-                <em class="far fa-edit actions mr-4"></em>
-                <em class="far fa-trash-alt actions mx-3"></em>
+                <em class="far fa-edit actions mr-4" (click)="editMessage(message.id)"></em>
+                <em class="far fa-trash-alt actions mx-3" (click)="deleteDialog(message)"></em>
               </td>
             </tr>
           </tbody>
@@ -100,4 +91,8 @@
   </div>
   <a class="btn btn-primary btn-md mb-3 text-uppercase" (click)="redirectTo('/communicatie/bericht-toevoegen')">Bericht
     toevoegen</a>
+</div>
+
+<div class="modal-dialog modal-dialog-scrollable" id="deleteModal">
+  ...
 </div>
