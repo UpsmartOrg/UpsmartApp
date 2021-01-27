@@ -14,6 +14,7 @@ import { EditUserComponent } from './admin/edit-user/edit-user.component';
 import { EditSurveyComponent } from './participation/edit-survey/edit-survey.component';
 import { EditMessageComponent } from './communication/edit-message/edit-message.component';
 import { AddMessageComponent } from './communication/add-message/add-message.component';
+import { KioskHomeComponent } from './kiosk/home/home.component';
 
 const routes: Routes = [
   // Login routes
@@ -24,26 +25,33 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
 
   // Admin routes
+  { path: 'admin', redirectTo: 'admin/dashboard' },
   { path: 'admin/dashboard', component: AdminDashboardComponent },
   { path: 'admin/gebruiker-toevoegen', component: AddUserComponent },
   { path: 'admin/gebruiker-wijzigen/:userID', component: EditUserComponent },
 
   // Garbage Collection routes
+  { path: 'groendienst', redirectTo: 'groendienst/dashboard' },
   { path: 'groendienst/dashboard', component: GarbageDashboardComponent },
 
   // Participation routes
+  { path: 'participatie', redirectTo: 'participatie/dashboard' },
   { path: 'participatie/dashboard', component: ParticipationDashboardComponent },
   { path: 'participatie/enquete-toevoegen', component: AddSurveyComponent },
   { path: 'participatie/enquete-wijzigen', component: EditSurveyComponent },
 
   // Communication routes
+  { path: 'communicatie', redirectTo: 'communicatie/dashboard' },
   { path: 'communicatie/dashboard', component: CommunicationDashboardComponent },
   { path: 'communicatie/bericht-toevoegen', component: AddMessageComponent },
   { path: 'communicatie/bericht-wijzigen/:messageID', component: EditMessageComponent },
 
   // Profiel routes
   { path: 'profiel', component: ProfileComponent },
-  { path: 'logout', redirectTo: '', component: HomeComponent },
+  { path: 'logout', redirectTo: '' },
+
+  // Kiosk routes
+  { path: 'kiosk', component: KioskHomeComponent },
 
   // Error 404
   { path: '**', component: Error404Component },
