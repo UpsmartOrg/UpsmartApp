@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit {
 
     this.loading = true;
 
-    console.log(this.form.username.value, this.form.password.value)
+    this.accountService.login(this.form.username.value, this.form.password.value).subscribe()
   }
 
 }

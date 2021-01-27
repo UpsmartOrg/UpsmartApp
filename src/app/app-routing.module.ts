@@ -6,7 +6,7 @@ import { GarbageDashboardComponent } from './garbage-collection/dashboard/dashbo
 import { ParticipationDashboardComponent } from './participation/dashboard/dashboard.component';
 import { Error404Component } from './error/error404/error404.component';
 import { HomeComponent } from './home/home.component';
-import { ProfileComponent } from './profile/profile.component';
+import { ProfileComponent } from './account/profile/profile.component';
 import { AddSurveyComponent } from './participation/add-survey/add-survey.component';
 import { LoginComponent } from './account/login/login.component';
 import { AddUserComponent } from './admin/add-user/add-user.component';

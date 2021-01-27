@@ -10,18 +10,21 @@ import { Router } from '@angular/router';
 })
 export class AccountService {
 
-  private userSubject!: BehaviorSubject<User>;
-  public user!: Observable<User>;
+  private userSubject: BehaviorSubject<User>;
+  public user: Observable<User>;
   currentUser!: User;
 
   constructor(private router: Router, private http: HttpClient) {
-    /*     this.userSubject = new BehaviorSubject<User>(JSON.parse(sessionStorage.getItem('user')));
-        this.user = this.userSubject.asObservable();
-        this.user.subscribe(x => this.currentUser = x); */
+    this.userSubject = new BehaviorSubject<User>(JSON.parse(sessionStorage.getItem('user') || '{}'));
+    this.user = this.userSubject.asObservable();
+    this.user.subscribe(x => this.currentUser = x);
   }
 
+  private url = "http://smartcityapi.seppealaerts.be/api";
+
   login(username: string, password: string) {
-    return this.http.post<User>("http://smartcityapi.seppealaerts.be/users/authenticate", { username, password })
+    console.log(username, password)
+    return this.http.post<User>("/login", { username, password })
       .pipe(map(user => {
         sessionStorage.setItem('user', JSON.stringify(user));
         return user;
@@ -31,5 +34,13 @@ export class AccountService {
   logout() {
     sessionStorage.removeItem('user');
     this.router.navigate(['/login']);
+  }
+
+  getUser(user_id: number): Observable<User> {
+    return this.http.get<User>(this.url + '/users/' + user_id);
+  }
+
+  updateUser(user: User): Observable<User> {
+    return this.http.put<User>(this.url + '/users/', user);
   }
 }
