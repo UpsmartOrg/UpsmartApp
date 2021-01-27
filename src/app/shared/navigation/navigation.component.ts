@@ -11,7 +11,7 @@ export class NavigationComponent implements OnInit {
 
   user!: User;
 
-  constructor(public accountService: AccountService,) {
+  constructor(public accountService: AccountService) {
     this.accountService.user.subscribe(result => {
       this.user = result;
     });

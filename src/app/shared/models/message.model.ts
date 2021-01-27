@@ -7,8 +7,7 @@ export class Message {
         public userId: number,
         public title: string,
         public body: string,
-        public created_by: number,
-        public created_at: Date,
-        public user: User
+        public user: User,
+        public created_at?: Date,
     ) { }
 }
