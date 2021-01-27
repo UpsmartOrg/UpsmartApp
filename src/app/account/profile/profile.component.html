@@ -33,13 +33,13 @@
   <div class="col-lg">
     <div class="mb-3">
       <label for="firstName" class="form-label">Voornaam</label>
-      <input type="text" class="form-control" id="firstName" value="Rita" readonly disabled>
+      <input type="text" class="form-control" id="firstName" [(ngModel)]="user.first_name" readonly disabled>
     </div>
   </div>
   <div class="col-lg">
     <div class="mb-3">
       <label for="lastName" class="form-label">Familienaam</label>
-      <input type="text" class="form-control" id="lastName" value="Peeters" readonly disabled>
+      <input type="text" class="form-control" id="lastName" [(ngModel)]="user.last_name" readonly disabled>
     </div>
   </div>
 </div>
@@ -47,13 +47,13 @@
   <div class="col-lg">
     <div class="mb-3">
       <label for="email" class="form-label">Emailadres</label>
-      <input type="email" class="form-control" id="email" value="rita.peeters@herentals.be" readonly disabled>
+      <input type="email" class="form-control" id="email" [(ngModel)]="user.email" readonly disabled>
     </div>
   </div>
   <div class="col-lg">
     <div class="mb-3">
       <label for="username" class="form-label">Username</label>
-      <input type="text" class="form-control" id="username" value="rita.peeters" readonly disabled>
+      <input type="text" class="form-control" id="username" [(ngModel)]="user.username" readonly disabled>
     </div>
   </div>
 </div>
@@ -72,7 +72,7 @@
   <div class="col-lg">
     <div class="mb-3">
       <label for="createdOn" class="form-label">Aangemaakt op</label>
-      <input type="text" class="form-control" id="createdOn" value="11-04-2008" readonly disabled>
+      <input type="text" class="form-control" id="createdOn" [(ngModel)]="user.created_at" readonly disabled>
     </div>
   </div>
 </div>

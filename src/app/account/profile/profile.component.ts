@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
+import { User } from 'src/app/shared/models/user.model';
+import { AccountService } from '../services/account.service';
 
 @Component({
   selector: 'app-profile',
@@ -7,7 +10,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfileComponent implements OnInit {
 
-  constructor() { }
+  user!: User;
+
+  constructor(private titleService: Title, public accountService: AccountService,) {
+    this.titleService.setTitle("Profiel - Smart City Herentals");
+    this.accountService.user.subscribe(result => {
+      this.user = result;
+    });
+  }
 
   ngOnInit(): void {
   }
