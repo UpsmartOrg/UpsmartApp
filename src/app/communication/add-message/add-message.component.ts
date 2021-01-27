@@ -22,7 +22,7 @@ export class AddMessageComponent implements OnInit {
     this.accountService.user.subscribe(result => {
       this.user = result;
     });
-    this.message = new MessageAdd(0, this.user.id, '', '')
+    this.message = new MessageAdd(this.user.id, '', '')
   }
 
   ngOnInit(): void {
@@ -30,10 +30,7 @@ export class AddMessageComponent implements OnInit {
 
   addMessage() {
     this.loading = true;
-    console.log(this.user)
-    console.log(this.message)
     this.communicationService.postMessage(this.message).subscribe(
-      error => console.log(error),
       () => this.router.navigate(['/communicatie/dashboard'])
     )
   }

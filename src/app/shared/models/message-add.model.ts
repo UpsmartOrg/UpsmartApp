@@ -1,7 +1,6 @@
 export class MessageAdd {
     constructor(
-        public id: number,
-        public userId: number,
+        public user_id: number,
         public title: string,
         public body: string,
     ) { }
