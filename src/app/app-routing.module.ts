@@ -15,6 +15,7 @@ import { EditSurveyComponent } from './participation/edit-survey/edit-survey.com
 import { EditMessageComponent } from './communication/edit-message/edit-message.component';
 import { AddMessageComponent } from './communication/add-message/add-message.component';
 import { KioskHomeComponent } from './kiosk/home/home.component';
+import { SurveyComponent } from './kiosk/survey/survey.component';
 
 const routes: Routes = [
   // Login routes
@@ -52,6 +53,7 @@ const routes: Routes = [
 
   // Kiosk routes
   { path: 'kiosk', component: KioskHomeComponent },
+  { path: 'kiosk/bevraging/:surveyID', component: SurveyComponent },
 
   // Error 404
   { path: '**', component: Error404Component },

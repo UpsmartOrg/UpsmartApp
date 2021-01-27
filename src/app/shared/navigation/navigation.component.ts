@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AccountService } from 'src/app/account/services/account.service';
+import { User } from '../models/user.model';
 
 @Component({
   selector: 'app-navigation',
@@ -7,7 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavigationComponent implements OnInit {
 
-  constructor() { }
+  user!: User;
+
+  constructor(public accountService: AccountService,) {
+    this.accountService.user.subscribe(x => {
+      this.user = x;
+    });
+  }
 
   ngOnInit(): void {
   }

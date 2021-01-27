@@ -9,6 +9,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AdminModule } from './admin/admin.module';
 import { CommunicationModule } from './communication/communication.module';
 import { AccountModule } from './account/account.module';
+import { KioskModule } from './kiosk/kiosk.module';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { AccountModule } from './account/account.module';
     HttpClientModule,
     AdminModule,
     CommunicationModule,
-    AccountModule
+    AccountModule,
+    KioskModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -23,10 +23,10 @@ export class AccountService {
   private url = "http://smartcityapi.seppealaerts.be/api";
 
   login(username: string, password: string) {
-    console.log(username, password)
-    return this.http.post<User>("/login", { username, password })
+    return this.http.post<User>(this.url + "/login", { "email": username, "password": password })
       .pipe(map(user => {
         sessionStorage.setItem('user', JSON.stringify(user));
+        this.userSubject.next(user);
         return user;
       }));
   }
