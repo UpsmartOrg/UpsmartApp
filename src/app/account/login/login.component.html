@@ -1,0 +1,32 @@
+<div class="text-center">
+  <main class="form-signin">
+    <img class="mb-4" src="/assets/img/herentals_smart_city.svg" alt="Herentals Smart City" width="auto" height="130">
+    <h1 class="h3 mb-3 fw-normal">Inloggen</h1>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <div class="mb-2">
+        <label for="username" class="visually-hidden">Username</label>
+        <input type="text" formControlName="username" class="form-control" placeholder="Username"
+          [ngClass]="{ 'is-invalid': submitted && form.username.errors }" autofocus />
+        <div *ngIf="submitted && form.username.errors" class="invalid-feedback">
+          <div *ngIf="form.username.errors.required">Username is vereist</div>
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="password" class="visually-hidden">Wachtwoord</label>
+        <input type="password" formControlName="password" class="form-control" placeholder="Wachtwoord"
+          [ngClass]="{ 'is-invalid': submitted && form.password.errors }" />
+        <div *ngIf="submitted && form.password.errors" class="invalid-feedback">
+          <div *ngIf="form.password.errors.required">Wachtwoord is vereist</div>
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-lg mt-2 text-uppercase w-100" *ngIf="! loading">
+        <span> Log in</span>
+      </button>
+
+      <button class="btn btn-primary btn-lg mt-2 text-uppercase w-100" type="button" disabled *ngIf="loading">
+        <span class="spinner-border spinner-border" role="status" aria-hidden="true"></span>
+      </button>
+    </form>
+  </main>
+</div>
