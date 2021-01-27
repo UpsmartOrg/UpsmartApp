@@ -18,7 +18,7 @@ export class AdminService {
   }
 
   getUsersWithRoles(): Observable<User[]> {
-    return this.http.get<User[]>(this.url + '/api/users/withrole');
+    return this.http.get<User[]>(this.url + '/api/users/withroles');
   }
 
   getUser(user_id: number): Observable<User> {
@@ -26,15 +26,15 @@ export class AdminService {
   }
 
   getUserWithRoles(user_id: number): Observable<User> {
-    return this.http.get<User>(this.url + '/api/users/withrole/' + user_id);
+    return this.http.get<User>(this.url + '/api/users/withroles/' + user_id);
   }
 
   addUserWithRoles(user: User): Observable<User> {
-    return this.http.post<User>(this.url + '/api/users/withrole', user);
+    return this.http.post<User>(this.url + '/api/users/withroles', user);
   }
 
   updateUser(user: User): Observable<User> {
-    return this.http.put<User>(this.url + '/api/users/withrole/' + user.id, user);
+    return this.http.put<User>(this.url + '/api/users/withroles/' + user.id, user);
   }
 
   deleteUser(id: number) {

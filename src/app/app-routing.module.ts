@@ -6,14 +6,16 @@ import { GarbageDashboardComponent } from './garbage-collection/dashboard/dashbo
 import { ParticipationDashboardComponent } from './participation/dashboard/dashboard.component';
 import { Error404Component } from './error/error404/error404.component';
 import { HomeComponent } from './home/home.component';
-import { ProfileComponent } from './profile/profile.component';
+import { ProfileComponent } from './account/profile/profile.component';
 import { AddSurveyComponent } from './participation/add-survey/add-survey.component';
-import { LoginComponent } from './login/login.component';
+import { LoginComponent } from './account/login/login.component';
 import { AddUserComponent } from './admin/add-user/add-user.component';
 import { EditUserComponent } from './admin/edit-user/edit-user.component';
 import { EditSurveyComponent } from './participation/edit-survey/edit-survey.component';
 import { EditMessageComponent } from './communication/edit-message/edit-message.component';
 import { AddMessageComponent } from './communication/add-message/add-message.component';
+import { KioskHomeComponent } from './kiosk/home/home.component';
+import { SurveyComponent } from './kiosk/survey/survey.component';
 
 const routes: Routes = [
   // Login routes
@@ -24,26 +26,34 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
 
   // Admin routes
+  { path: 'admin', redirectTo: 'admin/dashboard' },
   { path: 'admin/dashboard', component: AdminDashboardComponent },
   { path: 'admin/gebruiker-toevoegen', component: AddUserComponent },
   { path: 'admin/gebruiker-wijzigen/:userID', component: EditUserComponent },
 
   // Garbage Collection routes
+  { path: 'groendienst', redirectTo: 'groendienst/dashboard' },
   { path: 'groendienst/dashboard', component: GarbageDashboardComponent },
 
   // Participation routes
+  { path: 'participatie', redirectTo: 'participatie/dashboard' },
   { path: 'participatie/dashboard', component: ParticipationDashboardComponent },
   { path: 'participatie/enquete-toevoegen', component: AddSurveyComponent },
   { path: 'participatie/enquete-wijzigen', component: EditSurveyComponent },
 
   // Communication routes
+  { path: 'communicatie', redirectTo: 'communicatie/dashboard' },
   { path: 'communicatie/dashboard', component: CommunicationDashboardComponent },
   { path: 'communicatie/bericht-toevoegen', component: AddMessageComponent },
   { path: 'communicatie/bericht-wijzigen/:messageID', component: EditMessageComponent },
 
   // Profiel routes
   { path: 'profiel', component: ProfileComponent },
-  { path: 'logout', redirectTo: '', component: HomeComponent },
+  { path: 'logout', redirectTo: '' },
+
+  // Kiosk routes
+  { path: 'kiosk', component: KioskHomeComponent },
+  { path: 'kiosk/bevraging/:surveyID', component: SurveyComponent },
 
   // Error 404
   { path: '**', component: Error404Component },
