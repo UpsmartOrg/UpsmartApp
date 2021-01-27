@@ -26,23 +26,23 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
 
   // Admin routes
-  { path: 'admin', redirectTo: 'admin/dashboard' },
+  { path: 'admin', redirectTo: 'admin/dashboard', pathMatch: 'full' },
   { path: 'admin/dashboard', component: AdminDashboardComponent },
   { path: 'admin/gebruiker-toevoegen', component: AddUserComponent },
   { path: 'admin/gebruiker-wijzigen/:userID', component: EditUserComponent },
 
   // Garbage Collection routes
-  { path: 'groendienst', redirectTo: 'groendienst/dashboard' },
+  { path: 'groendienst', redirectTo: 'groendienst/dashboard', pathMatch: 'full' },
   { path: 'groendienst/dashboard', component: GarbageDashboardComponent },
 
   // Participation routes
-  { path: 'participatie', redirectTo: 'participatie/dashboard' },
+  { path: 'participatie', redirectTo: 'participatie/dashboard', pathMatch: 'full' },
   { path: 'participatie/dashboard', component: ParticipationDashboardComponent },
   { path: 'participatie/enquete-toevoegen', component: AddSurveyComponent },
   { path: 'participatie/enquete-wijzigen', component: EditSurveyComponent },
 
   // Communication routes
-  { path: 'communicatie', redirectTo: 'communicatie/dashboard' },
+  { path: 'communicatie', redirectTo: '/communicatie/dashboard', pathMatch: 'full' },
   { path: 'communicatie/dashboard', component: CommunicationDashboardComponent },
   { path: 'communicatie/bericht-toevoegen', component: AddMessageComponent },
   { path: 'communicatie/bericht-wijzigen/:messageID', component: EditMessageComponent },
