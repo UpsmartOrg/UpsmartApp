@@ -86,8 +86,11 @@ export class ProfileComponent implements OnInit {
     if (this.newPw === this.newPwRepeat) {
       this.loadingPw = true;
       this.accountService.updatePassword(this.user, this.oldPw, this.newPw).subscribe(
+        result => console.log(result),
+        error => console.log(error),
         () => {
           this.loadingPw = false;
+          this.oldPw = this.newPw = this.newPwRepeat = "";
         }
       )
 

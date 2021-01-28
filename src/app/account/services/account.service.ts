@@ -48,7 +48,7 @@ export class AccountService {
     return this.http.put<User>(this.url + '/users/' + user.id, user);
   }
 
-  updatePassword(user: User, oldPassword: string, password: string) {
-    return this.http.post<User>(this.url + '/change-password/' + user.id, { "oldPassword": oldPassword, "user": user })
+  updatePassword(user: User, oldPassword: string, newPassword: string) {
+    return this.http.post<User>(this.url + '/change-password', { "oldPassword": oldPassword, "user": user.id, "newPassword": newPassword })
   }
 }
