@@ -11,33 +11,33 @@ export class AdminService {
 
   constructor(private http: HttpClient) { }
 
-  private url = "http://smartcityapi.seppealaerts.be";
+  private url = "http://smartcityapi.seppealaerts.be/api";
 
   getUsers(): Observable<User[]> {
-    return this.http.get<User[]>(this.url + '/api/users');
+    return this.http.get<User[]>(this.url + '/users');
   }
 
   getUsersWithRoles(): Observable<User[]> {
-    return this.http.get<User[]>(this.url + '/api/users/withroles');
+    return this.http.get<User[]>(this.url + '/users/withroles');
   }
 
   getUser(user_id: number): Observable<User> {
-    return this.http.get<User>(this.url + '/api/users/' + user_id);
+    return this.http.get<User>(this.url + '/users/' + user_id);
   }
 
   getUserWithRoles(user_id: number): Observable<User> {
-    return this.http.get<User>(this.url + '/api/users/withroles/' + user_id);
+    return this.http.get<User>(this.url + '/users/withroles/' + user_id);
   }
 
   addUserWithRoles(user: User): Observable<User> {
-    return this.http.post<User>(this.url + '/api/users/withroles', user);
+    return this.http.post<User>(this.url + '/users/withroles', user);
   }
 
   updateUser(user: User): Observable<User> {
-    return this.http.put<User>(this.url + '/api/users/withroles/' + user.id, user);
+    return this.http.put<User>(this.url + '/users/withroles/' + user.id, user);
   }
 
   deleteUser(id: number) {
-    return this.http.delete<UserRole>(this.url + '/api/users/' + id);
+    return this.http.delete<UserRole>(this.url + '/users/' + id);
   }
 }

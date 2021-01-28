@@ -10,6 +10,7 @@ import { AdminModule } from './admin/admin.module';
 import { CommunicationModule } from './communication/communication.module';
 import { AccountModule } from './account/account.module';
 import { KioskModule } from './kiosk/kiosk.module';
+import { ParticipationModule } from './participation/participation.module';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { KioskModule } from './kiosk/kiosk.module';
     AdminModule,
     CommunicationModule,
     AccountModule,
-    KioskModule
+    KioskModule,
+    ParticipationModule
   ],
   providers: [],
   bootstrap: [AppComponent]
