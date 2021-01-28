@@ -1,4 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { WarningDialogComponent } from 'src/app/shared/dialogs/warning-dialog/warning-dialog.component';
+import { MultiplechoiceItem } from 'src/app/shared/models/multiplechoice-item.model';
+import { MultiplechoiceQuestion } from 'src/app/shared/models/multiplechoice-question.model';
+import { OpenQuestion } from 'src/app/shared/models/open-question.model';
+import { Survey } from 'src/app/shared/models/survey.model';
 
 @Component({
   selector: 'app-add-survey',
@@ -7,13 +13,77 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddSurveyComponent implements OnInit {
 
-  constructor() { }
+  questionCounter: number = 0;
+  survey: Survey = new Survey(0, 1, '', '', new Date(), new Date());
+
+  openQuestions: OpenQuestion[] = [];
+  multiplechoiceQuestions: MultiplechoiceQuestion[] = [];
+
+  allQuestions: any [] = [];
+  
+
+  constructor(private dialog: MatDialog) { 
+
+  }
 
   ngOnInit(): void {
   }
 
-  addSurvey(){
-    
+  addQuestion(){
+    this.questionCounter++;
+    var question = new OpenQuestion(0, 0, '', '' , 5, this.questionCounter);
+    this.allQuestions.push(question);
   }
 
+  deleteQuestion(question: any) {
+
+  }
+  
+  isMultiplechoice(question: any): boolean {
+    if(question instanceof MultiplechoiceQuestion) {
+      //console.log(this.allQuestions);
+      return true;
+    }
+    //console.log(this.allQuestions);
+    return false;
+  }
+
+  makeQuestionOpen(multiQuestion: MultiplechoiceQuestion) {
+    var openQuestion = new OpenQuestion(0 , 0, '', '', 5, 0);
+
+    openQuestion.title = multiQuestion.title;
+    openQuestion.description = multiQuestion.description;
+    openQuestion.question_number = multiQuestion.question_number;
+
+    this.updateList(openQuestion);
+  }
+
+  makeQuestionMulti(openQuestion: OpenQuestion) {
+    var multiItems: MultiplechoiceItem[] = [];
+    var multiquestion = new MultiplechoiceQuestion(0 , 0, '', '', false, 0, multiItems);
+
+    multiquestion.title = openQuestion.title;
+    multiquestion.description = openQuestion.description;
+    multiquestion.question_number = openQuestion.question_number;
+
+    this.updateList(multiquestion);
+  }
+
+  updateList(question: any) {
+    var questions = this.allQuestions;
+    questions.splice(this.allQuestions.findIndex(q => q.question_number == question.question_number), 1);
+    questions.push(question);
+    questions.sort((a, b) => (a.question_number > b.question_number) ? 1 : -1);
+
+    this.allQuestions = questions;
+  }
+
+  addAnswer(question: MultiplechoiceQuestion) {
+    var multiItem = new MultiplechoiceItem(0, 0, '');
+    question.multiplechoice_items.push(multiItem);
+  }
+
+  deleteAnswer(question: MultiplechoiceQuestion, index: number) {
+    question.multiplechoice_items.splice(index, 1);
+  }
 }

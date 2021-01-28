@@ -28,18 +28,87 @@
 
 <h2 class="mt-5 h3">Algemeen</h2>
 <hr>
+<!-- Survey Info -->
 <div class="mb-3">
   <label for="title" class="form-label">Titel</label>
-  <input type="text" class="form-control" id="title">
+  <input type="text" class="form-control" id="surveyTitle" [(ngModel)]="survey.name">
 </div>
 <div class="mb-3">
   <label for="description" class="form-label">Beschrijving</label>
-  <textarea class="form-control" id="description" rows="3"></textarea>
+  <textarea class="form-control" id="surveyDescription" rows="3" [(ngModel)]="survey.description"></textarea>
 </div>
 
-<h2 class="mt-5 h3">Vragen <em class="float-end far fa-plus-square mt-2" (click)="addSurvey()"></em></h2>
+<h2 class="mt-5 h3">Vragen
+  <em class="float-end far fa-plus-square mt-2" (click)="addQuestion()"></em>
+</h2>
 <hr>
-<div class="card card-header mb-3">
+<!-- Question List -->
+<div class="" id="questions">
+  <div class="card shadow-sm" *ngFor="let question of allQuestions; let i = index">
+    <div class="card-header">
+      vraag {{ question.question_number }}
+      <em class="far fa-trash-alt float-end mt-1" (click)="deleteQuestion(question)"></em>
+    </div>
+    <div class="card-body">
+      <div class="p-4">
+        <!-- Question Info -->
+        <div class="mb-3">
+          <label for="title" class="form-label">Titel</label>
+          <input type="text" class="form-control" [(ngModel)]="question.title">
+        </div>
+        <div class="mb-3">
+          <label for="description" class="form-label">Extra info</label>
+          <textarea class="form-control" rows="2" [(ngModel)]="question.description"></textarea>
+        </div>
+        <!-- Question Type -->
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="questionType{{i}}" id="openQuestion{{i}}"
+            [disabled]="question.multiplechoice_items && question.multiplechoice_items.length > 0"
+            [checked]="!isMultiplechoice(question)" (click)="makeQuestionOpen(question)">
+          <label class="form-check-label" for="openQuestion{{i}}">
+            Open vraag
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="questionType{{i}}" id="multiQuestion{{i}}"
+            [checked]="isMultiplechoice(question)" (click)="makeQuestionMulti(question)">
+          <label class="form-check-label" for="multiQuestion{{i}}">
+            Multiple choice vraag
+          </label>
+        </div>
+        <!-- Question Multiple answers possible -->
+        <div class="form-check" *ngIf="isMultiplechoice(question)">
+          <input class="form-check-input" type="checkbox" name="multiAnswer{{i}}" id="multiAnswer{{i}}"
+            [(ngModel)]="question.multiple_answers">
+          <label class="form-check-label" for="multiAnswer">
+            Meerdere antwoorden mogelijk
+          </label>
+        </div>
+        <!-- Multiple choice items -->
+        <div class="card mt-3" *ngIf="isMultiplechoice(question)">
+          <div class="card-header">Antwoorden:</div>
+          <div class="card-body">
+            <div class="p-4">
+              <div class="mb-3" *ngFor="let item of question.multiplechoice_items; let j = index">
+                <em class="far fa-trash-alt float-end mt-1" (click)="deleteAnswer(question, j)"></em>
+                <label for="answer1" class="form-label">Antwoord {{ j + 1 }} </label>
+                <input type="text" class="form-control" [(ngModel)]="item.title">
+              </div>
+              <p class="h3"><em class="fas fa-plus-circle" (click)="addAnswer(question)"></em></p>
+            </div>
+            <!-- Add multiple choice item -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<button type="button" class="btn btn-primary mt-3 text-uppercase" (click)="addQuestion()">Vraag toevoegen</button>
+
+
+
+<!-- <div class="card card-header mb-3">
   <p class="m-0 p-0">Vraag 1: Uw naam <em class="far fa-trash-alt float-end mt-1"></em></p>
 </div>
 <div class="card shadow-sm">
@@ -93,7 +162,7 @@
       <button type="button" class="btn btn-primary mt-3 text-uppercase">Vraag toevoegen</button>
     </div>
   </div>
-</div>
-<div class="d-grid">
+</div> -->
+<div class="d-grid mt-5">
   <button type="button" class="btn btn-primary mt-3 text-uppercase">Enquête opslaan</button>
 </div>
