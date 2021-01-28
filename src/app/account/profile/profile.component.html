@@ -33,13 +33,13 @@
   <div class="col-lg">
     <div class="mb-3">
       <label for="firstName" class="form-label">Voornaam</label>
-      <input type="text" class="form-control" id="firstName" [(ngModel)]="user.first_name" readonly disabled>
+      <input type="text" class="form-control" id="firstName" [(ngModel)]="user.first_name" [disabled]="disabled">
     </div>
   </div>
   <div class="col-lg">
     <div class="mb-3">
       <label for="lastName" class="form-label">Familienaam</label>
-      <input type="text" class="form-control" id="lastName" [(ngModel)]="user.last_name" readonly disabled>
+      <input type="text" class="form-control" id="lastName" [(ngModel)]="user.last_name" [disabled]="disabled">
     </div>
   </div>
 </div>
@@ -47,32 +47,21 @@
   <div class="col-lg">
     <div class="mb-3">
       <label for="email" class="form-label">Emailadres</label>
-      <input type="email" class="form-control" id="email" [(ngModel)]="user.email" readonly disabled>
+      <input type="email" class="form-control" id="email" [(ngModel)]="user.email" [disabled]="disabled">
     </div>
   </div>
   <div class="col-lg">
     <div class="mb-3">
       <label for="username" class="form-label">Username</label>
-      <input type="text" class="form-control" id="username" [(ngModel)]="user.username" readonly disabled>
+      <input type="text" class="form-control" id="username" [(ngModel)]="user.username" [disabled]="disabled" d>
     </div>
   </div>
 </div>
 <div class="row">
-  <div class="col-lg">
-    <div class="mb-3">
-      <label for="rol" class="form-label">Rol</label>
-      <select class="form-select" id="rol" disabled>
-        <option value="0">Kies Rol</option>
-        <option value="1">Groendienst</option>
-        <option value="2" selected>Communicatie</option>
-        <option value="3">Participatie</option>
-      </select>
-    </div>
-  </div>
-  <div class="col-lg">
+  <div class="col-lg-6">
     <div class="mb-3">
       <label for="createdOn" class="form-label">Aangemaakt op</label>
-      <input type="text" class="form-control" id="createdOn" [(ngModel)]="user.created_at" readonly disabled>
+      <input type="text" class="form-control" id="createdOn" [value]="created_at" readonly disabled>
     </div>
   </div>
 </div>
@@ -88,7 +77,17 @@
 </div>
 <div class="row mb-5">
   <div class="col">
-    <button type="button" class="btn btn-primary mt-3 text-uppercase">Wijzig profiel</button>
+    <button type="button" class="btn btn-primary mt-3 text-uppercase" (click)="editProfile()" *ngIf="disabled">Wijzig
+      profiel</button>
+
+    <button type="button" class="btn btn-primary mt-3 text-uppercase" (click)="updateProfile()"
+      *ngIf="! loading && ! disabled">
+      <span> Profiel wijzigen</span>
+    </button>
+    <button class="btn btn-primary mt-3 text-uppercase" type="button" disabled *ngIf="loading">
+      <span class="spinner-border spinner-border-sm mb-1" role="status" aria-hidden="true"></span>
+      Laden...
+    </button>
   </div>
 </div>
 
