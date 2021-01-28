@@ -28,16 +28,22 @@
 <!-- Content -->
 <div class="mb-3">
   <label for="title" class="form-label">Titel</label>
-  <input type="text" class="form-control" id="title">
+  <input type="text" class="form-control" id="title" [(ngModel)]="message.title">
 </div>
 
 <div class="mb-3">
   <label for="message" class="form-label">Bericht</label>
-  <textarea class="form-control" id="message" rows="5"></textarea>
+  <textarea class="form-control" id="message" rows="5" [(ngModel)]="message.body"></textarea>
 </div>
 
 <div class="row mb-5">
   <div class="col">
-    <button type="button" class="btn btn-primary mt-3 text-uppercase">Bericht toevoegen</button>
+    <button type="button" class="btn btn-primary mt-3 text-uppercase" (click)="addMessage()" *ngIf="! loading">
+      <span> Bericht toevoegen</span>
+    </button>
+    <button class="btn btn-primary mt-3 text-uppercase" type="button" disabled *ngIf="loading">
+      <span class="spinner-border spinner-border-sm mb-1" role="status" aria-hidden="true"></span>
+      Laden...
+    </button>
   </div>
 </div>

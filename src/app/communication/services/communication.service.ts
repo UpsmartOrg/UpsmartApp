@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { MessageAdd } from 'src/app/shared/models/message-add.model';
 import { Message } from 'src/app/shared/models/message.model';
 import { User } from 'src/app/shared/models/user.model';
 
@@ -19,6 +20,10 @@ export class CommunicationService {
 
   getMessage(messageID: number): Observable<Message> {
     return this.http.get<Message>(this.url + '/information/' + messageID);
+  }
+
+  postMessage(message: MessageAdd): Observable<MessageAdd> {
+    return this.http.post<MessageAdd>(this.url + '/information', message);
   }
 
   updateMessage(message: Message): Observable<Message> {
