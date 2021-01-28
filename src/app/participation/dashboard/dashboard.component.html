@@ -30,14 +30,16 @@
 <div class="row mb-3">
   <div class="col-12 col-lg-8">
     <div class="form-floating mb-3">
-      <input type="text" class="form-control" id="search" placeholder="Zoeken">
+      <input type="text" class="form-control" id="search" placeholder="Zoeken"
+      [(ngModel)]="searchWord" (change)="filterSurveys()">
       <label for="search">Zoeken</label>
     </div>
   </div>
   <div class="col-12 col-lg-4">
     <div class="form-floating">
-      <select class="form-select" id="floatingSelect">
-        <option selected>Alle gebruikers</option>
+      <select class="form-select" id="floatingSelect" 
+      [(ngModel)]="searchUserID" (change)="filterSurveys()">
+        <option selected value="0">Alle gebruikers</option>
         <option value="1">Emma Timmermans</option>
         <option value="2">Bert Maes</option>
       </select>

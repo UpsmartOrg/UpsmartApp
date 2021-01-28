@@ -35,7 +35,7 @@ export class ParticipationDashboardComponent implements OnInit {
     )
   }
 
-  filterUsers() {
+  filterSurveys() {
     this.surveysCache.pipe(
       map(array => {
         return array.filter(survey => this.searchUserID == 0 ? true :
