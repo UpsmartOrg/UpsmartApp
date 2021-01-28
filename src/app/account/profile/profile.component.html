@@ -124,7 +124,7 @@
   <div class="col-lg-6">
     <div class="mb-3">
       <label for="oldPw" class="form-label">Huidig wachtwoord</label>
-      <input type="password" class="form-control" id="oldPw">
+      <input type="password" class="form-control" id="oldPw" [(ngModel)]="oldPw">
     </div>
   </div>
 </div>
@@ -132,7 +132,7 @@
   <div class="col-lg-6">
     <div class="mb-3">
       <label for="newPw" class="form-label">Nieuw wachtwoord</label>
-      <input type="password" class="form-control" id="newPw">
+      <input type="password" class="form-control" id="newPw" [(ngModel)]="newPw">
     </div>
   </div>
 </div>
@@ -140,12 +140,18 @@
   <div class="col-lg-6">
     <div class="mb-3">
       <label for="newPWRepeat" class="form-label">Herhaal nieuw wachtwoord</label>
-      <input type="password" class="form-control" id="newPwRepeat">
+      <input type="password" class="form-control" id="newPwRepeat" [(ngModel)]="newPwRepeat">
     </div>
   </div>
 </div>
 <div class="row mb-5">
   <div class="col">
-    <button type="button" class="btn btn-primary mt-3 text-uppercase">Wijzig wachtwoord</button>
+    <button type="button" class="btn btn-primary mt-3 text-uppercase" (click)="updatePassword()" *ngIf="! loadingPw">
+      <span> Wijzig wachtwoord</span>
+    </button>
+    <button class="btn btn-primary mt-3 text-uppercase" type="button" disabled *ngIf="loadingPw">
+      <span class="spinner-border spinner-border-sm mb-1" role="status" aria-hidden="true"></span>
+      Laden...
+    </button>
   </div>
 </div>

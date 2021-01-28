@@ -14,6 +14,10 @@ export class ProfileComponent implements OnInit {
   user!: User;
   created_at!: string;
 
+  oldPw: string = "";
+  newPw: string = "";
+  newPwRepeat: string = "";
+
   adminRole = false;
   groendienstRole = false;
   participatieRole = false;
@@ -21,6 +25,7 @@ export class ProfileComponent implements OnInit {
 
   disabled: boolean = true;
   loading: boolean = false;
+  loadingPw: boolean = false;
 
   constructor(private titleService: Title, public accountService: AccountService) {
     this.titleService.setTitle("Profiel - Smart City Herentals");
@@ -75,6 +80,12 @@ export class ProfileComponent implements OnInit {
         }
       })
     )
+  }
+
+  updatePassword() {
+    if (this.newPw === this.newPwRepeat) {
+      this.loadingPw = true;
+    }
   }
 }
 

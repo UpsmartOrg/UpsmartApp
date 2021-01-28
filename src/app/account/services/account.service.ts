@@ -20,7 +20,7 @@ export class AccountService {
     this.user.subscribe(x => this.currentUser = x);
   }
 
-  private url = "http://smartcityapi.seppealaerts.be/api";
+  private url = "http://127.0.0.1:8000/api";
 
   login(username: string, password: string) {
     return this.http.post<User>(this.url + "/login", { "email": username, "password": password })
@@ -46,5 +46,9 @@ export class AccountService {
 
   updateUser(user: User): Observable<User> {
     return this.http.put<User>(this.url + '/users/' + user.id, user);
+  }
+
+  updatePassword(user: User, oldPassword: string, password: string) {
+    return this.http.post<User>(this.url + '/change-password', {})
   }
 }
