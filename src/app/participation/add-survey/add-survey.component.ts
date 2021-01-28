@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { WarningDialogComponent } from 'src/app/shared/dialogs/warning-dialog/warning-dialog.component';
 import { MultiplechoiceItem } from 'src/app/shared/models/multiplechoice-item.model';
 import { MultiplechoiceQuestion } from 'src/app/shared/models/multiplechoice-question.model';
 import { OpenQuestion } from 'src/app/shared/models/open-question.model';
-import { Survey } from 'src/app/shared/models/survey.model';
+import { SurveyAdd } from 'src/app/shared/models/survey-add.model';
+import { ParticipationService } from '../services/participation.service';
 
 @Component({
   selector: 'app-add-survey',
@@ -14,7 +16,7 @@ import { Survey } from 'src/app/shared/models/survey.model';
 export class AddSurveyComponent implements OnInit {
 
   questionCounter: number = 0;
-  survey: Survey = new Survey(0, 1, '', '', new Date(), new Date());
+  survey: SurveyAdd;
 
   openQuestions: OpenQuestion[] = [];
   multiplechoiceQuestions: MultiplechoiceQuestion[] = [];
@@ -22,8 +24,8 @@ export class AddSurveyComponent implements OnInit {
   allQuestions: any[] = [];
 
 
-  constructor(private dialog: MatDialog) {
-
+  constructor(private participationService: ParticipationService, private dialog: MatDialog, private router: Router) {
+    this.survey = new SurveyAdd(1, '', '', new Date(), new Date(), [], []);
   }
 
   ngOnInit(): void {
@@ -87,5 +89,19 @@ export class AddSurveyComponent implements OnInit {
 
   deleteAnswer(question: MultiplechoiceQuestion, index: number) {
     question.multiplechoice_items.splice(index, 1);
+  }
+
+  saveSurvey() {
+    this.allQuestions.forEach(question => {
+      if(question instanceof MultiplechoiceQuestion) {
+        this.survey.multiplechoice_questions.push(question);
+      }else if (question instanceof OpenQuestion) {
+        this.survey.open_questions.push(question);
+      }
+    });
+
+    this.participationService.addSurveyComplete(this.survey).subscribe(
+      () => this.router.navigate(['/participatie/dashboard'])
+    );
   }
 }

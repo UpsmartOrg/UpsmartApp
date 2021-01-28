@@ -37,6 +37,21 @@
   <label for="description" class="form-label">Beschrijving</label>
   <textarea class="form-control" id="surveyDescription" rows="3" [(ngModel)]="survey.description"></textarea>
 </div>
+<div class="row">
+  <div class="col-6">
+    <div class="mb-3">
+      <label for="surveyStartDate" class="form-label">Start datum</label>
+      <input type="date" class="form-control" id="surveyStartDate" [(ngModel)]="survey.start_date">
+    </div>
+  </div>
+
+  <div class="col-6">
+    <div class="mb-3">
+      <label for="surveyEndDate" class="form-label">Eind datum</label>
+      <input type="date" class="form-control" id="surveyEndDate" [(ngModel)]="survey.end_date">
+    </div>
+  </div>
+</div>
 
 <h2 class="mt-5 h3">Vragen
   <em class="float-end far fa-plus-square mt-2" (click)="addQuestion()"></em>
@@ -110,5 +125,5 @@
 <button type="button" class="btn btn-primary mt-3 text-uppercase" (click)="addQuestion()">Vraag toevoegen</button>
 
 <div class="d-grid mt-5">
-  <button type="button" class="btn btn-primary mt-3 text-uppercase">Enquête opslaan</button>
+  <button type="button" class="btn btn-primary mt-3 text-uppercase" (click)="saveSurvey()">Enquête opslaan</button>
 </div>

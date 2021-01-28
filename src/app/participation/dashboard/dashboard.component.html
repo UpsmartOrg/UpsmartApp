@@ -63,29 +63,17 @@
               <th scope="col">Acties</th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <th scope="row">1</th>
-              <td>Tevredenheidsenquete</td>
-              <td>01-01-2021</td>
-              <td>31-01-2021</td>
-              <td>Emma Timmermans</td>
-              <td>30-12-2020</td>
+          <tbody *ngIf="surveys">
+            <tr *ngFor="let survey of surveys; let i = index">
+              <th scope="row">{{ i + 1 }}</th>
+              <td>{{ survey.name }}</td>
+              <td>{{ survey.start_date | date:'dd-MM-yyyy' }}</td>
+              <td>{{ survey.end_date | date:'dd-MM-yyyy' }}</td>
+              <td>{{ survey.user.first_name + ' '+ survey.user.last_name }}</td>
+              <td>{{ survey.created_at | date:'dd-MM-yyyy' }}</td>
               <td>
-                <em class="far fa-edit actions mr-4"></em>
-                <em class="far fa-trash-alt actions mx-3"></em>
-              </td>
-            </tr>
-            <tr>
-              <th scope="row">2</th>
-              <td>Feedback vuilbakken</td>
-              <td>01-02-2021</td>
-              <td>15-03-2021</td>
-              <td>Bert Maes</td>
-              <td>20-01-2021</td>
-              <td>
-                <em class="far fa-edit actions mr-4"></em>
-                <em class="far fa-trash-alt actions mx-3"></em>
+                <em class="far fa-edit actions mr-4" (click)="editSurvey(survey.id)"></em>
+                <em class="far fa-trash-alt actions mx-3" (click)="deleteSurvey(survey)"></em>
               </td>
             </tr>
           </tbody>
