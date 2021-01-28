@@ -19,37 +19,42 @@ export class AddSurveyComponent implements OnInit {
   openQuestions: OpenQuestion[] = [];
   multiplechoiceQuestions: MultiplechoiceQuestion[] = [];
 
-  allQuestions: any [] = [];
-  
+  allQuestions: any[] = [];
 
-  constructor(private dialog: MatDialog) { 
+
+  constructor(private dialog: MatDialog) {
 
   }
 
   ngOnInit(): void {
   }
 
-  addQuestion(){
+  addQuestion() {
     this.questionCounter++;
-    var question = new OpenQuestion(0, 0, '', '' , 5, this.questionCounter);
+    var question = new OpenQuestion(0, 0, '', '', 5, this.questionCounter);
     this.allQuestions.push(question);
   }
 
   deleteQuestion(question: any) {
+    this.allQuestions.splice(this.allQuestions.findIndex(q => q.question_number == question.question_number), 1);
 
+    for (let qNumber = question.question_number + 1; qNumber <= this.questionCounter; qNumber++) {
+      var index = this.allQuestions.findIndex(q => q.question_number == qNumber)
+      this.allQuestions[index].question_number = qNumber - 1;
+    }
+
+    this.questionCounter--;
   }
-  
+
   isMultiplechoice(question: any): boolean {
-    if(question instanceof MultiplechoiceQuestion) {
-      //console.log(this.allQuestions);
+    if (question instanceof MultiplechoiceQuestion) {
       return true;
     }
-    //console.log(this.allQuestions);
     return false;
   }
 
   makeQuestionOpen(multiQuestion: MultiplechoiceQuestion) {
-    var openQuestion = new OpenQuestion(0 , 0, '', '', 5, 0);
+    var openQuestion = new OpenQuestion(0, 0, '', '', 5, 0);
 
     openQuestion.title = multiQuestion.title;
     openQuestion.description = multiQuestion.description;
@@ -60,7 +65,7 @@ export class AddSurveyComponent implements OnInit {
 
   makeQuestionMulti(openQuestion: OpenQuestion) {
     var multiItems: MultiplechoiceItem[] = [];
-    var multiquestion = new MultiplechoiceQuestion(0 , 0, '', '', false, 0, multiItems);
+    var multiquestion = new MultiplechoiceQuestion(0, 0, '', '', false, 0, multiItems);
 
     multiquestion.title = openQuestion.title;
     multiquestion.description = openQuestion.description;
@@ -70,12 +75,9 @@ export class AddSurveyComponent implements OnInit {
   }
 
   updateList(question: any) {
-    var questions = this.allQuestions;
-    questions.splice(this.allQuestions.findIndex(q => q.question_number == question.question_number), 1);
-    questions.push(question);
-    questions.sort((a, b) => (a.question_number > b.question_number) ? 1 : -1);
-
-    this.allQuestions = questions;
+    this.allQuestions.splice(this.allQuestions.findIndex(q => q.question_number == question.question_number), 1);
+    this.allQuestions.push(question);
+    this.allQuestions.sort((a, b) => (a.question_number > b.question_number) ? 1 : -1);
   }
 
   addAnswer(question: MultiplechoiceQuestion) {
