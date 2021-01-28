@@ -40,6 +40,10 @@ export class AccountService {
     return this.http.get<User>(this.url + '/users/' + user_id);
   }
 
+  getUserWithRoles(user_id: number): Observable<User> {
+    return this.http.get<User>(this.url + '/users/withroles/' + user_id);
+  }
+
   updateUser(user: User): Observable<User> {
     return this.http.put<User>(this.url + '/users/', user);
   }

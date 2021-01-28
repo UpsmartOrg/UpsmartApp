@@ -43,7 +43,7 @@ export class EditUserComponent implements OnInit {
 
   loadUserRoles(user: User) {
     user.user_roles?.forEach(userRole => {
-      switch (userRole.role_id) {
+      switch (parseInt(userRole.role_id.toString())) {
         case 1:
           this.groendienstRole = true;
           break;

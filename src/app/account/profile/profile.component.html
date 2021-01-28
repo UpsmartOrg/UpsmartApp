@@ -53,7 +53,7 @@
   <div class="col-lg">
     <div class="mb-3">
       <label for="username" class="form-label">Username</label>
-      <input type="text" class="form-control" id="username" [(ngModel)]="user.username" [disabled]="disabled" d>
+      <input type="text" class="form-control" id="username" [(ngModel)]="user.username" [disabled]="disabled">
     </div>
   </div>
 </div>
@@ -67,10 +67,36 @@
 </div>
 <div class="row">
   <div class="col">
+    <div class="mb-3 mt-4">
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" id="admin" value="admin" [checked]="adminRole == true" disabled>
+        <label class="form-check-label" for="admin">Admin</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" id="trashCollection" value="trashCollection" disabled
+          [checked]="groendienstRole == true">
+        <label class="form-check-label" for="trashCollection">Groendienst</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" id="participation" value="participation" disabled
+          [checked]="participatieRole == true">
+        <label class="form-check-label" for="participation">Participatie</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" id="communication" value="communication" disabled
+          [checked]="communicatieRole == true">
+        <label class="form-check-label" for="communication">Communicatie</label>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col">
     <div class="form-check mb-3 mt-3">
-      <input class="form-check-input" type="checkbox" value="" id="admin" checked disabled>
-      <label class="form-check-label" for="admin">
-        Admin
+      <input class="form-check-input" type="checkbox" value="" id="external" [checked]="user.is_extern == true"
+        disabled>
+      <label class="form-check-label" for="external">
+        Extern
       </label>
     </div>
   </div>
