@@ -12,7 +12,9 @@ import { AdminService } from '../services/admin.service';
 export class AddUserComponent implements OnInit {
 
   user!: User;
-  
+
+  loading: boolean = false;
+
   adminRole = false;
   groendienstRole = false;
   participatieRole = false;
@@ -20,11 +22,11 @@ export class AddUserComponent implements OnInit {
 
   groenID = 1;
   participatieID = 2;
-  communicatieID=3;
+  communicatieID = 3;
   adminID = 4;
 
-  constructor(private router: Router, private adminService: AdminService) { 
-    this.user = new User(0,'','','','', false);
+  constructor(private router: Router, private adminService: AdminService) {
+    this.user = new User(0, '', '', '', '', false);
     this.user.user_roles = [];
   }
 
@@ -32,6 +34,7 @@ export class AddUserComponent implements OnInit {
   }
 
   addUser() {
+    this.loading = true;
     this.adminService.addUserWithRoles(this.user).subscribe(
       result => console.log(result),
       error => console.log(error),
@@ -42,7 +45,7 @@ export class AddUserComponent implements OnInit {
   updateRoles(roleid: number) {
     var index = this.user.user_roles?.findIndex(ur => ur.role_id == roleid, 1);
 
-    if(index == -1) {
+    if (index == -1) {
       this.user.user_roles?.push(new UserRole(this.user.id, roleid, 0));
     }
     else {

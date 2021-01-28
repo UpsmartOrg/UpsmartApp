@@ -31,15 +31,14 @@
 <div class="row mb-3">
   <div class="col-12 col-lg-8">
     <div class="form-floating mb-3">
-      <input type="text" class="form-control" id="search" placeholder="Zoeken" 
-      [(ngModel)]="searchWord" (change)="filterUsers()">
+      <input type="text" class="form-control" id="search" placeholder="Zoeken" [(ngModel)]="searchWord"
+        (change)="filterUsers()">
       <label for="search">Zoeken</label>
     </div>
   </div>
   <div class="col-12 col-lg-4">
     <div class="form-floating">
-      <select class="form-select" id="floatingSelect" 
-      [(ngModel)]="searchRoleID" (change)="filterUsers()">
+      <select class="form-select" id="floatingSelect" [(ngModel)]="searchRoleID" (change)="filterUsers()">
         <option value="0" selected>Alle Rollen</option>
         <option value="1">Groendienst</option>
         <option value="2">Participatie</option>
@@ -70,7 +69,18 @@
               <th scope="col">Acties</th>
             </tr>
           </thead>
-          <tbody *ngIf="users">
+          <tbody *ngIf="users.length == 0">
+            <tr>
+              <th colspan="9" scope="row">
+                <div class="d-flex justify-content-center my-2">
+                  <div class="d-flex align-items-center">
+                    <div class="spinner-border ms-auto" role="status" aria-hidden="true"></div>
+                  </div>
+                </div>
+              </th>
+            </tr>
+          </tbody>
+          <tbody *ngIf="users.length > 0">
             <tr *ngFor="let user of users; let i = index">
               <td>{{ i + 1 }}</td>
               <td>{{ user.first_name }}</td>

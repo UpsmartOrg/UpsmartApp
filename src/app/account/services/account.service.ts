@@ -45,6 +45,6 @@ export class AccountService {
   }
 
   updateUser(user: User): Observable<User> {
-    return this.http.put<User>(this.url + '/users/', user);
+    return this.http.put<User>(this.url + '/users/' + user.id, user);
   }
 }

@@ -15,6 +15,8 @@ export class EditUserComponent implements OnInit {
   userID!: number;
   user!: User;
 
+  loading: boolean = false;
+
   adminRole = false;
   groendienstRole = false;
   participatieRole = false;
@@ -63,6 +65,7 @@ export class EditUserComponent implements OnInit {
   }
 
   updateUser() {
+    this.loading = true;
     this.adminService.updateUser(this.user).subscribe(
       result => console.log(result),
       error => console.log(error),
