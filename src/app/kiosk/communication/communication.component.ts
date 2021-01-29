@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
+import { Message } from 'src/app/shared/models/message.model';
+import { KioskService } from '../services/kiosk.service';
 
 @Component({
   selector: 'app-communication',
@@ -7,9 +10,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CommunicationComponent implements OnInit {
 
-  constructor() { }
+  messages: Message[] = [];
+
+  constructor(private titleService: Title, private kioskService: KioskService) {
+    this.titleService.setTitle("Stadsnieuws - Smart City Herentals");
+    this.loadMessages();
+  }
 
   ngOnInit(): void {
+  }
+
+  loadMessages() {
+    this.kioskService.getMessages().subscribe(
+      result => this.messages = result
+    )
   }
 
 }
