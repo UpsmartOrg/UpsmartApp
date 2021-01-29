@@ -39,7 +39,7 @@ const routes: Routes = [
   { path: 'participatie', redirectTo: 'participatie/dashboard', pathMatch: 'full' },
   { path: 'participatie/dashboard', component: ParticipationDashboardComponent },
   { path: 'participatie/enquete-toevoegen', component: AddSurveyComponent },
-  { path: 'participatie/enquete-wijzigen', component: EditSurveyComponent },
+  { path: 'participatie/enquete-wijzigen/:surveyID', component: EditSurveyComponent },
 
   // Communication routes
   { path: 'communicatie', redirectTo: '/communicatie/dashboard', pathMatch: 'full' },

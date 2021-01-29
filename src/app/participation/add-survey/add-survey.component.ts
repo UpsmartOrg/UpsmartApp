@@ -18,11 +18,7 @@ export class AddSurveyComponent implements OnInit {
   questionCounter: number = 0;
   survey: SurveyAdd;
 
-  openQuestions: OpenQuestion[] = [];
-  multiplechoiceQuestions: MultiplechoiceQuestion[] = [];
-
   allQuestions: any[] = [];
-
 
   constructor(private participationService: ParticipationService, private dialog: MatDialog, private router: Router) {
     this.survey = new SurveyAdd(1, '', '', new Date(), new Date(), [], []);
@@ -33,57 +29,64 @@ export class AddSurveyComponent implements OnInit {
 
   addQuestion() {
     this.questionCounter++;
-    var question = new OpenQuestion(0, 0, '', '', 5, this.questionCounter);
+    var question = new OpenQuestion(0, '', '', 5, this.questionCounter);
     this.allQuestions.push(question);
   }
 
   deleteQuestion(question: any) {
-    this.allQuestions.splice(this.allQuestions.findIndex(q => q.question_number == question.question_number), 1);
+    this.allQuestions.splice(this.allQuestions.findIndex(q => q.question_order == question.question_order), 1);
 
-    for (let qNumber = question.question_number + 1; qNumber <= this.questionCounter; qNumber++) {
-      var index = this.allQuestions.findIndex(q => q.question_number == qNumber)
-      this.allQuestions[index].question_number = qNumber - 1;
+    for (let qNumber = question.question_order + 1; qNumber <= this.questionCounter; qNumber++) {
+      var index = this.allQuestions.findIndex(q => q.question_order == qNumber)
+      this.allQuestions[index].question_order = qNumber - 1;
     }
 
     this.questionCounter--;
   }
 
-  isMultiplechoice(question: any): boolean {
-    if (question instanceof MultiplechoiceQuestion) {
+  isOpenQuestion(question: any): boolean {
+    if (question.rows) {
       return true;
     }
     return false;
   }
 
-  makeQuestionOpen(multiQuestion: MultiplechoiceQuestion) {
-    var openQuestion = new OpenQuestion(0, 0, '', '', 5, 0);
+  makeQuestionOpen(question: any) {
+    //Return if question is already an open question
+    if (this.isOpenQuestion(question)) {
+      return;
+    }
+    var openQuestion = new OpenQuestion(0, '', '', 5, 0);
 
-    openQuestion.title = multiQuestion.title;
-    openQuestion.description = multiQuestion.description;
-    openQuestion.question_number = multiQuestion.question_number;
+    openQuestion.title = question.title;
+    openQuestion.description = question.description;
+    openQuestion.question_order = question.question_order;
 
     this.updateList(openQuestion);
   }
 
-  makeQuestionMulti(openQuestion: OpenQuestion) {
-    var multiItems: MultiplechoiceItem[] = [];
-    var multiquestion = new MultiplechoiceQuestion(0, 0, '', '', false, 0, multiItems);
+  makeQuestionMulti(question: any) {
+    //Return if question is already a multi question
+    if (!this.isOpenQuestion(question)) {
+      return;
+    }
+    var multiquestion = new MultiplechoiceQuestion(0, '', '', false, 0, []);
 
-    multiquestion.title = openQuestion.title;
-    multiquestion.description = openQuestion.description;
-    multiquestion.question_number = openQuestion.question_number;
+    multiquestion.title = question.title;
+    multiquestion.description = question.description;
+    multiquestion.question_order = question.question_order;
 
     this.updateList(multiquestion);
   }
 
   updateList(question: any) {
-    this.allQuestions.splice(this.allQuestions.findIndex(q => q.question_number == question.question_number), 1);
+    this.allQuestions.splice(this.allQuestions.findIndex(q => q.question_order == question.question_order), 1);
     this.allQuestions.push(question);
-    this.allQuestions.sort((a, b) => (a.question_number > b.question_number) ? 1 : -1);
+    this.allQuestions.sort((a, b) => a.question_order - b.question_order);
   }
 
   addAnswer(question: MultiplechoiceQuestion) {
-    var multiItem = new MultiplechoiceItem(0, 0, '');
+    var multiItem = new MultiplechoiceItem(0, '');
     question.multiplechoice_items.push(multiItem);
   }
 

@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Survey } from 'src/app/shared/models/survey.model';
+import { User } from 'src/app/shared/models/user.model';
 import { ParticipationService } from '../services/participation.service';
 
 @Component({
@@ -15,13 +16,15 @@ export class ParticipationDashboardComponent implements OnInit {
 
   surveys: Survey[] = [];
   surveysCache!: Observable<Survey[]>;
-
+  users!: User[];
+  
   searchUserID: number = 0;
   searchWord: string = '';
 
   constructor(private titleService: Title, private router: Router, private participationService: ParticipationService) {
     this.titleService.setTitle("Participatie Dashboard - Smart City Herentals");
     this.loadSurveys();
+    this.loadUsers();
   }
 
   ngOnInit(): void {
@@ -32,7 +35,14 @@ export class ParticipationDashboardComponent implements OnInit {
 
     this.surveysCache.subscribe(
       result => this.surveys = result,
-    )
+    );
+  }
+
+  loadUsers() {
+    this.participationService.getUsers().subscribe(
+      result => this.users = result,
+      () => console.log(this.users)
+    );
   }
 
   filterSurveys() {
@@ -43,8 +53,7 @@ export class ParticipationDashboardComponent implements OnInit {
         )
       }), map(array => {
         return array.filter(survey => this.searchWord == null ? true : (
-          survey.name.toLowerCase().includes(this.searchWord.toLowerCase()) ||
-          survey.description.toLowerCase().includes(this.searchWord.toLowerCase())
+          survey.name.toLowerCase().includes(this.searchWord.toLowerCase())
         ))
       })
     ).subscribe(
@@ -57,7 +66,7 @@ export class ParticipationDashboardComponent implements OnInit {
   }
 
   editSurvey(id: number) {
-
+    this.router.navigate(['/participatie/enquete-wijzigen/' + id]);
   }
 
   deleteSurvey(survey: Survey) {

@@ -10,5 +10,8 @@ export class SurveyAdd {
         public end_date: Date,
         public open_questions: OpenQuestion[],
         public multiplechoice_questions: MultiplechoiceQuestion[],
+
+        //Optional
+        public id?: number,
     ) { }
 }

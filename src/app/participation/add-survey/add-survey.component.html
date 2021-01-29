@@ -62,7 +62,7 @@
   <!-- Card header/collapse button -->
   <div class="card-header" role="button" data-bs-toggle="collapse" attr.data-bs-target="#collapseQuestion{{i}}"
     aria-expanded="true">
-    vraag {{ question.question_number }} : {{ question.title }}
+    vraag {{ question.question_order }} : {{ question.title }}
     <em class="far fa-trash-alt float-end mt-1" (click)="deleteQuestion(question)"></em>
   </div>
   <!-- Card body/collapse area -->
@@ -82,20 +82,20 @@
         <div class="form-check">
           <input class="form-check-input" type="radio" name="questionType{{i}}" id="openQuestion{{i}}"
             [disabled]="question.multiplechoice_items && question.multiplechoice_items.length > 0"
-            [checked]="!isMultiplechoice(question)" (click)="makeQuestionOpen(question)">
+            [checked]="isOpenQuestion(question)" (click)="makeQuestionOpen(question)">
           <label class="form-check-label" for="openQuestion{{i}}">
             Open vraag
           </label>
         </div>
         <div class="form-check">
           <input class="form-check-input" type="radio" name="questionType{{i}}" id="multiQuestion{{i}}"
-            [checked]="isMultiplechoice(question)" (click)="makeQuestionMulti(question)">
+            [checked]="!isOpenQuestion(question)" (click)="makeQuestionMulti(question)">
           <label class="form-check-label" for="multiQuestion{{i}}">
             Multiple choice vraag
           </label>
         </div>
         <!-- Question Multiple answers possible -->
-        <div class="form-check" *ngIf="isMultiplechoice(question)">
+        <div class="form-check" *ngIf="!isOpenQuestion(question)">
           <input class="form-check-input" type="checkbox" name="multiAnswer{{i}}" id="multiAnswer{{i}}"
             [(ngModel)]="question.multiple_answers">
           <label class="form-check-label" for="multiAnswer">
@@ -103,7 +103,7 @@
           </label>
         </div>
         <!-- Multiple choice items-->
-        <div class="card mt-3" *ngIf="isMultiplechoice(question)">
+        <div class="card mt-3" *ngIf="!isOpenQuestion(question)">
           <div class="card-header">Antwoorden:</div>
           <div class="card-body">
             <div class="p-4">
