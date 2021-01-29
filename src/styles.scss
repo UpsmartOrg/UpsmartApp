@@ -27,7 +27,7 @@ $navbar-light-active-color: $primary;
 }
 
 body {
-  font-family: 'Titillium Regular', sans-serif;
+  font-family: 'Titillium Regular', sans-serif !important;
 
   .nav-item {
     a {
