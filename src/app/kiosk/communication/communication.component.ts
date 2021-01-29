@@ -30,4 +30,8 @@ export class CommunicationComponent implements OnInit {
   goToMessage(messageID: number) {
     this.router.navigate(['kiosk/stadsnieuws/' + messageID]);
   }
+
+  redirectTo() {
+    this.router.navigate(['kiosk/home']);
+  }
 }

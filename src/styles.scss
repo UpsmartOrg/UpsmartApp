@@ -70,4 +70,13 @@ body {
     }
   }
 
+  .link {
+    color: #AC162C;
+    text-decoration: underline;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
 }

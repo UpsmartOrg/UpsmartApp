@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 import { Survey } from 'src/app/shared/models/survey.model';
 import { KioskService } from '../services/kiosk.service';
 
@@ -11,7 +12,7 @@ import { KioskService } from '../services/kiosk.service';
 export class SurveyListComponent implements OnInit {
   surveys: Survey[] = [];
 
-  constructor(private titleService: Title, private kioskService: KioskService) {
+  constructor(private titleService: Title, private kioskService: KioskService, private router: Router) {
     this.titleService.setTitle("Bevragingen - Smart City Herentals");
     this.loadSurveys();
   }
@@ -27,6 +28,10 @@ export class SurveyListComponent implements OnInit {
 
   goToSurvey(surveyID: number) {
     console.log(surveyID)
+  }
+
+  redirectTo() {
+    this.router.navigate(['kiosk/home']);
   }
 
 }
