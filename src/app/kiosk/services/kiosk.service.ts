@@ -25,5 +25,9 @@ export class KioskService {
     return this.http.get<Message[]>(this.url + '/information');
   }
 
+  getMessage(messageID: number): Observable<Message> {
+    return this.http.get<Message>(this.url + '/information/' + messageID);
+  }
+
 
 }
