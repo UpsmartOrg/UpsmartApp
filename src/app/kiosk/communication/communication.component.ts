@@ -26,4 +26,8 @@ export class CommunicationComponent implements OnInit {
     )
   }
 
+  goToMessage(messageID: number) {
+    console.log(messageID)
+  }
+
 }
