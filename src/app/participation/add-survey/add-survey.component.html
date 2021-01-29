@@ -28,72 +28,102 @@
 
 <h2 class="mt-5 h3">Algemeen</h2>
 <hr>
+<!-- Survey Info -->
 <div class="mb-3">
   <label for="title" class="form-label">Titel</label>
-  <input type="text" class="form-control" id="title">
+  <input type="text" class="form-control" id="surveyTitle" [(ngModel)]="survey.name">
 </div>
 <div class="mb-3">
   <label for="description" class="form-label">Beschrijving</label>
-  <textarea class="form-control" id="description" rows="3"></textarea>
+  <textarea class="form-control" id="surveyDescription" rows="3" [(ngModel)]="survey.description"></textarea>
 </div>
+<div class="row">
+  <div class="col-6">
+    <div class="mb-3">
+      <label for="surveyStartDate" class="form-label">Start datum</label>
+      <input type="date" class="form-control" id="surveyStartDate" [(ngModel)]="survey.start_date">
+    </div>
+  </div>
 
-<h2 class="mt-5 h3">Vragen <em class="float-end far fa-plus-square mt-2" (click)="addSurvey()"></em></h2>
-<hr>
-<div class="card card-header mb-3">
-  <p class="m-0 p-0">Vraag 1: Uw naam <em class="far fa-trash-alt float-end mt-1"></em></p>
-</div>
-<div class="card shadow-sm">
-  <div class="card-header">Vraag 2:</div>
-  <div class="card-body">
-    <div class="p-4">
-      <div class="mb-3">
-        <label for="title" class="form-label">Titel</label>
-        <input type="text" class="form-control" id="title">
-      </div>
-
-      <div class="mb-3">
-        <label for="description" class="form-label">Extra info</label>
-        <textarea class="form-control" id="description" rows="2"></textarea>
-      </div>
-
-      <div class="form-check">
-        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-        <label class="form-check-label" for="flexRadioDefault1">
-          Open vraag
-        </label>
-      </div>
-      <div class="form-check">
-        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
-        <label class="form-check-label" for="flexRadioDefault2">
-          Multiple choice vraag
-        </label>
-      </div>
-      <div class="form-check">
-        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
-        <label class="form-check-label" for="flexRadioDefault2">
-          Dropdown vraag
-        </label>
-      </div>
-      <div class="card mt-3">
-        <div class="card-header">Antwoorden:</div>
-        <div class="card-body">
-          <div class="p-4">
-            <div class="mb-3">
-              <label for="answer1" class="form-label">Antwoord 1</label>
-              <input type="text" class="form-control" id="answer1">
-            </div>
-            <div class="mb-3">
-              <label for="answer2" class="form-label">Antwoord 2</label>
-              <input type="text" class="form-control" id="answer2">
-            </div>
-            <p class="h3"><em class="fas fa-plus-circle"></em></p>
-          </div>
-        </div>
-      </div>
-      <button type="button" class="btn btn-primary mt-3 text-uppercase">Vraag toevoegen</button>
+  <div class="col-6">
+    <div class="mb-3">
+      <label for="surveyEndDate" class="form-label">Eind datum</label>
+      <input type="date" class="form-control" id="surveyEndDate" [(ngModel)]="survey.end_date">
     </div>
   </div>
 </div>
-<div class="d-grid">
-  <button type="button" class="btn btn-primary mt-3 text-uppercase">Enquête opslaan</button>
+
+<h2 class="mt-5 h3">Vragen
+  <em class="float-end far fa-plus-square mt-2" (click)="addQuestion()"></em>
+</h2>
+<hr>
+<!-- Question List -->
+<div class="card shadow-sm mb-3" *ngFor="let question of allQuestions; let i = index">
+  <!-- Card header/collapse button -->
+  <div class="card-header" role="button" data-bs-toggle="collapse" attr.data-bs-target="#collapseQuestion{{i}}"
+    aria-expanded="true">
+    vraag {{ question.question_number }} : {{ question.title }}
+    <em class="far fa-trash-alt float-end mt-1" (click)="deleteQuestion(question)"></em>
+  </div>
+  <!-- Card body/collapse area -->
+  <div class="collapse show" id="collapseQuestion{{i}}">
+    <div class="card-body">
+      <div class="p-4">
+        <!-- Question Info -->
+        <div class="mb-3">
+          <label for="title" class="form-label">Titel</label>
+          <input type="text" class="form-control" [(ngModel)]="question.title">
+        </div>
+        <div class="mb-3">
+          <label for="description" class="form-label">Extra info</label>
+          <textarea class="form-control" rows="2" [(ngModel)]="question.description"></textarea>
+        </div>
+        <!-- Question Type -->
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="questionType{{i}}" id="openQuestion{{i}}"
+            [disabled]="question.multiplechoice_items && question.multiplechoice_items.length > 0"
+            [checked]="!isMultiplechoice(question)" (click)="makeQuestionOpen(question)">
+          <label class="form-check-label" for="openQuestion{{i}}">
+            Open vraag
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="questionType{{i}}" id="multiQuestion{{i}}"
+            [checked]="isMultiplechoice(question)" (click)="makeQuestionMulti(question)">
+          <label class="form-check-label" for="multiQuestion{{i}}">
+            Multiple choice vraag
+          </label>
+        </div>
+        <!-- Question Multiple answers possible -->
+        <div class="form-check" *ngIf="isMultiplechoice(question)">
+          <input class="form-check-input" type="checkbox" name="multiAnswer{{i}}" id="multiAnswer{{i}}"
+            [(ngModel)]="question.multiple_answers">
+          <label class="form-check-label" for="multiAnswer">
+            Meerdere antwoorden mogelijk
+          </label>
+        </div>
+        <!-- Multiple choice items-->
+        <div class="card mt-3" *ngIf="isMultiplechoice(question)">
+          <div class="card-header">Antwoorden:</div>
+          <div class="card-body">
+            <div class="p-4">
+              <div class="mb-3" *ngFor="let item of question.multiplechoice_items; let j = index">
+                <em class="far fa-trash-alt float-end mt-1" (click)="deleteAnswer(question, j)"></em>
+                <label for="answer1" class="form-label">Antwoord {{ j + 1 }} </label>
+                <input type="text" class="form-control" [(ngModel)]="item.title">
+              </div>
+              <!-- Add multiple choice item -->
+              <p class="h3"><em class="fas fa-plus-circle" (click)="addAnswer(question)"></em></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<button type="button" class="btn btn-primary mt-3 text-uppercase" (click)="addQuestion()">Vraag toevoegen</button>
+
+<div class="d-grid mt-5">
+  <button type="button" class="btn btn-primary mt-3 text-uppercase" (click)="saveSurvey()">Enquête opslaan</button>
 </div>

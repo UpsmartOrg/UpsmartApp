@@ -85,15 +85,12 @@ export class AdminDashboardComponent implements OnInit {
   }
 
   deleteDialog(user: User) {
-    this.openDialog(user);
-  }
-  openDialog(user: User): void {
     //Make sure the user doesn't delete himself
     // if (user.id == this.authenticatedUser.userID) {
     //   const dialogRef = this.dialog.open(ErrorDialogComponent, { data: "You can't delete yourself", height: '400px', width: '400px' });
     // }
     var message: string = "Ben je zeker dat je de gebruiker "
-      + user.first_name.toUpperCase() + " " + user.last_name.toUpperCase() + " wil verwijderen?\n"
+    + user.first_name.toUpperCase() + " " + user.last_name.toUpperCase() + " wil verwijderen?\n"
 
     const dialogRef = this.dialog.open(WarningDialogComponent, {
       data: message,

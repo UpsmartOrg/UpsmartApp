@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { Survey } from 'src/app/shared/models/survey.model';
+import { ParticipationService } from '../services/participation.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,15 +13,55 @@ import { Router } from '@angular/router';
 })
 export class ParticipationDashboardComponent implements OnInit {
 
-  constructor(private titleService: Title, private router: Router) {
+  surveys: Survey[] = [];
+  surveysCache!: Observable<Survey[]>;
+
+  searchUserID: number = 0;
+  searchWord: string = '';
+
+  constructor(private titleService: Title, private router: Router, private participationService: ParticipationService) {
     this.titleService.setTitle("Participatie Dashboard - Smart City Herentals");
+    this.loadSurveys();
   }
 
   ngOnInit(): void {
   }
 
+  loadSurveys() {
+    this.surveysCache = this.participationService.getSurveysWithUser();
+
+    this.surveysCache.subscribe(
+      result => this.surveys = result,
+    )
+  }
+
+  filterSurveys() {
+    this.surveysCache.pipe(
+      map(array => {
+        return array.filter(survey => this.searchUserID == 0 ? true :
+          survey.user_id == this.searchUserID
+        )
+      }), map(array => {
+        return array.filter(survey => this.searchWord == null ? true : (
+          survey.name.toLowerCase().includes(this.searchWord.toLowerCase()) ||
+          survey.description.toLowerCase().includes(this.searchWord.toLowerCase())
+        ))
+      })
+    ).subscribe(
+      result => this.surveys = result
+    );
+  }
+
   redirectTo(route: string) {
     this.router.navigateByUrl(route);
+  }
+
+  editSurvey(id: number) {
+
+  }
+
+  deleteSurvey(survey: Survey) {
+
   }
 
 }
