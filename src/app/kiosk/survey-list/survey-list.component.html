@@ -1,1 +1,59 @@
-<p>survey-list works!</p>
+<!-- Heading -->
+<h1 class="mt-5 pt-5">Bevragingen <em class="float-end far fa-question-circle help mt-3" data-bs-toggle="collapse"
+    data-bs-target="#help" aria-expanded="false" aria-controls="help"></em></h1>
+<hr>
+
+<!-- Help -->
+<!-- TODO: handleiding invullen -->
+<div class="collapse mb-3" id="help">
+  <div class="card">
+    <div class="card-header">Handleiding Bevragingen</div>
+    <div class="card-body">
+      <p class="my-2 p-0">Korte handleiding met wat extra uitleg over hoe deze pagina werkt. (+ evt ondersteunende
+        afbeeldingen)</p>
+      <p class="my-2 p-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut iste animi id ducimus ea obcaecati
+        nesciunt, suscipitest necessitatibus culpa quis odit, quod optio officia sequi amet laboriosam consequatur
+        deleniti.</p>
+      <p class="my-2 p-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut iste animi id ducimus ea obcaecati
+        nesciunt, suscipitest necessitatibus culpa quis odit, quod optio officia sequi amet laboriosam consequatur
+        deleniti.</p>
+      <p class="my-2 p-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut iste animi id ducimus ea obcaecati
+        nesciunt, suscipitest necessitatibus culpa quis odit, quod optio officia sequi amet laboriosam consequatur
+        deleniti.</p>
+    </div>
+
+  </div>
+</div>
+
+<!-- Content -->
+
+<div class="mb-4">
+  <p>
+    [Extra woordje uitleg] Lorem ipsum dolor, sit amet consectetur adipisicing elit. Beatae natus perspiciatis inventore
+    optio! Blanditiis possimus provident corporis autem. Dolor et non, error nesciunt fuga ut possimus veniam, maiores
+    incidunt est illum in ea itaque sit ab placeat perspiciatis quidem quae atque, velit distinctio soluta vero
+    quibusdam
+    quo! Nobis, similique laudantium!
+  </p>
+  <h3>Kies een bevraging om in te vullen:</h3>
+</div>
+
+<div class="row">
+  <div *ngIf="surveys.length == 0">
+    <div class="text-center mt-5">
+      <div class="spinner-border" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-4 mb-3" *ngFor="let survey of surveys">
+    <div class="card w-100 clickable-card" (click)="goToSurvey(survey.id)">
+      <div class="card-body">
+        <h5 class="card-title">{{ survey.name }}</h5>
+        <h6 class="card-subtitle mb-2 text-muted">beschikbaar tot {{ survey.end_date | date:'dd-MM-yyyy' }}</h6>
+        <p class="card-text">{{ survey.description }}</p>
+        <a class="card-link">Klik hier om de bevraging te starten</a>
+      </div>
+    </div>
+  </div>
+</div>

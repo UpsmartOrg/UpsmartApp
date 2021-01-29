@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { KioskHomeComponent } from './home/home.component';
 import { SurveyComponent } from './survey/survey.component';
 import { SurveyListComponent } from './survey-list/survey-list.component';
+import { CommunicationComponent } from './communication/communication.component';
 
 
 
 @NgModule({
-  declarations: [KioskHomeComponent, SurveyComponent, SurveyListComponent],
+  declarations: [KioskHomeComponent, SurveyComponent, SurveyListComponent, CommunicationComponent],
   imports: [
     CommonModule
   ]
