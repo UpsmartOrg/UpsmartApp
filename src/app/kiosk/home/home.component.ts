@@ -9,24 +9,14 @@ import { KioskService } from '../services/kiosk.service';
   styleUrls: ['./home.component.scss']
 })
 export class KioskHomeComponent implements OnInit {
-  surveys: Survey[] = [];
 
-  constructor(private titleService: Title, private kioskService: KioskService) {
+  constructor(private titleService: Title) {
     this.titleService.setTitle("Kiosk Homepage - Smart City Herentals");
-    this.loadSurveys();
+
   }
 
   ngOnInit(): void {
   }
 
-  loadSurveys() {
-    this.kioskService.getSurveys().subscribe(
-      result => this.surveys = result,
-    )
-  }
-
-  goToSurvey(surveyID: number) {
-    console.log(surveyID)
-  }
 
 }
