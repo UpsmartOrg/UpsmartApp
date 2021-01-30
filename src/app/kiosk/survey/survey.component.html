@@ -24,3 +24,18 @@
 
   </div>
 </div>
+
+<!-- Content -->
+
+<div class="mb-3">
+  <p (click)="redirectTo()" class="link">&#8630; Terug naar bevragingen</p>
+</div>
+
+<div class="card">
+  <div class="card-header">
+    <h2 class="h3">{{ survey.name }}</h2>
+  </div>
+  <div class="card-body">
+    <p *ngFor="let question of questions">{{ question.title }}</p>
+  </div>
+</div>
