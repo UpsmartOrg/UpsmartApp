@@ -15,11 +15,16 @@ export class SurveyComponent implements OnInit {
   survey!: Survey;
 
   questions: any[] = [];
+  multiItems: any[] = [];
+
+  loadingOQ: boolean = true;
+  loadingMQ: boolean = true;
+  loadingMQI: boolean = true;
 
   constructor(private titleService: Title, private route: ActivatedRoute, private kioskService: KioskService, private router: Router) {
     this.titleService.setTitle("Bevraging invullen - Smart City Herentals");
     this.surveyID = this.route.snapshot.params['surveyID'];
-    this.loadSurvey(this.surveyID);
+    this.loadSurvey(this.surveyID)
   }
 
   ngOnInit(): void {
@@ -39,7 +44,17 @@ export class SurveyComponent implements OnInit {
       result => {
         result.forEach(question => {
           this.questions.push(question);
+          this.kioskService.getMultiItems(question.id).subscribe(
+            result2 => {
+              result2.forEach(item => {
+                this.multiItems.push(item);
+              });
+              this.loadingMQI = false;
+            }
+          )
         });
+        this.loadingMQ = false;
+        this.questions.sort((a, b) => a.question_order - b.question_order)
       }
     );
     this.kioskService.getOpenQuestions(surveyID).subscribe(
@@ -47,6 +62,8 @@ export class SurveyComponent implements OnInit {
         result.forEach(question => {
           this.questions.push(question);
         });
+        this.loadingOQ = false;
+        this.questions.sort((a, b) => a.question_order - b.question_order)
       }
     );
   }

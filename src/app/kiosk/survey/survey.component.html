@@ -31,11 +31,54 @@
   <p (click)="redirectTo()" class="link">&#8630; Terug naar bevragingen</p>
 </div>
 
-<div class="card">
+<div *ngIf="loadingOQ || loadingMQ || loadingMQI">
+  <div class="text-center mt-5">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+</div>
+
+<div class="card" *ngIf="!loadingOQ && !loadingMQ && !loadingMQI">
   <div class="card-header">
     <h2 class="h3">{{ survey.name }}</h2>
   </div>
   <div class="card-body">
-    <p *ngFor="let question of questions">{{ question.title }}</p>
+    <div *ngFor="let question of questions; let i = index">
+      <div *ngIf="question.rows">
+        <div class="mb-3 mt-3 pt-2">
+          <label for="exampleFormControlInput1" class="form-label">{{ i + 1 }}. {{ question.title }}</label>
+          <textarea type="text" class="form-control" id="exampleFormControlInput1"></textarea>
+        </div>
+      </div>
+      <div *ngIf="!question.rows">
+        <div *ngIf="question.multiple_answers == 1">
+          <div class="mb-3 mt-3 pt-2">
+            <label>{{ i + 1 }}. {{ question.title }}</label>
+            <div *ngFor="let item of multiItems">
+              <div class="form-check" *ngIf="item.multiplechoice_question_id == question.id">
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                <label class="form-check-label" for="flexCheckDefault">
+                  {{ item.title }}
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="question.multiple_answers == 0">
+          <div class="mb-3 mt-3 pt-2">
+            <label>{{ i + 1 }}. {{ question.title }}</label>
+            <div *ngFor="let item of multiItems">
+              <div class="form-check" *ngIf="item.multiplechoice_question_id == question.id">
+                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                <label class="form-check-label" for="flexRadioDefault1">
+                  {{ item.title }}
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
