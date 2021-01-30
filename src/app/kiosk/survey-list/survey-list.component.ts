@@ -27,7 +27,7 @@ export class SurveyListComponent implements OnInit {
   }
 
   goToSurvey(surveyID: number) {
-    console.log(surveyID)
+    this.router.navigate(['kiosk/bevraging/' + surveyID]);
   }
 
   redirectTo() {
