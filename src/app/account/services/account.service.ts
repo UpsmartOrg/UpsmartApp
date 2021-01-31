@@ -20,7 +20,7 @@ export class AccountService {
     this.user.subscribe(x => this.currentUser = x);
   }
 
-  private url = "http://127.0.0.1:8000/api";
+  private url = "http://smartcityapi.seppealaerts.be/api";
 
   login(username: string, password: string) {
     return this.http.post<User>(this.url + "/login", { "email": username, "password": password })

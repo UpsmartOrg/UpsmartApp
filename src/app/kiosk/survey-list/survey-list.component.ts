@@ -22,7 +22,11 @@ export class SurveyListComponent implements OnInit {
 
   loadSurveys() {
     this.kioskService.getSurveys().subscribe(
-      result => this.surveys = result,
+      result => result.forEach(survey => {
+        if (new Date(survey.start_date) < new Date() && new Date(survey.end_date) > new Date()) {
+          this.surveys.push(survey);
+        }
+      })
     )
   }
 

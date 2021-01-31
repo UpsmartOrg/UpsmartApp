@@ -23,7 +23,6 @@ export class AddSurveyComponent implements OnInit {
 
   allQuestions: any[] = [];
 
-
   constructor(private participationService: ParticipationService, private dialog: MatDialog, private router: Router) {
     this.survey = new SurveyAdd(1, '', '', new Date(), new Date(), [], []);
   }
