@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+declare var $: any;
+
 @Component({
   selector: 'app-alert',
   templateUrl: './alert.component.html',
@@ -10,6 +12,9 @@ export class AlertComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    $(".showtoast").click(function () {
+      $('.toast').toast('show');
+    })
   }
 
 }
