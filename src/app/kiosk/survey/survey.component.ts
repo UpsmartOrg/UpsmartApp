@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChildren, QueryList } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Survey } from 'src/app/shared/models/survey.model';
+import { QuestionComponent } from '../question/question.component';
 import { KioskService } from '../services/kiosk.service';
 
 @Component({
@@ -10,6 +11,8 @@ import { KioskService } from '../services/kiosk.service';
   styleUrls: ['./survey.component.scss']
 })
 export class SurveyComponent implements OnInit {
+
+  @ViewChildren('question') components!: QueryList<QuestionComponent>;
 
   surveyID!: number;
   survey!: Survey;
@@ -66,6 +69,12 @@ export class SurveyComponent implements OnInit {
         this.questions.sort((a, b) => a.question_order - b.question_order)
       }
     );
+  }
+
+  saveAnswers() {
+    this.components.forEach(component => {
+      component.saveAnswer();
+    });
   }
 
   redirectTo() {

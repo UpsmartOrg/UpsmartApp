@@ -37,4 +37,8 @@ export class QuestionComponent implements OnInit {
     }
   }
 
+  saveAnswer() {
+    console.log('saved');
+  }
+
 }
