@@ -37,11 +37,11 @@
   </div>
   <div class="col-12 col-lg-4">
     <div class="form-floating">
-      <select class="form-select" id="floatingSelect" 
-      [(ngModel)]="searchUserID" (change)="filterSurveys()">
+      <select class="form-select" id="floatingSelect" [(ngModel)]="searchUserID" (change)="filterSurveys()">
         <option selected value="0">Alle gebruikers</option>
-        <option value="1">Emma Timmermans</option>
-        <option value="2">Bert Maes</option>
+        <option *ngFor="let user of users" [value]="user.id">
+          {{ user.first_name + ' ' + user.last_name }}
+        </option>
       </select>
       <label for="floatingSelect">Aangemaakt door</label>
     </div>
