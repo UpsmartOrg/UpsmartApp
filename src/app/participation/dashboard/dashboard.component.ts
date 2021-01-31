@@ -70,7 +70,7 @@ export class ParticipationDashboardComponent implements OnInit {
   }
 
   deleteSurvey(survey: Survey) {
-
+    this.participationService.deleteSurvey(survey.id).subscribe();
   }
 
 }

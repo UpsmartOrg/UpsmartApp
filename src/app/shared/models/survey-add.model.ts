@@ -1,5 +1,5 @@
-import { MultiplechoiceQuestion } from "./multiplechoice-question.model";
-import { OpenQuestion } from "./open-question.model";
+import { MultiplechoiceQuestionAdd } from "./multiplechoice-question-add.model";
+import { OpenQuestionAdd } from "./open-question-add.model";
 
 export class SurveyAdd {
     constructor(
@@ -8,8 +8,8 @@ export class SurveyAdd {
         public description: string,
         public start_date: Date,
         public end_date: Date,
-        public open_questions: OpenQuestion[],
-        public multiplechoice_questions: MultiplechoiceQuestion[],
+        public open_questions: OpenQuestionAdd[],
+        public multiplechoice_questions: MultiplechoiceQuestionAdd[],
 
         //Optional
         public id?: number,

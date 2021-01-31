@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MultiplechoiceItem } from 'src/app/shared/models/multiplechoice-item.model';
-import { MultiplechoiceQuestion } from 'src/app/shared/models/multiplechoice-question.model';
-import { OpenQuestion } from 'src/app/shared/models/open-question.model';
+import { MultiplechoiceItemAdd } from 'src/app/shared/models/multiplechoice-item-add.model';
+import { MultiplechoiceQuestionAdd } from 'src/app/shared/models/multiplechoice-question-add.model';
+import { OpenQuestionAdd } from 'src/app/shared/models/open-question-add.model';
 import { SurveyAdd } from 'src/app/shared/models/survey-add.model';
 import { ParticipationService } from '../services/participation.service';
 
@@ -46,7 +46,7 @@ export class EditSurveyComponent implements OnInit {
 
   addQuestion() {
     this.questionCounter++;
-    var question = new OpenQuestion(this.surveyID, '', '', 5, this.questionCounter);
+    var question = new OpenQuestionAdd(this.surveyID, '', '', 5, this.questionCounter);
     this.allQuestions.push(question);
   }
 
@@ -73,7 +73,7 @@ export class EditSurveyComponent implements OnInit {
     if (this.isOpenQuestion(question)) {
       return;
     }
-    var openQuestion = new OpenQuestion(this.surveyID, '', '', 5, 0);
+    var openQuestion = new OpenQuestionAdd(this.surveyID, '', '', 5, 0);
 
     openQuestion.title = question.title;
     openQuestion.description = question.description;
@@ -87,7 +87,7 @@ export class EditSurveyComponent implements OnInit {
     if (!this.isOpenQuestion(question)) {
       return;
     }
-    var multiquestion = new MultiplechoiceQuestion(this.surveyID, '', '', false, 0, []);
+    var multiquestion = new MultiplechoiceQuestionAdd(this.surveyID, '', '', false, 0, []);
 
     multiquestion.title = question.title;
     multiquestion.description = question.description;
@@ -99,28 +99,28 @@ export class EditSurveyComponent implements OnInit {
   updateList(question: any) {
     this.allQuestions.splice(this.allQuestions.findIndex(q => q.question_order == question.question_order), 1);
     this.allQuestions.push(question);
-    this.allQuestions.sort((a, b) => (a.question_order > b.question_order) ? 1 : -1);
+    this.allQuestions.sort((a, b) => a.question_order - b.question_order);
   }
 
-  addAnswer(question: MultiplechoiceQuestion) {
-    var multiItem = new MultiplechoiceItem(0, '');
+  addAnswer(question: MultiplechoiceQuestionAdd) {
+    var multiItem = new MultiplechoiceItemAdd(0, '');
     question.multiplechoice_items.push(multiItem);
   }
 
-  deleteAnswer(question: MultiplechoiceQuestion, index: number) {
+  deleteAnswer(question: MultiplechoiceQuestionAdd, index: number) {
     question.multiplechoice_items.splice(index, 1);
   }
 
   saveSurvey() {
     this.allQuestions.forEach(question => {
-      if (question instanceof MultiplechoiceQuestion) {
+      if (!this.isOpenQuestion(question)) {
         this.survey.multiplechoice_questions.push(question);
-      } else if (question instanceof OpenQuestion) {
+      } else if (this.isOpenQuestion(question)) {
         this.survey.open_questions.push(question);
       }
     });
 
-    this.participationService.addSurveyComplete(this.survey).subscribe(
+    this.participationService.updateSurveyComplete(this.survey).subscribe(
       () => this.router.navigate(['/participatie/dashboard'])
     );
   }

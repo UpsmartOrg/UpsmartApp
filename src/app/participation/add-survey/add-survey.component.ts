@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { WarningDialogComponent } from 'src/app/shared/dialogs/warning-dialog/warning-dialog.component';
-import { MultiplechoiceItem } from 'src/app/shared/models/multiplechoice-item.model';
-import { MultiplechoiceQuestion } from 'src/app/shared/models/multiplechoice-question.model';
-import { OpenQuestion } from 'src/app/shared/models/open-question.model';
+import { MultiplechoiceItemAdd } from 'src/app/shared/models/multiplechoice-item-add.model';
+import { MultiplechoiceQuestionAdd } from 'src/app/shared/models/multiplechoice-question-add.model';
+import { OpenQuestionAdd } from 'src/app/shared/models/open-question-add.model';
 import { SurveyAdd } from 'src/app/shared/models/survey-add.model';
 import { ParticipationService } from '../services/participation.service';
 
@@ -29,7 +29,7 @@ export class AddSurveyComponent implements OnInit {
 
   addQuestion() {
     this.questionCounter++;
-    var question = new OpenQuestion(0, '', '', 5, this.questionCounter);
+    var question = new OpenQuestionAdd(0, '', '', 5, this.questionCounter);
     this.allQuestions.push(question);
   }
 
@@ -56,7 +56,7 @@ export class AddSurveyComponent implements OnInit {
     if (this.isOpenQuestion(question)) {
       return;
     }
-    var openQuestion = new OpenQuestion(0, '', '', 5, 0);
+    var openQuestion = new OpenQuestionAdd(0, '', '', 5, 0);
 
     openQuestion.title = question.title;
     openQuestion.description = question.description;
@@ -70,7 +70,7 @@ export class AddSurveyComponent implements OnInit {
     if (!this.isOpenQuestion(question)) {
       return;
     }
-    var multiquestion = new MultiplechoiceQuestion(0, '', '', false, 0, []);
+    var multiquestion = new MultiplechoiceQuestionAdd(0, '', '', false, 0, []);
 
     multiquestion.title = question.title;
     multiquestion.description = question.description;
@@ -85,20 +85,20 @@ export class AddSurveyComponent implements OnInit {
     this.allQuestions.sort((a, b) => a.question_order - b.question_order);
   }
 
-  addAnswer(question: MultiplechoiceQuestion) {
-    var multiItem = new MultiplechoiceItem(0, '');
+  addAnswer(question: MultiplechoiceQuestionAdd) {
+    var multiItem = new MultiplechoiceItemAdd(0, '');
     question.multiplechoice_items.push(multiItem);
   }
 
-  deleteAnswer(question: MultiplechoiceQuestion, index: number) {
+  deleteAnswer(question: MultiplechoiceQuestionAdd, index: number) {
     question.multiplechoice_items.splice(index, 1);
   }
 
   saveSurvey() {
     this.allQuestions.forEach(question => {
-      if(question instanceof MultiplechoiceQuestion) {
+      if(question instanceof MultiplechoiceQuestionAdd) {
         this.survey.multiplechoice_questions.push(question);
-      }else if (question instanceof OpenQuestion) {
+      }else if (question instanceof OpenQuestionAdd) {
         this.survey.open_questions.push(question);
       }
     });
@@ -106,5 +106,18 @@ export class AddSurveyComponent implements OnInit {
     this.participationService.addSurveyComplete(this.survey).subscribe(
       () => this.router.navigate(['/participatie/dashboard'])
     );
+  }
+
+  questionErrorCheck(): boolean {
+    var errorCount = 0;
+    var errorMessages = "";
+    this.allQuestions.forEach(question => {
+      if(!question.title) {
+        errorCount++;
+        errorMessages += "Vul een naam in voor vraag " + question.question_order;
+      }
+    });
+
+    return true;
   }
 }

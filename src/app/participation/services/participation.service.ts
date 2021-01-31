@@ -23,7 +23,7 @@ export class ParticipationService {
     return this.http.get<SurveyAdd>(this.url + '/surveys/complete/' + id);
   }
 
-  updateSurveyComplete(survey: Survey): Observable<Survey> {
+  updateSurveyComplete(survey: SurveyAdd): Observable<Survey> {
     return this.http.put<Survey>(this.url + '/surveys/complete/' + survey.id, survey);
   }
 
