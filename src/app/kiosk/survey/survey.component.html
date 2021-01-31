@@ -45,7 +45,19 @@
   </div>
   <div class="card-body">
     <div *ngFor="let question of questions; let i = index">
-      <app-question [question]="question" [index]="i" [multiItems]="multiItems"></app-question>
+      <app-question [question]="question" [index]="i" [multiItems]="multiItems" [surveyID]="survey.id"></app-question>
+    </div>
+
+    <div class="row mb-5">
+      <div class="col">
+        <button type="button" class="btn btn-primary mt-3 text-uppercase">
+          <span> Opslaan en verzenden</span>
+        </button>
+        <button class="btn btn-primary mt-3 text-uppercase" type="button" disabled>
+          <span class="spinner-border spinner-border-sm mb-1" role="status" aria-hidden="true"></span>
+          Laden...
+        </button>
+      </div>
     </div>
   </div>
 </div>

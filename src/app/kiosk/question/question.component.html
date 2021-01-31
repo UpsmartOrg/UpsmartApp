@@ -1,7 +1,8 @@
 <div *ngIf="question.rows">
   <div class="mb-3 mt-3 pt-2">
-    <label for="exampleFormControlInput1" class="form-label">{{ index + 1 }}. {{ question.title }}</label>
-    <textarea type="text" class="form-control" id="exampleFormControlInput1"></textarea>
+    <label for="{{ 'input' + index }}" class="form-label">{{ index + 1 }}. {{ question.title }}</label>
+    <textarea type="text" class="form-control" id="{{ 'input' + index }}"
+      [(ngModel)]="answer.open_question_answer"></textarea>
   </div>
 </div>
 <div *ngIf="!question.rows">
@@ -10,8 +11,9 @@
       <label>{{ index + 1 }}. {{ question.title }}</label>
       <div *ngFor="let item of multiItems">
         <div class="form-check" *ngIf="item.multiplechoice_question_id == question.id">
-          <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-          <label class="form-check-label" for="flexCheckDefault">
+          <input class="form-check-input" type="checkbox" value="item.id" name="{{ 'check' + index }}"
+            id="{{ 'check' + index }}" (click)="addCheck(item.id)">
+          <label class="form-check-label" for="{{ 'check' + index }}">
             {{ item.title }}
           </label>
         </div>
@@ -23,8 +25,9 @@
       <label>{{ index + 1 }}. {{ question.title }}</label>
       <div *ngFor="let item of multiItems">
         <div class="form-check" *ngIf="item.multiplechoice_question_id == question.id">
-          <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-          <label class="form-check-label" for="flexRadioDefault1">
+          <input class="form-check-input" type="radio" value="{{ item.id }}" name="{{ 'radio' + index }}"
+            id="{{ 'radio' + index }}" [(ngModel)]="answer.multiplechoice_item_id">
+          <label class="form-check-label" for="{{ 'radio' + index }}">
             {{ item.title }}
           </label>
         </div>

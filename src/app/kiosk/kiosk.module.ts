@@ -7,13 +7,14 @@ import { CommunicationComponent } from './communication/communication.component'
 import { MessageDetailsComponent } from './message-details/message-details.component';
 import { MaterialModule } from '../shared/material.module';
 import { QuestionComponent } from './question/question.component'
-
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [KioskHomeComponent, SurveyComponent, SurveyListComponent, CommunicationComponent, MessageDetailsComponent, QuestionComponent],
   imports: [
     CommonModule,
-    MaterialModule
+    MaterialModule,
+    FormsModule
   ]
 })
 export class KioskModule { }
