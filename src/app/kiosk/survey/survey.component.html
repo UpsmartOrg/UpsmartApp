@@ -24,3 +24,42 @@
 
   </div>
 </div>
+
+<!-- Content -->
+
+<div class="mb-3">
+  <p (click)="redirectTo()" class="link">&#8630; Terug naar bevragingen</p>
+</div>
+
+<div *ngIf="loadingOQ || loadingMQ || loadingMQI">
+  <div class="text-center mt-5">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+</div>
+
+<div class="card" *ngIf="!loadingOQ && !loadingMQ && !loadingMQI">
+  <div class="card-header">
+    <h2 class="h3">{{ survey.name }}</h2>
+  </div>
+  <div class="card-body">
+    <div *ngFor="let question of questions; let i = index">
+      <app-question [question]="question" [index]="i" [multiItems]="multiItems" [surveyID]="survey.id"
+        (stopLoading)="onStopLoading()" #question>
+      </app-question>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col">
+        <button type="button" class="btn btn-primary mt-3 text-uppercase" (click)="saveAnswers()" *ngIf="!loadingPost">
+          <span> Opslaan en verzenden</span>
+        </button>
+        <button class="btn btn-primary mt-3 text-uppercase" type="button" disabled *ngIf="loadingPost">
+          <span class="spinner-border spinner-border-sm mb-1" role="status" aria-hidden="true"></span>
+          Laden...
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
