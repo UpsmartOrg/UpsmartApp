@@ -1,0 +1,43 @@
+<!-- Heading -->
+<h1 class="mt-5 pt-5">Stadsnieuws <em class="float-end far fa-question-circle help mt-3" data-bs-toggle="collapse"
+    data-bs-target="#help" aria-expanded="false" aria-controls="help"></em></h1>
+<hr>
+
+<!-- Help -->
+<!-- TODO: handleiding invullen -->
+<div class="collapse mb-3" id="help">
+  <div class="card">
+    <div class="card-header">Handleiding Stadsnieuws</div>
+    <div class="card-body">
+      <p class="my-2 p-0">Korte handleiding met wat extra uitleg over hoe deze pagina werkt. (+ evt ondersteunende
+        afbeeldingen)</p>
+      <p class="my-2 p-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut iste animi id ducimus ea obcaecati
+        nesciunt, suscipitest necessitatibus culpa quis odit, quod optio officia sequi amet laboriosam consequatur
+        deleniti.</p>
+      <p class="my-2 p-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut iste animi id ducimus ea obcaecati
+        nesciunt, suscipitest necessitatibus culpa quis odit, quod optio officia sequi amet laboriosam consequatur
+        deleniti.</p>
+      <p class="my-2 p-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut iste animi id ducimus ea obcaecati
+        nesciunt, suscipitest necessitatibus culpa quis odit, quod optio officia sequi amet laboriosam consequatur
+        deleniti.</p>
+    </div>
+
+  </div>
+</div>
+
+<!-- Content -->
+<div class="mb-3">
+  <p (click)="redirectTo()" class="link">&#8630; Terug naar stadsnieuws</p>
+</div>
+<div *ngIf="message == null">
+  <div class="text-center mt-5">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+</div>
+<div *ngIf="message" class="mt-3">
+  <h2 class="h3">{{ message.title }}</h2>
+  <p class="text-muted">Toegevoegd op {{ message.created_at | date: 'dd-MM-YYYY'}}</p>
+  <p>{{ message.body }}</p>
+</div>

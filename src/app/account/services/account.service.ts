@@ -40,7 +40,15 @@ export class AccountService {
     return this.http.get<User>(this.url + '/users/' + user_id);
   }
 
+  getUserWithRoles(user_id: number): Observable<User> {
+    return this.http.get<User>(this.url + '/users/withroles/' + user_id);
+  }
+
   updateUser(user: User): Observable<User> {
-    return this.http.put<User>(this.url + '/users/', user);
+    return this.http.put<User>(this.url + '/users/' + user.id, user);
+  }
+
+  updatePassword(user: User, oldPassword: string, newPassword: string) {
+    return this.http.post<User>(this.url + '/change-password', { "oldPassword": oldPassword, "user": user.id, "newPassword": newPassword })
   }
 }

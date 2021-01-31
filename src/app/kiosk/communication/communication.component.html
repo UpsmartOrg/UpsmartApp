@@ -1,13 +1,13 @@
 <!-- Heading -->
-<h1 class="mt-5 pt-5">Participatie Kiosk <em class="float-end far fa-question-circle help mt-3"
-    data-bs-toggle="collapse" data-bs-target="#help" aria-expanded="false" aria-controls="help"></em></h1>
+<h1 class="mt-5 pt-5">Stadsnieuws <em class="float-end far fa-question-circle help mt-3" data-bs-toggle="collapse"
+    data-bs-target="#help" aria-expanded="false" aria-controls="help"></em></h1>
 <hr>
 
 <!-- Help -->
 <!-- TODO: handleiding invullen -->
 <div class="collapse mb-3" id="help">
   <div class="card">
-    <div class="card-header">Handleiding Participatie Kiosk</div>
+    <div class="card-header">Handleiding Stadsnieuws</div>
     <div class="card-body">
       <p class="my-2 p-0">Korte handleiding met wat extra uitleg over hoe deze pagina werkt. (+ evt ondersteunende
         afbeeldingen)</p>
@@ -26,34 +26,25 @@
 </div>
 
 <!-- Content -->
-
-<div class="mb-4">
-  <p>
-    [Extra woordje uitleg] Lorem ipsum dolor, sit amet consectetur adipisicing elit. Beatae natus perspiciatis inventore
-    optio! Blanditiis possimus provident corporis autem. Dolor et non, error nesciunt fuga ut possimus veniam, maiores
-    incidunt est illum in ea itaque sit ab placeat perspiciatis quidem quae atque, velit distinctio soluta vero
-    quibusdam
-    quo! Nobis, similique laudantium!
-  </p>
+<div class="mb-3">
+  <p (click)="redirectTo()" class="link">&#8630; Terug naar home</p>
 </div>
 
-<h3>Kies een actie:</h3>
-
 <div class="row">
-  <div class="col-lg">
-    <div class="d-grid">
-      <button type="button" class="btn btn-primary mt-3 text-uppercase btn-lg"
-        (click)="redirectTo('/kiosk/bevragingen')">
-        Bevraging invullen
-      </button>
+  <div *ngIf="messages.length == 0">
+    <div class="text-center mt-5">
+      <div class="spinner-border" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
     </div>
   </div>
-  <div class="col-lg">
-    <div class="d-grid">
-      <button type="button" class="btn btn-primary mt-3 text-uppercase btn-lg"
-        (click)="redirectTo('/kiosk/stadsnieuws')">
-        Stadsnieuws
-      </button>
+  <div class="col-lg-4 mb-3" *ngFor="let message of messages">
+    <div class="card w-100 clickable-card" (click)="goToMessage(message.id)">
+      <div class="card-body">
+        <h5 class="card-title">{{ message.title }}</h5>
+        <h6 class="card-subtitle mb-2 text-muted">{{ message.created_at | date:'dd-MM-yyyy' }}</h6>
+        <a class="card-link">Meer info</a>
+      </div>
     </div>
   </div>
 </div>
