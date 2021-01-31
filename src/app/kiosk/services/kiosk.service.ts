@@ -2,8 +2,10 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Message } from 'src/app/shared/models/message.model';
+import { MultiAnswerAdd } from 'src/app/shared/models/multi-answer-add.model';
 import { MultiplechoiceItem } from 'src/app/shared/models/multiplechoice-item.model';
 import { MultiplechoiceQuestion } from 'src/app/shared/models/multiplechoice-question.model';
+import { OpenAnswerAdd } from 'src/app/shared/models/open-answer-add.model';
 import { OpenQuestion } from 'src/app/shared/models/open-question.model';
 import { Survey } from 'src/app/shared/models/survey.model';
 
@@ -44,5 +46,12 @@ export class KioskService {
     return this.http.get<MultiplechoiceItem[]>(this.url + '/multi_items/from-question/' + questionID);
   }
 
+  postOpenAnswer(answer: OpenAnswerAdd): Observable<OpenAnswerAdd> {
+    return this.http.post<OpenAnswerAdd>(this.url + '/answers', answer);
+  }
+
+  postMultiAnswer(answer: MultiAnswerAdd): Observable<MultiAnswerAdd> {
+    return this.http.post<MultiAnswerAdd>(this.url + '/answers', answer);
+  }
 
 }

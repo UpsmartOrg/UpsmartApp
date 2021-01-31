@@ -23,6 +23,7 @@ export class SurveyComponent implements OnInit {
   loadingOQ: boolean = true;
   loadingMQ: boolean = true;
   loadingMQI: boolean = true;
+  loadingPost: boolean = false;
 
   constructor(private titleService: Title, private route: ActivatedRoute, private kioskService: KioskService, private router: Router) {
     this.titleService.setTitle("Bevraging invullen - Smart City Herentals");
@@ -72,9 +73,15 @@ export class SurveyComponent implements OnInit {
   }
 
   saveAnswers() {
+    this.loadingPost = true;
     this.components.forEach(component => {
       component.saveAnswer();
     });
+  }
+
+  onStopLoading() {
+    this.loadingPost = false;
+    this.router.navigate(['kiosk/bevragingen']);
   }
 
   redirectTo() {

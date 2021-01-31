@@ -45,19 +45,20 @@
   </div>
   <div class="card-body">
     <div *ngFor="let question of questions; let i = index">
-      <app-question [question]="question" [index]="i" [multiItems]="multiItems" [surveyID]="survey.id" #question>
+      <app-question [question]="question" [index]="i" [multiItems]="multiItems" [surveyID]="survey.id"
+        (stopLoading)="onStopLoading()" #question>
       </app-question>
     </div>
 
-    <div class="row mb-5">
+    <div class="row mb-3">
       <div class="col">
-        <button type="button" class="btn btn-primary mt-3 text-uppercase" (click)="saveAnswers()">
+        <button type="button" class="btn btn-primary mt-3 text-uppercase" (click)="saveAnswers()" *ngIf="!loadingPost">
           <span> Opslaan en verzenden</span>
         </button>
-        <!--         <button class="btn btn-primary mt-3 text-uppercase" type="button" disabled>
+        <button class="btn btn-primary mt-3 text-uppercase" type="button" disabled *ngIf="loadingPost">
           <span class="spinner-border spinner-border-sm mb-1" role="status" aria-hidden="true"></span>
           Laden...
-        </button> -->
+        </button>
       </div>
     </div>
   </div>
