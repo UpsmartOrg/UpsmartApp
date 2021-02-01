@@ -58,7 +58,7 @@ export class ProfileComponent implements OnInit {
         this.loading = false;
         this.alertService.success('Profiel aangepast.', 'Het profiel werd succesvol aangepast.')
       },
-      error: error => {
+      error: () => {
         this.alertService.success('Er is iets misgelopen...', 'Het profiel kon niet worden aangepast. Probeer het later opnieuw.')
       }
     })
@@ -97,7 +97,7 @@ export class ProfileComponent implements OnInit {
           this.loadingPw = false;
           this.oldPw = this.newPw = this.newPwRepeat = "";
         },
-        error: error => {
+        error: () => {
           this.alertService.error('Er is iets misgelopen...', 'Het wachtwoord kon niet worden gewijzigd. Probeer het later opnieuw.')
         }
       })
