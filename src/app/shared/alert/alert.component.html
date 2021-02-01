@@ -1,37 +1,19 @@
-<div class="position-relative">
-  <!-- Position it: -->
-  <!-- - `.toast-container` for spacing between toasts -->
-  <!-- - `.position-absolute`, `top-0` & `end-0` to position the toasts in the upper right corner -->
-  <!-- - `.p-3` to prevent the toasts from sticking to the edge of the container  -->
-  <div class="toast-container position-absolute top-0 end-0 p-3">
-
-    <!-- Then put toasts within -->
-    <div class="toast" role="alert">
-      <div class="toast-header">
-        <img src="..." class="rounded me-2" alt="...">
-        <strong class="me-auto">Bootstrap</strong>
-        <small class="text-muted">just now</small>
-        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-      </div>
-      <div class="toast-body">
-        See? Just like this.
-      </div>
-    </div>
-
-    <div class="toast" role="alert">
-      <div class="toast-header">
-        <img src="..." class="rounded me-2" alt="...">
-        <strong class="me-auto">Bootstrap</strong>
-        <small class="text-muted">2 seconds ago</small>
-        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-      </div>
-      <div class="toast-body">
-        Heads up, toasts will stack automatically
+<div class="container position-fixed bottom-0 end-0 alert-container w-50 pb-2">
+  <div class="row">
+    <div class="col-12">
+      <div class="alert alert-success fade show mb-0 mt-2 w-50 float-end" role="alert">
+        U bent succesvol ingelogd.
+        <button type="button" class="btn-close float-end" data-bs-dismiss="alert" aria-label="Close"></button>
       </div>
     </div>
   </div>
-  <div class="position-absolute">
-    <button class="btn btn-primary showtoast">Show Toast</button>
+  <div class="row">
+    <div class="col-12">
+      <div class="alert alert-success fade show mb-0 mt-2 w-50 float-end" role="alert">
+        U bent succesvol ingelogd.
+        <button type="button" class="btn-close float-end" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    </div>
   </div>
 
 </div>
