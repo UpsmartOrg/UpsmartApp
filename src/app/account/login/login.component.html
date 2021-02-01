@@ -4,11 +4,11 @@
     <h1 class="h3 mb-3 fw-normal">Inloggen</h1>
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
       <div class="mb-2">
-        <label for="username" class="visually-hidden">Username</label>
-        <input type="text" formControlName="username" class="form-control" placeholder="Username"
+        <label for="username" class="visually-hidden">Email adres</label>
+        <input type="email" formControlName="username" class="form-control" placeholder="Email"
           [ngClass]="{ 'is-invalid': submitted && form.username.errors }" autofocus />
         <div *ngIf="submitted && form.username.errors" class="invalid-feedback">
-          <div *ngIf="form.username.errors.required">Username is vereist</div>
+          <div *ngIf="form.username.errors.required">Email is vereist</div>
         </div>
       </div>
       <div class="mb-3">

@@ -30,6 +30,7 @@ export class LoginComponent implements OnInit {
     this.submitted = true;
 
     if (this.loginForm.invalid) {
+      this.alertService.warn('Inloggen mislukt.', 'Email en wachtwoord zijn verplichte velden.');
       return;
     }
 
@@ -42,7 +43,7 @@ export class LoginComponent implements OnInit {
       },
       error: error => {
         this.loading = false;
-        this.alertService.success('Er is iets misgelopen...', 'Check of u het juiste wachtwoord of emailadres hebt ingevoerd.');
+        this.alertService.error('Er is iets misgelopen...', 'Check of u het juiste wachtwoord of emailadres hebt ingevoerd.');
       }
     }
 
