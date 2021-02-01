@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AlertService } from 'src/app/shared/alert/services/alert.service';
+import { WarningDialogComponent } from 'src/app/shared/dialogs/warning-dialog/warning-dialog.component';
 import { Survey } from 'src/app/shared/models/survey.model';
+import { User } from 'src/app/shared/models/user.model';
 import { ParticipationService } from '../services/participation.service';
 
 @Component({
@@ -16,13 +19,15 @@ export class ParticipationDashboardComponent implements OnInit {
 
   surveys: Survey[] = [];
   surveysCache!: Observable<Survey[]>;
+  users!: User[];
 
   searchUserID: number = 0;
   searchWord: string = '';
 
-  constructor(private titleService: Title, private router: Router, private participationService: ParticipationService, private alertService: AlertService) {
+  constructor(private titleService: Title, private router: Router, private participationService: ParticipationService, private alertService: AlertService, private dialog: MatDialog) {
     this.titleService.setTitle("Participatie Dashboard - Smart City Herentals");
     this.loadSurveys();
+    this.loadUsers();
   }
 
   ngOnInit(): void {
@@ -32,9 +37,15 @@ export class ParticipationDashboardComponent implements OnInit {
     this.surveysCache = this.participationService.getSurveysWithUser();
 
     this.surveysCache.subscribe(
-      result => this.surveys = result,
-      error => this.alertService.error('Er is iets misgelopen...', 'Enquêtes konden niet worden geladen. Probeer het later opnieuw.')
-    )
+      result => this.surveys = result
+    );
+  }
+
+  loadUsers() {
+    this.participationService.getUsers().subscribe(
+      result => this.users = result,
+      () => console.log(this.users)
+    );
   }
 
   filterSurveys() {
@@ -45,8 +56,7 @@ export class ParticipationDashboardComponent implements OnInit {
         )
       }), map(array => {
         return array.filter(survey => this.searchWord == null ? true : (
-          survey.name.toLowerCase().includes(this.searchWord.toLowerCase()) ||
-          survey.description.toLowerCase().includes(this.searchWord.toLowerCase())
+          survey.name.toLowerCase().includes(this.searchWord.toLowerCase())
         ))
       })
     ).subscribe(
@@ -60,11 +70,27 @@ export class ParticipationDashboardComponent implements OnInit {
   }
 
   editSurvey(id: number) {
+    this.router.navigate(['/participatie/enquete-wijzigen/' + id]);
+  }
 
+  deleteDialog(survey: Survey) {
+    var message: string = "Ben je zeker dat je de enquête " + survey.name + " wil verwijderen?\n"
+
+    const dialogRef = this.dialog.open(WarningDialogComponent, {
+      data: message,
+      height: '300',
+      width: '500',
+    });
+    dialogRef.afterClosed().subscribe(
+      result => {
+        if (result == "confirm") {
+          this.deleteSurvey(survey);
+        }
+      });
   }
 
   deleteSurvey(survey: Survey) {
-
+    this.participationService.deleteSurvey(survey.id).subscribe();
   }
 
 }

@@ -7,7 +7,7 @@ export class MultiplechoiceQuestion {
         public title: string,
         public description: string,
         public multiple_answers: boolean,
-        public question_number: number,
-        public multiplechoice_items: MultiplechoiceItem[]
+        public question_order: number,
+        public multiplechoice_items: MultiplechoiceItem[],
     ) { }
 }
