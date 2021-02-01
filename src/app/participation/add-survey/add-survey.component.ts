@@ -166,13 +166,13 @@ export class AddSurveyComponent implements OnInit {
   }
 
   surveyErrorCheck() {
-    if (!this.survey.name) {
+    if (!this.survey.name || this.survey.name.length < 6) {
       this.errorCount++;
-      this.errorMessages.push("Vul een naam in voor de enquête\n");
+      this.errorMessages.push("Vul een naam in voor de enquête van minstens 6 karakters\n");
     }
-    if (!this.survey.description) {
+    if (!this.survey.description || this.survey.name.length < 6) {
       this.errorCount++;
-      this.errorMessages.push("Vul een beschrijving in voor de enquête\n");
+      this.errorMessages.push("Vul een beschrijving in voor de enquête van minstens 6 karakters\n");
     }
     if (!this.survey.start_date) {
       this.errorCount++;
@@ -196,21 +196,21 @@ export class AddSurveyComponent implements OnInit {
     }
     this.allQuestions.forEach(question => {
       //Make sure each question has a title
-      if (!question.title) {
+      if (!question.title || question.title.length < 6) {
         this.errorCount++;
-        this.errorMessages.push("Vul een titel in voor vraag " + question.question_order + "\n");
+        this.errorMessages.push("Vul een titel in voor vraag " + question.question_order + " met minstens 6 karakters\n");
       }
       if (!this.isOpenQuestion(question)) {
         //Make sure there are at least 2 answers
         if (question.multiplechoice_items.length < 2) {
           this.errorCount++;
-          this.errorMessages.push("Een antwoord is incorrect bij vraag " + question.question_order + "\n");
+          this.errorMessages.push("Voeg minstens 2 antwoorden toe bij vraag " + question.question_order + "\n");
         }
         //Make sure every answer has a title
         for (let index = 0; index < question.multiplechoice_items.length; index++) {
-          if (question.multiplechoice_items[index]) {
+          if (!question.multiplechoice_items[index].title) {
             this.errorCount++;
-            this.errorMessages.push("Antwoord " + (index + 1) + " is incorrect bij vraag " + question.question_order + "\n");
+            this.errorMessages.push("Vul een tekst in voor antwoord " + (index + 1) + " van vraag " + question.question_order + "\n");
           }
         }
       }

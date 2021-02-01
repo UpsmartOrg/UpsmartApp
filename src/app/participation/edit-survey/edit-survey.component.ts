@@ -173,7 +173,7 @@ export class EditSurveyComponent implements OnInit {
     this.surveyErrorCheck();
     this.questionErrorCheck();
 
-    if(this.errorCount > 0) {
+    if (this.errorCount > 0) {
       this.dialog.open(ErrorDialogComponent, {
         data: this.errorMessages,
         height: '300',
@@ -185,23 +185,23 @@ export class EditSurveyComponent implements OnInit {
   }
 
   surveyErrorCheck() {
-    if(!this.survey.name) {
+    if (!this.survey.name || this.survey.name.length < 6) {
       this.errorCount++;
-      this.errorMessages.push("Vul een naam in voor de enquête\n");
+      this.errorMessages.push("Vul een naam in voor de enquête van minstens 6 karakters\n");
     }
-    if(!this.survey.description) {
+    if (!this.survey.description || this.survey.name.length < 6) {
       this.errorCount++;
-      this.errorMessages.push("Vul een beschrijving in voor de enquête\n");
+      this.errorMessages.push("Vul een beschrijving in voor de enquête van minstens 6 karakters\n");
     }
-    if(!this.survey.start_date) {
+    if (!this.survey.start_date) {
       this.errorCount++;
       this.errorMessages.push("Vul een begindatum in voor de enquête\n");
     }
-    if(!this.survey.end_date) {
+    if (!this.survey.end_date) {
       this.errorCount++;
       this.errorMessages.push("Vul een einddatum in voor de enquête\n");
     }
-    if(this.survey.start_date >= this.survey.end_date) {
+    if (this.survey.start_date >= this.survey.end_date) {
       this.errorCount++;
       this.errorMessages.push("De einddatum moet na de startdatum vallen\n");
     }
@@ -209,28 +209,28 @@ export class EditSurveyComponent implements OnInit {
 
   questionErrorCheck() {
     //Make sure there is at least 1 question
-    if(this.allQuestions.length < 1) {
+    if (this.allQuestions.length < 1) {
       this.errorCount++;
       this.errorMessages.push("Voeg minstens 1 vraag toe aan de enquête\n");
     }
     this.allQuestions.forEach(question => {
       //Make sure each question has a title
-      if(!question.title) {
+      if (!question.title || question.title.length < 6) {
         this.errorCount++;
-        this.errorMessages.push("Vul een titel in voor vraag " + question.question_order + "\n");
+        this.errorMessages.push("Vul een titel in voor vraag " + question.question_order + " met minstens 6 karakters\n");
       }
-      if(!this.isOpenQuestion(question)) {
+      if (!this.isOpenQuestion(question)) {
         //Make sure there are at least 2 answers
-        if(question.multiplechoice_items.length < 2) {
+        if (question.multiplechoice_items.length < 2) {
           this.errorCount++;
-          this.errorMessages.push("Een antwoord is incorrect bij vraag " + question.question_order + "\n");
+          this.errorMessages.push("Voeg minstens 2 antwoorden toe bij vraag " + question.question_order + "\n");
         }
         //Make sure every answer has a title
         for (let index = 0; index < question.multiplechoice_items.length; index++) {
-          if(question.multiplechoice_items[index]) {
+          if (!question.multiplechoice_items[index].title) {
             this.errorCount++;
-            this.errorMessages.push("Antwoord " + (index+1) + " is incorrect bij vraag " + question.question_order + "\n");
-          }          
+            this.errorMessages.push("Vul een tekst in voor antwoord " + (index + 1) + " van vraag " + question.question_order + "\n");
+          }
         }
       }
     });
