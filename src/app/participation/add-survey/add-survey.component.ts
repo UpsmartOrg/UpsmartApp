@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { ErrorDialogComponent } from 'src/app/shared/dialogs/error-dialog/error-dialog.component';
 import { WarningDialogComponent } from 'src/app/shared/dialogs/warning-dialog/warning-dialog.component';
 import { MultiplechoiceItemAdd } from 'src/app/shared/models/multiplechoice-item-add.model';
 import { MultiplechoiceQuestionAdd } from 'src/app/shared/models/multiplechoice-question-add.model';
@@ -21,28 +22,51 @@ export class AddSurveyComponent implements OnInit {
   allQuestions: any[] = [];
 
   errorCount: number = 0;
-  errorMessages: string = '';
+  errorMessages: string[] = [];
 
   start_date!: string;
   end_date!: string;
 
   constructor(private participationService: ParticipationService, private dialog: MatDialog, private router: Router) {
-    this.survey = new SurveyAdd(1, '', '', new Date(), new Date(), [], []);
-    this.initDates();
+    var date: Date = new Date();
+    var date2: Date = new Date();
+    date.setDate(date.getDate() + 1);
+    date2.setDate(date2.getDate() + 31);
+    this.survey = new SurveyAdd(1, '', '', date, date2, [], []);
+    this.setupDates();
   }
 
   ngOnInit(): void {
   }
 
-  initDates() {
-    this.start_date = this.survey.start_date.toISOString().split('T')[0];
-    this.end_date = this.survey.end_date.toISOString().split('T')[0];
+  setupDates() {
+    this.start_date = this.survey.start_date.toISOString().slice(0, 16);
+    this.end_date = this.survey.end_date.toISOString().slice(0, 16);
   }
 
   addQuestion() {
     this.questionCounter++;
     var question = new OpenQuestionAdd(0, '', '', 5, this.questionCounter);
     this.allQuestions.push(question);
+  }
+
+  deleteQuestionConfirmation(question: any) {
+    if (question.title || question.description || (question.multiplechoice_items && question.multiplechoice_items.length > 0)) {
+      var message = "Ben je zeker dat je vraag " + question.question_order + " wil verwijderen?";
+      const dialogRef = this.dialog.open(WarningDialogComponent, {
+        data: message,
+        height: '300',
+        width: '500',
+      });
+      dialogRef.afterClosed().subscribe(
+        result => {
+          if (result == "confirm") {
+            this.deleteQuestion(question);
+          }
+        });
+    } else {
+      this.deleteQuestion(question);
+    }
   }
 
   deleteQuestion(question: any) {
@@ -107,83 +131,87 @@ export class AddSurveyComponent implements OnInit {
   }
 
   saveSurvey() {
-    if(this.hasErrors()) {
+    if (this.hasErrors()) {
       return;
     }
-    // this.allQuestions.forEach(question => {
-    //   if(question instanceof MultiplechoiceQuestionAdd) {
-    //     this.survey.multiplechoice_questions.push(question);
-    //   }else if (question instanceof OpenQuestionAdd) {
-    //     this.survey.open_questions.push(question);
-    //   }
-    // });
+    this.allQuestions.forEach(question => {
+      if (question instanceof MultiplechoiceQuestionAdd) {
+        this.survey.multiplechoice_questions.push(question);
+      } else if (question instanceof OpenQuestionAdd) {
+        this.survey.open_questions.push(question);
+      }
+    });
 
-    // this.participationService.addSurveyComplete(this.survey).subscribe(
-    //   () => this.router.navigate(['/participatie/dashboard'])
-    // );
+    this.participationService.addSurveyComplete(this.survey).subscribe(
+      () => this.router.navigate(['/participatie/dashboard'])
+    );
   }
 
   hasErrors(): boolean {
     this.errorCount = 0;
-    this.errorMessages = '';
+    this.errorMessages = [];
 
     this.surveyErrorCheck();
     this.questionErrorCheck();
 
-    if(this.errorCount > 0) {
-      alert('Er zijn ' + this.errorCount + ' fouten:\n' + this.errorMessages);
+    if (this.errorCount > 0) {
+      this.dialog.open(ErrorDialogComponent, {
+        data: this.errorMessages,
+        height: '300',
+        width: '500',
+      });
       return true;
     }
     return false;
   }
 
   surveyErrorCheck() {
-    if(!this.survey.name) {
+    if (!this.survey.name) {
       this.errorCount++;
-      this.errorMessages += "Vul een naam in voor de enquête\n";
+      this.errorMessages.push("Vul een naam in voor de enquête\n");
     }
-    if(!this.survey.description) {
+    if (!this.survey.description) {
       this.errorCount++;
-      this.errorMessages += "Vul een beschrijving in voor de enquête\n";
+      this.errorMessages.push("Vul een beschrijving in voor de enquête\n");
     }
-    if(!this.survey.start_date) {
+    if (!this.survey.start_date) {
       this.errorCount++;
-      this.errorMessages += "Vul een begindatum in voor de enquête\n";
+      this.errorMessages.push("Vul een begindatum in voor de enquête\n");
     }
-    if(!this.survey.end_date) {
+    if (!this.survey.end_date) {
       this.errorCount++;
-      this.errorMessages += "Vul een einddatum in voor de enquête\n";
+      this.errorMessages.push("Vul een einddatum in voor de enquête\n");
     }
-    if(this.survey.start_date >= this.survey.end_date) {
+    if (this.survey.start_date >= this.survey.end_date) {
       this.errorCount++;
-      this.errorMessages += "De einddatum moet na de startdatum vallen\n";
+      this.errorMessages.push("De einddatum moet na de startdatum vallen\n");
     }
   }
 
   questionErrorCheck() {
     //Make sure there is at least 1 question
-    if(this.allQuestions.length < 1) {
+    if (this.allQuestions.length < 1) {
       this.errorCount++;
-      this.errorMessages += "Voeg minstens 1 vraag toe aan de enquête\n";
+      this.errorMessages.push("Voeg minstens 1 vraag toe aan de enquête\n");
     }
     this.allQuestions.forEach(question => {
       //Make sure each question has a title
-      if(!question.title) {
+      if (!question.title) {
         this.errorCount++;
-        this.errorMessages += "Vul een titel in voor vraag " + question.question_order + "\n";
+        this.errorMessages.push("Vul een titel in voor vraag " + question.question_order + "\n");
       }
-      if(!this.isOpenQuestion(question)) {
+      if (!this.isOpenQuestion(question)) {
         //Make sure there are at least 2 answers
-        if(question.multiplechoice_items.length < 2) {
+        if (question.multiplechoice_items.length < 2) {
           this.errorCount++;
-          this.errorMessages += "Een antwoord is incorrect bij vraag " + question.question_order + "\n";
+          this.errorMessages.push("Een antwoord is incorrect bij vraag " + question.question_order + "\n");
         }
         //Make sure every answer has a title
         for (let index = 0; index < question.multiplechoice_items.length; index++) {
-          if(question.multiplechoice_items[index]) {
+          if (question.multiplechoice_items[index]) {
             this.errorCount++;
-            this.errorMessages += "Antwoord " + (index+1) + " is incorrect bij vraag " + question.question_order + "\n";
-          }          
+            this.errorMessages.push("Antwoord " + (index + 1) + " is incorrect bij vraag " + question.question_order + "\n");
+          }
         }
       }
     });

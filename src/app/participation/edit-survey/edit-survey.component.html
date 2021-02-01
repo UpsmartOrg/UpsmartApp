@@ -43,14 +43,14 @@
     <div class="col-6">
       <div class="mb-3">
         <label for="surveyStartDate" class="form-label">Start datum</label>
-        <input type="date" class="form-control" id="surveyStartDate" [(ngModel)]="survey.start_date">
+        <input type="datetime-local" class="form-control" id="surveyStartDate" [(ngModel)]="start_date" (change)="survey.start_date = parseDate(start_date)">
       </div>
     </div>
 
     <div class="col-6">
       <div class="mb-3">
         <label for="surveyEndDate" class="form-label">Eind datum</label>
-        <input type="date" class="form-control" id="surveyEndDate" [(ngModel)]="survey.end_date">
+        <input type="datetime-local" class="form-control" id="surveyEndDate" [(ngModel)]="end_date" (change)="survey.end_date = parseDate(end_date)">
       </div>
     </div>
   </div>
@@ -66,7 +66,7 @@
     <div class="card-header" role="button" data-bs-toggle="collapse" attr.data-bs-target="#collapseQuestion{{i}}"
       aria-expanded="true">
       vraag {{ question.question_order }} : {{ question.title }}
-      <em class="far fa-trash-alt float-end mt-1" (click)="deleteQuestion(question)"></em>
+      <em class="far fa-trash-alt float-end mt-1" (click)="deleteQuestionConfirmation(question)"></em>
     </div>
     <!-- Card body/collapse area -->
     <div class="collapse show" id="collapseQuestion{{i}}">

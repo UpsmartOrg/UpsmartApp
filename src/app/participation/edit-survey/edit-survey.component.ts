@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ErrorDialogComponent } from 'src/app/shared/dialogs/error-dialog/error-dialog.component';
+import { WarningDialogComponent } from 'src/app/shared/dialogs/warning-dialog/warning-dialog.component';
 import { MultiplechoiceItemAdd } from 'src/app/shared/models/multiplechoice-item-add.model';
 import { MultiplechoiceQuestionAdd } from 'src/app/shared/models/multiplechoice-question-add.model';
 import { OpenQuestionAdd } from 'src/app/shared/models/open-question-add.model';
@@ -19,13 +21,21 @@ export class EditSurveyComponent implements OnInit {
   surveyID: number;
   allQuestions: any[] = [];
 
+  errorCount: number = 0;
+  errorMessages: string[] = [];
+
+  start_date!: string;
+  end_date!: string;
 
   constructor(private participationService: ParticipationService, private dialog: MatDialog, private router: Router, private activeRoute: ActivatedRoute) {
     this.surveyID = this.activeRoute.snapshot.params['surveyID'];
     this.participationService.getSurveyComplete(this.surveyID).subscribe(
       result => this.survey = result,
       error => console.log('error'),
-      () => this.setupQuestions()
+      () => {
+        this.setupQuestions();
+        this.setupDates();
+      }
     );
   }
 
@@ -44,10 +54,38 @@ export class EditSurveyComponent implements OnInit {
     this.allQuestions.sort((a, b) => a.question_order - b.question_order);
   }
 
+  setupDates() {
+    //First make sure dates out of DB are not strings
+    this.survey.start_date = new Date(this.survey.start_date)
+    this.survey.end_date = new Date(this.survey.end_date)
+
+    this.start_date = this.survey.start_date.toISOString().slice(0,16);
+    this.end_date = this.survey.end_date.toISOString().slice(0,16);
+  }
+
   addQuestion() {
     this.questionCounter++;
     var question = new OpenQuestionAdd(this.surveyID, '', '', 5, this.questionCounter);
     this.allQuestions.push(question);
+  }
+
+  deleteQuestionConfirmation(question: any) {
+    if (question.title || question.description || (question.multiplechoice_items && question.multiplechoice_items.length > 0)) {
+      var message = "Ben je zeker dat je vraag " + question.question_order + " wil verwijderen?";
+      const dialogRef = this.dialog.open(WarningDialogComponent, {
+        data: message,
+        height: '300',
+        width: '500',
+      });
+      dialogRef.afterClosed().subscribe(
+        result => {
+          if (result == "confirm") {
+            this.deleteQuestion(question);
+          }
+        });
+    } else {
+      this.deleteQuestion(question);
+    }
   }
 
   deleteQuestion(question: any) {
@@ -112,6 +150,9 @@ export class EditSurveyComponent implements OnInit {
   }
 
   saveSurvey() {
+    if(this.hasErrors()) {
+      return;
+    }
     this.allQuestions.forEach(question => {
       if (!this.isOpenQuestion(question)) {
         this.survey.multiplechoice_questions.push(question);
@@ -123,6 +164,80 @@ export class EditSurveyComponent implements OnInit {
     this.participationService.updateSurveyComplete(this.survey).subscribe(
       () => this.router.navigate(['/participatie/dashboard'])
     );
+  }
+
+  hasErrors(): boolean {
+    this.errorCount = 0;
+    this.errorMessages = [];
+
+    this.surveyErrorCheck();
+    this.questionErrorCheck();
+
+    if(this.errorCount > 0) {
+      this.dialog.open(ErrorDialogComponent, {
+        data: this.errorMessages,
+        height: '300',
+        width: '500',
+      });
+      return true;
+    }
+    return false;
+  }
+
+  surveyErrorCheck() {
+    if(!this.survey.name) {
+      this.errorCount++;
+      this.errorMessages.push("Vul een naam in voor de enquête\n");
+    }
+    if(!this.survey.description) {
+      this.errorCount++;
+      this.errorMessages.push("Vul een beschrijving in voor de enquête\n");
+    }
+    if(!this.survey.start_date) {
+      this.errorCount++;
+      this.errorMessages.push("Vul een begindatum in voor de enquête\n");
+    }
+    if(!this.survey.end_date) {
+      this.errorCount++;
+      this.errorMessages.push("Vul een einddatum in voor de enquête\n");
+    }
+    if(this.survey.start_date >= this.survey.end_date) {
+      this.errorCount++;
+      this.errorMessages.push("De einddatum moet na de startdatum vallen\n");
+    }
+  }
+
+  questionErrorCheck() {
+    //Make sure there is at least 1 question
+    if(this.allQuestions.length < 1) {
+      this.errorCount++;
+      this.errorMessages.push("Voeg minstens 1 vraag toe aan de enquête\n");
+    }
+    this.allQuestions.forEach(question => {
+      //Make sure each question has a title
+      if(!question.title) {
+        this.errorCount++;
+        this.errorMessages.push("Vul een titel in voor vraag " + question.question_order + "\n");
+      }
+      if(!this.isOpenQuestion(question)) {
+        //Make sure there are at least 2 answers
+        if(question.multiplechoice_items.length < 2) {
+          this.errorCount++;
+          this.errorMessages.push("Een antwoord is incorrect bij vraag " + question.question_order + "\n");
+        }
+        //Make sure every answer has a title
+        for (let index = 0; index < question.multiplechoice_items.length; index++) {
+          if(question.multiplechoice_items[index]) {
+            this.errorCount++;
+            this.errorMessages.push("Antwoord " + (index+1) + " is incorrect bij vraag " + question.question_order + "\n");
+          }          
+        }
+      }
+    });
+  }
+
+  parseDate(dateString: string): Date {
+    return new Date(dateString);
   }
 
 }

@@ -7,13 +7,15 @@ import { MaterialModule } from './material.module';
 import { WarningDialogComponent } from './dialogs/warning-dialog/warning-dialog.component';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { ErrorDialogComponent } from './dialogs/error-dialog/error-dialog.component';
 
 @NgModule({
   declarations: [
     NavigationComponent,
     FooterComponent,
     AlertComponent,
-    WarningDialogComponent
+    WarningDialogComponent,
+    ErrorDialogComponent
   ],
   imports: [
     CommonModule,
