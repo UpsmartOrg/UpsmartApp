@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { Alert } from '../models/alert.model';
+import { AlertService } from './services/alert.service';
 
 @Component({
   selector: 'app-alert',
@@ -7,7 +10,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AlertComponent implements OnInit {
 
-  constructor() { }
+  @Input() id = 'default-alert';
+  @Input() fade = true;
+
+  alerts: Alert[] = [];
+  alertSubscription!: Subscription;
+  routeSubscription!: Subscription;
+
+  constructor(private alertService: AlertService) { }
 
   ngOnInit(): void {
   }
