@@ -22,21 +22,20 @@ export class AlertService {
     this.subject.next(alert);
   }
 
-  success(message: string) {
-    this.alert(new Alert({ type: AlertType.Success, message }));
+  success(messageTitle: string, messageBody: string) {
+    this.alert(new Alert({ type: AlertType.Success, messageTitle, messageBody }));
   }
 
-  error(message: string, options?: any) {
-    console.log(message);
-    this.alert(new Alert({ type: AlertType.Error, message }));
+  error(messageTitle: string, messageBody: string) {
+    this.alert(new Alert({ type: AlertType.Error, messageTitle, messageBody }));
   }
 
-  info(message: string) {
-    this.alert(new Alert({ type: AlertType.Info, message }));
+  info(messageTitle: string, messageBody: string) {
+    this.alert(new Alert({ type: AlertType.Info, messageTitle, messageBody }));
   }
 
-  warn(message: string) {
-    this.alert(new Alert({ type: AlertType.Warning, message }));
+  warn(messageTitle: string, messageBody: string) {
+    this.alert(new Alert({ type: AlertType.Warning, messageTitle, messageBody }));
   }
 
   clear(id = this.defaultId) {
