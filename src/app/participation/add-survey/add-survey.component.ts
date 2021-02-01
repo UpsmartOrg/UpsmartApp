@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { AccountService } from 'src/app/account/services/account.service';
 import { ErrorDialogComponent } from 'src/app/shared/dialogs/error-dialog/error-dialog.component';
 import { WarningDialogComponent } from 'src/app/shared/dialogs/warning-dialog/warning-dialog.component';
 import { MultiplechoiceItemAdd } from 'src/app/shared/models/multiplechoice-item-add.model';
 import { MultiplechoiceQuestionAdd } from 'src/app/shared/models/multiplechoice-question-add.model';
 import { OpenQuestionAdd } from 'src/app/shared/models/open-question-add.model';
 import { SurveyAdd } from 'src/app/shared/models/survey-add.model';
+import { User } from 'src/app/shared/models/user.model';
 import { ParticipationService } from '../services/participation.service';
 
 @Component({
@@ -15,6 +17,8 @@ import { ParticipationService } from '../services/participation.service';
   styleUrls: ['./add-survey.component.scss']
 })
 export class AddSurveyComponent implements OnInit {
+
+  user!: User;
 
   questionCounter: number = 0;
   survey: SurveyAdd;
@@ -27,12 +31,15 @@ export class AddSurveyComponent implements OnInit {
   start_date!: string;
   end_date!: string;
 
-  constructor(private participationService: ParticipationService, private dialog: MatDialog, private router: Router) {
+  constructor(private participationService: ParticipationService, private dialog: MatDialog, private router: Router, private accountService: AccountService) {
+    this.accountService.user.subscribe(result => {
+      this.user = result;
+    });
     var date: Date = new Date();
     var date2: Date = new Date();
     date.setDate(date.getDate() + 1);
     date2.setDate(date2.getDate() + 31);
-    this.survey = new SurveyAdd(1, '', '', date, date2, [], []);
+    this.survey = new SurveyAdd(this.user.id, '', '', date, date2, [], []);
     this.setupDates();
   }
 
