@@ -8,6 +8,7 @@ import { User } from 'src/app/shared/models/user.model';
 import { CommunicationService } from '../services/communication.service';
 import { WarningDialogComponent } from 'src/app/shared/dialogs/warning-dialog/warning-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { AlertService } from 'src/app/shared/alert/services/alert.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -23,7 +24,7 @@ export class CommunicationDashboardComponent implements OnInit {
   searchWord: string = '';
   searchUserID: number = 0;
 
-  constructor(private titleService: Title, private router: Router, private communicationService: CommunicationService, public dialog: MatDialog) {
+  constructor(private titleService: Title, private router: Router, private communicationService: CommunicationService, public dialog: MatDialog, private alertService: AlertService) {
     this.titleService.setTitle("Communicatie Dashboard - Smart City Herentals");
     this.loadMessages();
     this.loadUsers();
@@ -39,13 +40,16 @@ export class CommunicationDashboardComponent implements OnInit {
   loadMessages() {
     this.messagesCache = this.communicationService.getMessagesWithUser();
     this.messagesCache.subscribe(
-      result => this.messages = result,
+      result => { this.messages = result },
+      error => this.alertService.error('Er is iets misgelopen...', 'De berichten konden niet worden geladen. Probeer het later opnieuw.')
+      ,
     )
   }
 
   loadUsers() {
     this.communicationService.getUsers().subscribe(
       result => this.users = result,
+      error => this.alertService.error('Er is iets misgelopen...', 'Gebruikers konden niet worden geladen. Probeer het later opnieuw.')
     )
   }
 
@@ -84,8 +88,13 @@ export class CommunicationDashboardComponent implements OnInit {
       result => {
         if (result == "confirm") {
           this.messages = [];
-          this.communicationService.deleteMessage(message.id).subscribe(
-            () => this.filterMessages()
+          this.communicationService.deleteMessage(message.id).subscribe({
+            next: () => {
+              this.filterMessages();
+              this.alertService.success('Bericht verwijderd.', 'Het bericht werd succesvol verwijderd.')
+            },
+            error: () => this.alertService.error('Er is iets misgelopen...', 'Bericht kon niet worden verwijderd. Probeer het later opnieuw.')
+          }
           )
         }
       });
