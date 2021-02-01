@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AlertService } from 'src/app/shared/alert/services/alert.service';
 import { ErrorDialogComponent } from 'src/app/shared/dialogs/error-dialog/error-dialog.component';
 import { WarningDialogComponent } from 'src/app/shared/dialogs/warning-dialog/warning-dialog.component';
 import { MultiplechoiceItemAdd } from 'src/app/shared/models/multiplechoice-item-add.model';
@@ -27,11 +28,11 @@ export class EditSurveyComponent implements OnInit {
   start_date!: string;
   end_date!: string;
 
-  constructor(private participationService: ParticipationService, private dialog: MatDialog, private router: Router, private activeRoute: ActivatedRoute) {
+  constructor(private participationService: ParticipationService, private dialog: MatDialog, private router: Router, private activeRoute: ActivatedRoute, private alertService: AlertService) {
     this.surveyID = this.activeRoute.snapshot.params['surveyID'];
     this.participationService.getSurveyComplete(this.surveyID).subscribe(
       result => this.survey = result,
-      error => console.log('error'),
+      error => this.alertService.error('Er is iets misgelopen...', 'Enquête kon niet worden geladen. Probeer het later opnieuw.'),
       () => {
         this.setupQuestions();
         this.setupDates();
@@ -161,8 +162,13 @@ export class EditSurveyComponent implements OnInit {
       }
     });
 
-    this.participationService.updateSurveyComplete(this.survey).subscribe(
-      () => this.router.navigate(['/participatie/dashboard'])
+    this.participationService.updateSurveyComplete(this.survey).subscribe({
+      next: () => {
+        this.router.navigate(['/participatie/dashboard']);
+        this.alertService.success('Enquête gewijzigd', 'Enquête werd succesvol gewijzigd.')
+      },
+      error: () => this.alertService.error('Er is iets misgelopen...', 'Enquête kon niet worden gewijzigd. Probeer het later opnieuw.')
+    }
     );
   }
 

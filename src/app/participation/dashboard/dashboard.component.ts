@@ -37,14 +37,15 @@ export class ParticipationDashboardComponent implements OnInit {
     this.surveysCache = this.participationService.getSurveysWithUser();
 
     this.surveysCache.subscribe(
-      result => this.surveys = result
+      result => this.surveys = result,
+      error => this.alertService.error('Er is iets misgelopen...', 'Enquêtes konden niet worden geladen. Probeer het later opnieuw.')
     );
   }
 
   loadUsers() {
     this.participationService.getUsers().subscribe(
       result => this.users = result,
-      () => console.log(this.users)
+      error => this.alertService.error('Er is iets misgelopen...', 'Gebruikers konden niet worden geladen. Probeer het later opnieuw.')
     );
   }
 
@@ -90,7 +91,10 @@ export class ParticipationDashboardComponent implements OnInit {
   }
 
   deleteSurvey(survey: Survey) {
-    this.participationService.deleteSurvey(survey.id).subscribe();
+    this.participationService.deleteSurvey(survey.id).subscribe({
+      next: () => this.alertService.success('Enquête verwijderd.', 'Enquête werd succesvol verwijderd.'),
+      error: () => this.alertService.error('Er is iets misgelopen...', 'Enquête kon niet worden verwijderd. Probeer het later opnieuw.')
+    });
   }
 
 }
