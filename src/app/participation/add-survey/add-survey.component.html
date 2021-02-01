@@ -39,15 +39,15 @@
 <div class="row">
   <div class="col-6">
     <div class="mb-3">
-      <label for="surveyStartDate" class="form-label">Start datum</label>
-      <input type="date" class="form-control" id="surveyStartDate" [(ngModel)]="survey.start_date">
+      <label for="surveyStartDate" class="form-label" id="surveyStart">Start datum</label>
+      <input type="date" class="form-control" id="surveyStartDate" [(ngModel)]="start_date" (change)="survey.start_date = parseDate(start_date)">
     </div>
   </div>
 
   <div class="col-6">
     <div class="mb-3">
       <label for="surveyEndDate" class="form-label">Eind datum</label>
-      <input type="date" class="form-control" id="surveyEndDate" [(ngModel)]="survey.end_date">
+      <input type="date" class="form-control" id="surveyEndDate" [(ngModel)]="end_date" (change)="survey.end_date = parseDate(end_date)">
     </div>
   </div>
 </div>

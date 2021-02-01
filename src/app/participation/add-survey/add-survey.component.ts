@@ -20,11 +20,23 @@ export class AddSurveyComponent implements OnInit {
 
   allQuestions: any[] = [];
 
+  errorCount: number = 0;
+  errorMessages: string = '';
+
+  start_date!: string;
+  end_date!: string;
+
   constructor(private participationService: ParticipationService, private dialog: MatDialog, private router: Router) {
     this.survey = new SurveyAdd(1, '', '', new Date(), new Date(), [], []);
+    this.initDates();
   }
 
   ngOnInit(): void {
+  }
+
+  initDates() {
+    this.start_date = this.survey.start_date.toISOString().split('T')[0];
+    this.end_date = this.survey.end_date.toISOString().split('T')[0];
   }
 
   addQuestion() {
@@ -95,29 +107,90 @@ export class AddSurveyComponent implements OnInit {
   }
 
   saveSurvey() {
-    this.allQuestions.forEach(question => {
-      if(question instanceof MultiplechoiceQuestionAdd) {
-        this.survey.multiplechoice_questions.push(question);
-      }else if (question instanceof OpenQuestionAdd) {
-        this.survey.open_questions.push(question);
-      }
-    });
+    if(this.hasErrors()) {
+      return;
+    }
+    // this.allQuestions.forEach(question => {
+    //   if(question instanceof MultiplechoiceQuestionAdd) {
+    //     this.survey.multiplechoice_questions.push(question);
+    //   }else if (question instanceof OpenQuestionAdd) {
+    //     this.survey.open_questions.push(question);
+    //   }
+    // });
 
-    this.participationService.addSurveyComplete(this.survey).subscribe(
-      () => this.router.navigate(['/participatie/dashboard'])
-    );
+    // this.participationService.addSurveyComplete(this.survey).subscribe(
+    //   () => this.router.navigate(['/participatie/dashboard'])
+    // );
   }
 
-  questionErrorCheck(): boolean {
-    var errorCount = 0;
-    var errorMessages = "";
+  hasErrors(): boolean {
+    this.errorCount = 0;
+    this.errorMessages = '';
+
+    this.surveyErrorCheck();
+    this.questionErrorCheck();
+
+    if(this.errorCount > 0) {
+      alert('Er zijn ' + this.errorCount + ' fouten:\n' + this.errorMessages);
+      return true;
+    }
+    return false;
+  }
+
+  surveyErrorCheck() {
+    if(!this.survey.name) {
+      this.errorCount++;
+      this.errorMessages += "Vul een naam in voor de enquête\n";
+    }
+    if(!this.survey.description) {
+      this.errorCount++;
+      this.errorMessages += "Vul een beschrijving in voor de enquête\n";
+    }
+    if(!this.survey.start_date) {
+      this.errorCount++;
+      this.errorMessages += "Vul een begindatum in voor de enquête\n";
+    }
+    if(!this.survey.end_date) {
+      this.errorCount++;
+      this.errorMessages += "Vul een einddatum in voor de enquête\n";
+    }
+    if(this.survey.start_date >= this.survey.end_date) {
+      this.errorCount++;
+      this.errorMessages += "De einddatum moet na de startdatum vallen\n";
+    }
+  }
+
+  questionErrorCheck() {
+    //Make sure there is at least 1 question
+    if(this.allQuestions.length < 1) {
+      this.errorCount++;
+      this.errorMessages += "Voeg minstens 1 vraag toe aan de enquête\n";
+    }
     this.allQuestions.forEach(question => {
+      //Make sure each question has a title
       if(!question.title) {
-        errorCount++;
-        errorMessages += "Vul een naam in voor vraag " + question.question_order;
+        this.errorCount++;
+        this.errorMessages += "Vul een titel in voor vraag " + question.question_order + "\n";
+      }
+      if(!this.isOpenQuestion(question)) {
+        //Make sure there are at least 2 answers
+        if(question.multiplechoice_items.length < 2) {
+          this.errorCount++;
+          this.errorMessages += "Een antwoord is incorrect bij vraag " + question.question_order + "\n";
+        }
+        //Make sure every answer has a title
+        for (let index = 0; index < question.multiplechoice_items.length; index++) {
+          if(question.multiplechoice_items[index]) {
+            this.errorCount++;
+            this.errorMessages += "Antwoord " + (index+1) + " is incorrect bij vraag " + question.question_order + "\n";
+          }          
+        }
       }
     });
-
-    return true;
   }
+
+  parseDate(dateString: string): Date {
+    return new Date(dateString);
+  }
+
 }
