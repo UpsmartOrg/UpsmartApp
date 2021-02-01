@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
       },
       error: error => {
         this.loading = false;
-        this.alertService.error('Er is iets misgelopen...', 'Check of u het juiste wachtwoord of emailadres hebt ingevoerd.');
+        this.alertService.success('Er is iets misgelopen...', 'Check of u het juiste wachtwoord of emailadres hebt ingevoerd.');
       }
     }
 
