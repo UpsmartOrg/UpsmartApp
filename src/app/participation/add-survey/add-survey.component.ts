@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { AlertService } from 'src/app/shared/alert/services/alert.service';
 import { AccountService } from 'src/app/account/services/account.service';
 import { ErrorDialogComponent } from 'src/app/shared/dialogs/error-dialog/error-dialog.component';
 import { WarningDialogComponent } from 'src/app/shared/dialogs/warning-dialog/warning-dialog.component';
@@ -31,7 +32,7 @@ export class AddSurveyComponent implements OnInit {
   start_date!: string;
   end_date!: string;
 
-  constructor(private participationService: ParticipationService, private dialog: MatDialog, private router: Router, private accountService: AccountService) {
+  constructor(private participationService: ParticipationService, private dialog: MatDialog, private router: Router, private accountService: AccountService, private alertService: AlertService) {
     this.accountService.user.subscribe(result => {
       this.user = result;
     });
@@ -149,8 +150,13 @@ export class AddSurveyComponent implements OnInit {
       }
     });
 
-    this.participationService.addSurveyComplete(this.survey).subscribe(
-      () => this.router.navigate(['/participatie/dashboard'])
+    this.participationService.addSurveyComplete(this.survey).subscribe({
+      next: () => {
+        this.router.navigate(['/participatie/dashboard'])
+        this.alertService.success('Enquête toegevoegd.', 'Enquête succesvol aangemaakt.')
+      },
+      error: () => this.alertService.error('Er is iets misgelopen...', 'Enquête kon niet worden aangemaakt. Probeer het later opnieuw.')
+    }
     );
   }
 

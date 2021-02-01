@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { AlertService } from 'src/app/shared/alert/services/alert.service';
 import { Message } from 'src/app/shared/models/message.model';
 import { KioskService } from '../services/kiosk.service';
 
@@ -13,7 +14,7 @@ export class CommunicationComponent implements OnInit {
 
   messages: Message[] = [];
 
-  constructor(private titleService: Title, private kioskService: KioskService, private router: Router) {
+  constructor(private titleService: Title, private kioskService: KioskService, private router: Router, private alertService: AlertService) {
     this.titleService.setTitle("Stadsnieuws - Smart City Herentals");
     this.loadMessages();
   }
@@ -23,7 +24,8 @@ export class CommunicationComponent implements OnInit {
 
   loadMessages() {
     this.kioskService.getMessages().subscribe(
-      result => this.messages = result
+      result => this.messages = result,
+      error => this.alertService.error('Er is iets misgelopen...', 'Berichten konden niet worden geladen. Probeer het later opnieuw.')
     )
   }
 

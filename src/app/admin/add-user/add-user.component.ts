@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AlertService } from 'src/app/shared/alert/services/alert.service';
 import { UserRole } from 'src/app/shared/models/user-role.model';
 import { User } from 'src/app/shared/models/user.model';
 import { AdminService } from '../services/admin.service';
@@ -25,7 +26,7 @@ export class AddUserComponent implements OnInit {
   communicatieID = 3;
   adminID = 4;
 
-  constructor(private router: Router, private adminService: AdminService) {
+  constructor(private router: Router, private adminService: AdminService, private alertService: AlertService) {
     this.user = new User(0, '', '', '', '', false);
     this.user.user_roles = [];
   }
@@ -35,10 +36,13 @@ export class AddUserComponent implements OnInit {
 
   addUser() {
     this.loading = true;
-    this.adminService.addUserWithRoles(this.user).subscribe(
-      result => console.log(result),
-      error => console.log(error),
-      () => this.router.navigate(['/admin/dashboard'])
+    this.adminService.addUserWithRoles(this.user).subscribe({
+      next: () => {
+        this.router.navigate(['/admin/dashboard']);
+        this.alertService.success('Gebruiker toegevoegd.', 'De gebruiker werd succesvol toegevoegd.')
+      },
+      error: () => this.alertService.error('Er is iets misgelopen...', 'De gebruiker kon niet worden toegevoegd. Probeer het later opnieuw.')
+    }
     );
   }
 

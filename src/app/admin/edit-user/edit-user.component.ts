@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AlertService } from 'src/app/shared/alert/services/alert.service';
 import { UserRole } from 'src/app/shared/models/user-role.model';
 import { User } from 'src/app/shared/models/user.model';
 import { AdminService } from '../services/admin.service';
@@ -27,7 +28,7 @@ export class EditUserComponent implements OnInit {
   communicatieID = 3;
   adminID = 4;
 
-  constructor(private router: Router, private activeRoute: ActivatedRoute, private adminService: AdminService) {
+  constructor(private router: Router, private activeRoute: ActivatedRoute, private adminService: AdminService, private alertService: AlertService) {
     this.userID = this.activeRoute.snapshot.params['userID'];
     this.loadUser();
   }
@@ -38,7 +39,7 @@ export class EditUserComponent implements OnInit {
   loadUser() {
     this.adminService.getUserWithRoles(this.userID).subscribe(
       result => this.user = result,
-      error => console.log(error),
+      error => this.alertService.error('Er is iets misgelopen...', 'De gebruiker kon niet worden geladen. Probeer het later opnieuw.'),
       () => this.loadUserRoles(this.user)
     )
   }
@@ -67,9 +68,11 @@ export class EditUserComponent implements OnInit {
   updateUser() {
     this.loading = true;
     this.adminService.updateUser(this.user).subscribe(
-      result => console.log(result),
-      error => console.log(error),
-      () => this.router.navigate(['/admin/dashboard'])
+      error => this.alertService.error('Er is iets misgelopen...', 'De gebruiker kon niet worden gewijzigd. Probeer het later opnieuw.'),
+      () => {
+        this.router.navigate(['/admin/dashboard']);
+        this.alertService.success('Gebruiker gewijzigd', 'De gebruikers werd succesvol gewijzigd.')
+      }
     );
   }
 

@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChildren, QueryList } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AlertService } from 'src/app/shared/alert/services/alert.service';
 import { Survey } from 'src/app/shared/models/survey.model';
 import { QuestionComponent } from '../question/question.component';
 import { KioskService } from '../services/kiosk.service';
@@ -25,7 +26,7 @@ export class SurveyComponent implements OnInit {
   loadingMQI: boolean = true;
   loadingPost: boolean = false;
 
-  constructor(private titleService: Title, private route: ActivatedRoute, private kioskService: KioskService, private router: Router) {
+  constructor(private titleService: Title, private route: ActivatedRoute, private kioskService: KioskService, private router: Router, private alertService: AlertService) {
     this.titleService.setTitle("Bevraging invullen - Smart City Herentals");
     this.surveyID = this.route.snapshot.params['surveyID'];
     this.loadSurvey(this.surveyID)
@@ -39,7 +40,8 @@ export class SurveyComponent implements OnInit {
       result => {
         this.survey = result;
         this.loadQuestions(surveyID)
-      }
+      },
+      error => this.alertService.error('Er is iets misgelopen...', 'Bevraging kon niet worden opgehaald. Probeer het later opnieuw.')
     )
   }
 
@@ -54,12 +56,14 @@ export class SurveyComponent implements OnInit {
                 this.multiItems.push(item);
               });
               this.loadingMQI = false;
-            }
+            },
+            error => this.alertService.error('Er is iets misgelopen...', 'Bevraging kon niet worden opgehaald. Probeer het later opnieuw.')
           )
         });
         this.loadingMQ = false;
         this.questions.sort((a, b) => a.question_order - b.question_order)
-      }
+      },
+      error => this.alertService.error('Er is iets misgelopen...', 'Bevraging kon niet worden opgehaald. Probeer het later opnieuw.')
     );
     this.kioskService.getOpenQuestions(surveyID).subscribe(
       result => {
@@ -68,7 +72,8 @@ export class SurveyComponent implements OnInit {
         });
         this.loadingOQ = false;
         this.questions.sort((a, b) => a.question_order - b.question_order)
-      }
+      },
+      error => this.alertService.error('Er is iets misgelopen...', 'Bevraging kon niet worden opgehaald. Probeer het later opnieuw.')
     );
   }
 

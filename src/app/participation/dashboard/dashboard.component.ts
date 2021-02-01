@@ -4,6 +4,7 @@ import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { AlertService } from 'src/app/shared/alert/services/alert.service';
 import { WarningDialogComponent } from 'src/app/shared/dialogs/warning-dialog/warning-dialog.component';
 import { Survey } from 'src/app/shared/models/survey.model';
 import { User } from 'src/app/shared/models/user.model';
@@ -19,11 +20,11 @@ export class ParticipationDashboardComponent implements OnInit {
   surveys: Survey[] = [];
   surveysCache!: Observable<Survey[]>;
   users!: User[];
-  
+
   searchUserID: number = 0;
   searchWord: string = '';
 
-  constructor(private titleService: Title, private router: Router, private participationService: ParticipationService, private dialog: MatDialog) {
+  constructor(private titleService: Title, private router: Router, private participationService: ParticipationService, private alertService: AlertService, private dialog: MatDialog) {
     this.titleService.setTitle("Participatie Dashboard - Smart City Herentals");
     this.loadSurveys();
     this.loadUsers();
@@ -37,13 +38,14 @@ export class ParticipationDashboardComponent implements OnInit {
 
     this.surveysCache.subscribe(
       result => this.surveys = result,
+      error => this.alertService.error('Er is iets misgelopen...', 'Enquêtes konden niet worden geladen. Probeer het later opnieuw.')
     );
   }
 
   loadUsers() {
     this.participationService.getUsers().subscribe(
       result => this.users = result,
-      () => console.log(this.users)
+      error => this.alertService.error('Er is iets misgelopen...', 'Gebruikers konden niet worden geladen. Probeer het later opnieuw.')
     );
   }
 
@@ -59,7 +61,8 @@ export class ParticipationDashboardComponent implements OnInit {
         ))
       })
     ).subscribe(
-      result => this.surveys = result
+      result => this.surveys = result,
+      error => this.alertService.error('Er is iets misgelopen...', 'Enquêtes konden niet worden geladen. Probeer het later opnieuw.')
     );
   }
 
@@ -88,7 +91,10 @@ export class ParticipationDashboardComponent implements OnInit {
   }
 
   deleteSurvey(survey: Survey) {
-    this.participationService.deleteSurvey(survey.id).subscribe();
+    this.participationService.deleteSurvey(survey.id).subscribe({
+      next: () => this.alertService.success('Enquête verwijderd.', 'Enquête werd succesvol verwijderd.'),
+      error: () => this.alertService.error('Er is iets misgelopen...', 'Enquête kon niet worden verwijderd. Probeer het later opnieuw.')
+    });
   }
 
 }
