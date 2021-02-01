@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { OpenAnswerAdd } from 'src/app/shared/models/open-answer-add.model';
 import { MultiAnswerAdd } from 'src/app/shared/models/multi-answer-add.model';
 import { KioskService } from '../services/kiosk.service';
+import { AlertService } from 'src/app/shared/alert/services/alert.service';
 
 @Component({
   selector: 'app-question',
@@ -14,13 +15,13 @@ export class QuestionComponent implements OnInit {
   @Input() question: any;
   @Input() multiItems: any;
   @Input() index!: number;
-  @Output() stopLoading = new EventEmitter<Boolean>();
+  @Output() stopLoading = new EventEmitter<boolean>();
 
   answer!: any;
   options: number[] = [];
   itemCounter: number = 0;
 
-  constructor(private kioskService: KioskService) { }
+  constructor(private kioskService: KioskService, private alertService: AlertService) { }
 
   ngOnInit(): void {
     if (this.question.rows) {
@@ -44,25 +45,25 @@ export class QuestionComponent implements OnInit {
       this.options.forEach(option => {
         const newAnswer = new MultiAnswerAdd(this.surveyID, option)
         console.log(newAnswer)
-        this.kioskService.postMultiAnswer(newAnswer).subscribe(
-          result => console.log(result),
-          error => console.log(error),
-          () => this.stopLoading.emit(true)
+        this.kioskService.postMultiAnswer(newAnswer).subscribe({
+          next: () => this.stopLoading.emit(true),
+          error: () => this.alertService.error('Er is iets misgelopen...', 'Antwoord kon niet worden geregistreerd. Probeer het later opnieuw.')
+        }
         )
       });
     }
     if (this.question.multiple_answers == 0) {
-      this.kioskService.postMultiAnswer(this.answer).subscribe(
-        result => console.log(result),
-        error => console.log(error),
-        () => this.stopLoading.emit(true)
+      this.kioskService.postMultiAnswer(this.answer).subscribe({
+        next: () => this.stopLoading.emit(true),
+        error: () => this.alertService.error('Er is iets misgelopen...', 'Antwoord kon niet worden geregistreerd. Probeer het later opnieuw.')
+      }
       )
     }
     if (this.question.rows) {
-      this.kioskService.postOpenAnswer(this.answer).subscribe(
-        result => console.log(result),
-        error => console.log(error),
-        () => this.stopLoading.emit(true)
+      this.kioskService.postOpenAnswer(this.answer).subscribe({
+        next: () => this.stopLoading.emit(true),
+        error: () => this.alertService.error('Er is iets misgelopen...', 'Antwoord kon niet worden geregistreerd. Probeer het later opnieuw.')
+      }
       )
     }
   }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { AlertService } from 'src/app/shared/alert/services/alert.service';
 import { Survey } from 'src/app/shared/models/survey.model';
 import { KioskService } from '../services/kiosk.service';
 
@@ -12,7 +13,7 @@ import { KioskService } from '../services/kiosk.service';
 export class SurveyListComponent implements OnInit {
   surveys: Survey[] = [];
 
-  constructor(private titleService: Title, private kioskService: KioskService, private router: Router) {
+  constructor(private titleService: Title, private kioskService: KioskService, private router: Router, private alertService: AlertService) {
     this.titleService.setTitle("Bevragingen - Smart City Herentals");
     this.loadSurveys();
   }
@@ -26,7 +27,8 @@ export class SurveyListComponent implements OnInit {
         if (new Date(survey.start_date) < new Date() && new Date(survey.end_date) > new Date()) {
           this.surveys.push(survey);
         }
-      })
+      }),
+      error => this.alertService.error('Er is iets misgelopen...', 'Bevragingen konden niet worden opgehaald. Probeer het later opnieuw.')
     )
   }
 

@@ -3,6 +3,7 @@ import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { AlertService } from 'src/app/shared/alert/services/alert.service';
 import { Survey } from 'src/app/shared/models/survey.model';
 import { ParticipationService } from '../services/participation.service';
 
@@ -19,7 +20,7 @@ export class ParticipationDashboardComponent implements OnInit {
   searchUserID: number = 0;
   searchWord: string = '';
 
-  constructor(private titleService: Title, private router: Router, private participationService: ParticipationService) {
+  constructor(private titleService: Title, private router: Router, private participationService: ParticipationService, private alertService: AlertService) {
     this.titleService.setTitle("Participatie Dashboard - Smart City Herentals");
     this.loadSurveys();
   }
@@ -32,6 +33,7 @@ export class ParticipationDashboardComponent implements OnInit {
 
     this.surveysCache.subscribe(
       result => this.surveys = result,
+      error => this.alertService.error('Er is iets misgelopen...', 'Enquêtes konden niet worden geladen. Probeer het later opnieuw.')
     )
   }
 
@@ -48,7 +50,8 @@ export class ParticipationDashboardComponent implements OnInit {
         ))
       })
     ).subscribe(
-      result => this.surveys = result
+      result => this.surveys = result,
+      error => this.alertService.error('Er is iets misgelopen...', 'Enquêtes konden niet worden geladen. Probeer het later opnieuw.')
     );
   }
 

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { AlertService } from 'src/app/shared/alert/services/alert.service';
 import { WarningDialogComponent } from 'src/app/shared/dialogs/warning-dialog/warning-dialog.component';
 import { MultiplechoiceItem } from 'src/app/shared/models/multiplechoice-item.model';
 import { MultiplechoiceQuestion } from 'src/app/shared/models/multiplechoice-question.model';
@@ -23,7 +24,7 @@ export class AddSurveyComponent implements OnInit {
 
   allQuestions: any[] = [];
 
-  constructor(private participationService: ParticipationService, private dialog: MatDialog, private router: Router) {
+  constructor(private participationService: ParticipationService, private dialog: MatDialog, private router: Router, private alertService: AlertService) {
     this.survey = new SurveyAdd(1, '', '', new Date(), new Date(), [], []);
   }
 
@@ -92,15 +93,20 @@ export class AddSurveyComponent implements OnInit {
 
   saveSurvey() {
     this.allQuestions.forEach(question => {
-      if(question instanceof MultiplechoiceQuestion) {
+      if (question instanceof MultiplechoiceQuestion) {
         this.survey.multiplechoice_questions.push(question);
-      }else if (question instanceof OpenQuestion) {
+      } else if (question instanceof OpenQuestion) {
         this.survey.open_questions.push(question);
       }
     });
 
-    this.participationService.addSurveyComplete(this.survey).subscribe(
-      () => this.router.navigate(['/participatie/dashboard'])
+    this.participationService.addSurveyComplete(this.survey).subscribe({
+      next: () => {
+        this.router.navigate(['/participatie/dashboard'])
+        this.alertService.success('Enquête toegevoegd.', 'Enquête succesvol aangemaakt.')
+      },
+      error: () => this.alertService.error('Er is iets misgelopen...', 'Enquête kon niet worden aangemaakt. Probeer het later opnieuw.')
+    }
     );
   }
 }
