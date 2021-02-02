@@ -30,8 +30,8 @@
 <div class="row mb-3">
   <div class="col-12 col-lg-8">
     <div class="form-floating mb-3">
-      <input type="text" class="form-control" id="search" placeholder="Zoeken"
-      [(ngModel)]="searchWord" (change)="filterSurveys()">
+      <input type="text" class="form-control" id="search" placeholder="Zoeken" [(ngModel)]="searchWord"
+        (change)="filterSurveys()">
       <label for="search">Zoeken</label>
     </div>
   </div>
@@ -65,7 +65,18 @@
               <th scope="col">Acties</th>
             </tr>
           </thead>
-          <tbody *ngIf="surveys">
+          <tbody *ngIf="surveys.length == 0">
+            <tr>
+              <th colspan="7" scope="row">
+                <div class="d-flex justify-content-center my-2">
+                  <div class="d-flex align-items-center">
+                    <div class="spinner-border ms-auto" role="status" aria-hidden="true"></div>
+                  </div>
+                </div>
+              </th>
+            </tr>
+          </tbody>
+          <tbody *ngIf="surveys.length > 0">
             <tr *ngFor="let survey of surveys; let i = index">
               <th scope="row">{{ i + 1 }}</th>
               <td>{{ survey.name }}</td>

@@ -41,7 +41,10 @@ export class AddUserComponent implements OnInit {
         this.router.navigate(['/admin/dashboard']);
         this.alertService.success('Gebruiker toegevoegd.', 'De gebruiker werd succesvol toegevoegd.')
       },
-      error: () => this.alertService.error('Er is iets misgelopen...', 'De gebruiker kon niet worden toegevoegd. Probeer het later opnieuw.')
+      error: () => {
+        this.alertService.error('Er is iets misgelopen...', 'De gebruiker kon niet worden toegevoegd. Probeer het later opnieuw.');
+        this.loading = false;
+      }
     }
     );
   }

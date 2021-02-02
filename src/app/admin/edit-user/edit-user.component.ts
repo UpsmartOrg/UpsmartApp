@@ -72,7 +72,10 @@ export class EditUserComponent implements OnInit {
         this.router.navigate(['/admin/dashboard']);
         this.alertService.success('Gebruiker gewijzigd', 'De gebruikers werd succesvol gewijzigd.')
       },
-      error: () => this.alertService.error('Er is iets misgelopen...', 'De gebruiker kon niet worden gewijzigd. Probeer het later opnieuw.'),
+      error: () => {
+        this.alertService.error('Er is iets misgelopen...', 'De gebruiker kon niet worden gewijzigd. Probeer het later opnieuw.');
+        this.loading = false;
+      }
     }
     );
   }
