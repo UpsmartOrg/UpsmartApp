@@ -20,6 +20,7 @@ import { SurveyListComponent } from './kiosk/survey-list/survey-list.component';
 import { CommunicationComponent } from './kiosk/communication/communication.component';
 import { MessageDetailsComponent } from './kiosk/message-details/message-details.component';
 import { AuthGuard } from './account/guards/auth.guard';
+import { Error403Component } from './error/error403/error403.component';
 
 const routes: Routes = [
   // Login routes
@@ -63,8 +64,12 @@ const routes: Routes = [
   { path: 'kiosk/bevragingen', component: SurveyListComponent },
   { path: 'kiosk/bevraging/:surveyID', component: SurveyComponent },
 
+  // Error 403
+  { path: '403', component: Error403Component },
+
   // Error 404
-  { path: '**', component: Error404Component },
+  { path: '**', redirectTo: '404', pathMatch: 'full' },
+  { path: '404', component: Error404Component },
 ];
 
 @NgModule({

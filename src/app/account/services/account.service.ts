@@ -53,10 +53,106 @@ export class AccountService {
   }
 
   isLoggedIn() {
-    if (sessionStorage.getItem("user")) {
+    if (this.currentUser.id) {
       return true;
     } else {
       return false
     }
+  }
+
+  isAdmin() {
+    if (this.currentUser.id) {
+      this.currentUser.user_roles?.forEach(userRole => {
+        switch (parseInt(userRole.role_id.toString())) {
+          case 1:
+            return false
+          case 2:
+            return false
+          case 3:
+            return false
+          case 4:
+            return true
+          default:
+            return false
+        }
+      })
+    } else {
+      return false
+    }
+
+    return false
+
+  }
+
+  isGroendienst() {
+    if (this.currentUser.id) {
+      this.currentUser.user_roles?.forEach(userRole => {
+        switch (parseInt(userRole.role_id.toString())) {
+          case 1:
+            return true
+          case 2:
+            return false
+          case 3:
+            return false
+          case 4:
+            return false
+          default:
+            return false
+        }
+      })
+    } else {
+      return false
+    }
+
+    return false
+
+  }
+
+  isParticipatie() {
+    if (this.currentUser.id) {
+      this.currentUser.user_roles?.forEach(userRole => {
+        switch (parseInt(userRole.role_id.toString())) {
+          case 1:
+            return false
+          case 2:
+            return true
+          case 3:
+            return false
+          case 4:
+            return false
+          default:
+            return false
+        }
+      })
+    } else {
+      return false
+    }
+
+    return false
+
+  }
+
+  isCommunicatie() {
+    if (this.currentUser.id) {
+      this.currentUser.user_roles?.forEach(userRole => {
+        switch (parseInt(userRole.role_id.toString())) {
+          case 1:
+            return false
+          case 2:
+            return false
+          case 3:
+            return true
+          case 4:
+            return false
+          default:
+            return false
+        }
+      })
+    } else {
+      return false
+    }
+
+    return false
+
   }
 }
