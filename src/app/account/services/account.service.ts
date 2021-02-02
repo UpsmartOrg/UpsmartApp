@@ -47,7 +47,8 @@ export class AccountService {
     return this.http.post<User>(this.url + '/logout', this.currentUser).subscribe(
       () => {
         sessionStorage.removeItem('user');
-        this.userSubject.next(null);
+        this.userSubject.next({});
+        this.user = this.userSubject.asObservable();
         this.adminRole = this.groendienstRole = this.communicatieRole = this.participatieRole = false;
       }
     );

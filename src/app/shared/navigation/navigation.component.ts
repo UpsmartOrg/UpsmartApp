@@ -17,6 +17,9 @@ export class NavigationComponent implements OnInit {
   participatieRole = false;
   communicatieRole = false;
 
+  hideNav: boolean = false;
+  kiosk: boolean = false;
+
   constructor(public accountService: AccountService, private router: Router) {
     this.accountService.user.subscribe({
       next: result => this.user = result
@@ -24,6 +27,22 @@ export class NavigationComponent implements OnInit {
 
     this.accountService.userRoles.subscribe({
       next: () => this.checkRoles()
+    })
+
+    this.router.events.subscribe({
+      next: () => {
+        if (this.router.url === '/login' || this.router.url.includes('/kiosk')) {
+          this.hideNav = true;
+        } else {
+          this.hideNav = false;
+        }
+
+        if (this.router.url.includes('/kiosk')) {
+          this.kiosk = true;
+        } else {
+          this.kiosk = false;
+        }
+      }
     })
   }
 
