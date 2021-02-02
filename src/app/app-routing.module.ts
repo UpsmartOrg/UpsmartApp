@@ -19,40 +19,41 @@ import { SurveyComponent } from './kiosk/survey/survey.component';
 import { SurveyListComponent } from './kiosk/survey-list/survey-list.component';
 import { CommunicationComponent } from './kiosk/communication/communication.component';
 import { MessageDetailsComponent } from './kiosk/message-details/message-details.component';
+import { AuthGuard } from './account/guards/auth.guard';
 
 const routes: Routes = [
   // Login routes
   { path: 'login', component: LoginComponent },
 
   // Home routes
-  { path: '', component: HomeComponent },
-  { path: 'home', component: HomeComponent },
+  { path: '', component: HomeComponent, canActivate: [AuthGuard] },
+  { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
 
   // Admin routes
-  { path: 'admin', redirectTo: 'admin/dashboard', pathMatch: 'full' },
-  { path: 'admin/dashboard', component: AdminDashboardComponent },
-  { path: 'admin/gebruiker-toevoegen', component: AddUserComponent },
-  { path: 'admin/gebruiker-wijzigen/:userID', component: EditUserComponent },
+  { path: 'admin', redirectTo: 'admin/dashboard', pathMatch: 'full', canActivate: [AuthGuard] },
+  { path: 'admin/dashboard', component: AdminDashboardComponent, canActivate: [AuthGuard] },
+  { path: 'admin/gebruiker-toevoegen', component: AddUserComponent, canActivate: [AuthGuard] },
+  { path: 'admin/gebruiker-wijzigen/:userID', component: EditUserComponent, canActivate: [AuthGuard] },
 
   // Garbage Collection routes
-  { path: 'groendienst', redirectTo: 'groendienst/dashboard', pathMatch: 'full' },
-  { path: 'groendienst/dashboard', component: GarbageDashboardComponent },
+  { path: 'groendienst', redirectTo: 'groendienst/dashboard', pathMatch: 'full', canActivate: [AuthGuard] },
+  { path: 'groendienst/dashboard', component: GarbageDashboardComponent, canActivate: [AuthGuard] },
 
   // Participation routes
-  { path: 'participatie', redirectTo: 'participatie/dashboard', pathMatch: 'full' },
-  { path: 'participatie/dashboard', component: ParticipationDashboardComponent },
-  { path: 'participatie/enquete-toevoegen', component: AddSurveyComponent },
-  { path: 'participatie/enquete-wijzigen/:surveyID', component: EditSurveyComponent },
+  { path: 'participatie', redirectTo: 'participatie/dashboard', pathMatch: 'full', canActivate: [AuthGuard] },
+  { path: 'participatie/dashboard', component: ParticipationDashboardComponent, canActivate: [AuthGuard] },
+  { path: 'participatie/enquete-toevoegen', component: AddSurveyComponent, canActivate: [AuthGuard] },
+  { path: 'participatie/enquete-wijzigen/:surveyID', component: EditSurveyComponent, canActivate: [AuthGuard] },
 
   // Communication routes
-  { path: 'communicatie', redirectTo: '/communicatie/dashboard', pathMatch: 'full' },
-  { path: 'communicatie/dashboard', component: CommunicationDashboardComponent },
-  { path: 'communicatie/bericht-toevoegen', component: AddMessageComponent },
-  { path: 'communicatie/bericht-wijzigen/:messageID', component: EditMessageComponent },
+  { path: 'communicatie', redirectTo: '/communicatie/dashboard', pathMatch: 'full', canActivate: [AuthGuard] },
+  { path: 'communicatie/dashboard', component: CommunicationDashboardComponent, canActivate: [AuthGuard] },
+  { path: 'communicatie/bericht-toevoegen', component: AddMessageComponent, canActivate: [AuthGuard] },
+  { path: 'communicatie/bericht-wijzigen/:messageID', component: EditMessageComponent, canActivate: [AuthGuard] },
 
   // Profiel routes
-  { path: 'profiel', component: ProfileComponent },
-  { path: 'logout', redirectTo: '' },
+  { path: 'profiel', component: ProfileComponent, canActivate: [AuthGuard] },
+  { path: 'logout', redirectTo: '', canActivate: [AuthGuard] },
 
   // Kiosk routes
   { path: 'kiosk', redirectTo: '/kiosk/home', pathMatch: 'full' },

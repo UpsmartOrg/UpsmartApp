@@ -51,4 +51,12 @@ export class AccountService {
   updatePassword(user: User, oldPassword: string, newPassword: string) {
     return this.http.post<User>(this.url + '/change-password', { "oldPassword": oldPassword, "user": user.id, "newPassword": newPassword })
   }
+
+  isLoggedIn() {
+    if (sessionStorage.getItem("user")) {
+      return true;
+    } else {
+      return false
+    }
+  }
 }
