@@ -21,6 +21,10 @@ import { CommunicationComponent } from './kiosk/communication/communication.comp
 import { MessageDetailsComponent } from './kiosk/message-details/message-details.component';
 import { AuthGuard } from './account/guards/auth.guard';
 import { Error403Component } from './error/error403/error403.component';
+import { AdminAuthGuard } from './account/guards/admin-auth.guard';
+import { GroendienstAuthGuard } from './account/guards/groendienst-auth.guard';
+import { ParticipatieAuthGuard } from './account/guards/participatie-auth.guard';
+import { CommunicatieAuthGuard } from './account/guards/communicatie-auth.guard';
 
 const routes: Routes = [
   // Login routes
@@ -31,26 +35,26 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
 
   // Admin routes
-  { path: 'admin', redirectTo: 'admin/dashboard', pathMatch: 'full', canActivate: [AuthGuard] },
-  { path: 'admin/dashboard', component: AdminDashboardComponent, canActivate: [AuthGuard] },
-  { path: 'admin/gebruiker-toevoegen', component: AddUserComponent, canActivate: [AuthGuard] },
-  { path: 'admin/gebruiker-wijzigen/:userID', component: EditUserComponent, canActivate: [AuthGuard] },
+  { path: 'admin', redirectTo: 'admin/dashboard', pathMatch: 'full', canActivate: [AdminAuthGuard, AuthGuard] },
+  { path: 'admin/dashboard', component: AdminDashboardComponent, canActivate: [AdminAuthGuard, AuthGuard] },
+  { path: 'admin/gebruiker-toevoegen', component: AddUserComponent, canActivate: [AdminAuthGuard, AuthGuard] },
+  { path: 'admin/gebruiker-wijzigen/:userID', component: EditUserComponent, canActivate: [AdminAuthGuard, AuthGuard] },
 
   // Garbage Collection routes
-  { path: 'groendienst', redirectTo: 'groendienst/dashboard', pathMatch: 'full', canActivate: [AuthGuard] },
-  { path: 'groendienst/dashboard', component: GarbageDashboardComponent, canActivate: [AuthGuard] },
+  { path: 'groendienst', redirectTo: 'groendienst/dashboard', pathMatch: 'full', canActivate: [GroendienstAuthGuard, AuthGuard] },
+  { path: 'groendienst/dashboard', component: GarbageDashboardComponent, canActivate: [GroendienstAuthGuard, AuthGuard] },
 
   // Participation routes
-  { path: 'participatie', redirectTo: 'participatie/dashboard', pathMatch: 'full', canActivate: [AuthGuard] },
-  { path: 'participatie/dashboard', component: ParticipationDashboardComponent, canActivate: [AuthGuard] },
-  { path: 'participatie/enquete-toevoegen', component: AddSurveyComponent, canActivate: [AuthGuard] },
-  { path: 'participatie/enquete-wijzigen/:surveyID', component: EditSurveyComponent, canActivate: [AuthGuard] },
+  { path: 'participatie', redirectTo: 'participatie/dashboard', pathMatch: 'full', canActivate: [ParticipatieAuthGuard, AuthGuard] },
+  { path: 'participatie/dashboard', component: ParticipationDashboardComponent, canActivate: [ParticipatieAuthGuard, AuthGuard] },
+  { path: 'participatie/enquete-toevoegen', component: AddSurveyComponent, canActivate: [ParticipatieAuthGuard, AuthGuard] },
+  { path: 'participatie/enquete-wijzigen/:surveyID', component: EditSurveyComponent, canActivate: [ParticipatieAuthGuard, AuthGuard] },
 
   // Communication routes
-  { path: 'communicatie', redirectTo: '/communicatie/dashboard', pathMatch: 'full', canActivate: [AuthGuard] },
-  { path: 'communicatie/dashboard', component: CommunicationDashboardComponent, canActivate: [AuthGuard] },
-  { path: 'communicatie/bericht-toevoegen', component: AddMessageComponent, canActivate: [AuthGuard] },
-  { path: 'communicatie/bericht-wijzigen/:messageID', component: EditMessageComponent, canActivate: [AuthGuard] },
+  { path: 'communicatie', redirectTo: '/communicatie/dashboard', pathMatch: 'full', canActivate: [CommunicatieAuthGuard, AuthGuard] },
+  { path: 'communicatie/dashboard', component: CommunicationDashboardComponent, canActivate: [ParticipatieAuthGuard, AuthGuard] },
+  { path: 'communicatie/bericht-toevoegen', component: AddMessageComponent, canActivate: [ParticipatieAuthGuard, AuthGuard] },
+  { path: 'communicatie/bericht-wijzigen/:messageID', component: EditMessageComponent, canActivate: [ParticipatieAuthGuard, AuthGuard] },
 
   // Profiel routes
   { path: 'profiel', component: ProfileComponent, canActivate: [AuthGuard] },
