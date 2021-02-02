@@ -14,6 +14,8 @@ export class AccountService {
   public user: Observable<User>;
   currentUser!: User;
 
+  private userRolesSubject: BehaviorSubject<any>;
+  public userRoles: Observable<User>;
   adminRole = false;
   groendienstRole = false;
   participatieRole = false;
@@ -23,7 +25,10 @@ export class AccountService {
     this.userSubject = new BehaviorSubject<User>(JSON.parse(sessionStorage.getItem('user') || '{}'));
     this.user = this.userSubject.asObservable();
     this.user.subscribe(x => this.currentUser = x);
-    this.loadUser();
+
+    this.userRolesSubject = new BehaviorSubject<any>(null);
+    this.userRoles = this.userSubject.asObservable();
+    this.loadRoles();
   }
 
   private url = "http://smartcityapi.seppealaerts.be/api";
@@ -33,7 +38,7 @@ export class AccountService {
       .pipe(map(user => {
         sessionStorage.setItem('user', JSON.stringify(user));
         this.userSubject.next(user);
-        this.loadUser();
+        this.loadRoles();
         return user;
       }));
   }
@@ -104,31 +109,31 @@ export class AccountService {
     }
   }
 
-  loadUser() {
+  loadRoles() {
     this.getUserWithRoles(this.currentUser.id).subscribe(
-      result => this.loadUserRoles(result)
-    )
-  }
-
-  loadUserRoles(user: User) {
-    console.log(user)
-    user.user_roles?.forEach(userRole => {
-      switch (parseInt(userRole.role_id.toString())) {
-        case 1:
-          this.groendienstRole = true;
-          break;
-        case 2:
-          this.participatieRole = true;
-          break;
-        case 3:
-          this.communicatieRole = true;
-          break;
-        case 4:
-          this.adminRole = true;
-          break;
-        default:
-          break;
+      result => {
+        result.user_roles?.forEach(userRole => {
+          switch (parseInt(userRole.role_id.toString())) {
+            case 1:
+              this.groendienstRole = true;
+              break;
+            case 2:
+              this.participatieRole = true;
+              break;
+            case 3:
+              this.communicatieRole = true;
+              break;
+            case 4:
+              this.adminRole = true;
+              break;
+            default:
+              break;
+          }
+        })
+        this.userRolesSubject = new BehaviorSubject<User>(result)
+        this.userRoles = this.userSubject.asObservable();
+        this.userSubject.next(result);
       }
-    })
+    )
   }
 }
