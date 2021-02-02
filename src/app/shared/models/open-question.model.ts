@@ -5,6 +5,6 @@ export class OpenQuestion {
         public title: string,
         public description: string,
         public rows: number,
-        public question_number: number,
+        public question_order: number,
     ) { }
 }

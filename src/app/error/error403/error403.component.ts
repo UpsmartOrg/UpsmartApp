@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-error403',
@@ -9,15 +10,15 @@ import { Router } from '@angular/router';
 })
 export class Error403Component implements OnInit {
 
-  constructor(private titleService: Title, private router: Router) {
+  constructor(private titleService: Title, private router: Router, private location: Location) {
     this.titleService.setTitle("Geen Toegang - Smart City Herentals");
   }
 
   ngOnInit(): void {
   }
 
-  redirectTo(route: string) {
-    this.router.navigateByUrl(route);
+  redirectTo() {
+    this.location.back();
   }
 
 }

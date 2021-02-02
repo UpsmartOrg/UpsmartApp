@@ -16,6 +16,9 @@ import { EditMessageComponent } from './communication/edit-message/edit-message.
 import { AddMessageComponent } from './communication/add-message/add-message.component';
 import { KioskHomeComponent } from './kiosk/home/home.component';
 import { SurveyComponent } from './kiosk/survey/survey.component';
+import { SurveyListComponent } from './kiosk/survey-list/survey-list.component';
+import { CommunicationComponent } from './kiosk/communication/communication.component';
+import { MessageDetailsComponent } from './kiosk/message-details/message-details.component';
 
 const routes: Routes = [
   // Login routes
@@ -39,7 +42,7 @@ const routes: Routes = [
   { path: 'participatie', redirectTo: 'participatie/dashboard', pathMatch: 'full' },
   { path: 'participatie/dashboard', component: ParticipationDashboardComponent },
   { path: 'participatie/enquete-toevoegen', component: AddSurveyComponent },
-  { path: 'participatie/enquete-wijzigen', component: EditSurveyComponent },
+  { path: 'participatie/enquete-wijzigen/:surveyID', component: EditSurveyComponent },
 
   // Communication routes
   { path: 'communicatie', redirectTo: '/communicatie/dashboard', pathMatch: 'full' },
@@ -52,7 +55,11 @@ const routes: Routes = [
   { path: 'logout', redirectTo: '' },
 
   // Kiosk routes
-  { path: 'kiosk', component: KioskHomeComponent },
+  { path: 'kiosk', redirectTo: '/kiosk/home', pathMatch: 'full' },
+  { path: 'kiosk/home', component: KioskHomeComponent },
+  { path: 'kiosk/stadsnieuws', component: CommunicationComponent },
+  { path: 'kiosk/stadsnieuws/:messageID', component: MessageDetailsComponent },
+  { path: 'kiosk/bevragingen', component: SurveyListComponent },
   { path: 'kiosk/bevraging/:surveyID', component: SurveyComponent },
 
   // Error 404

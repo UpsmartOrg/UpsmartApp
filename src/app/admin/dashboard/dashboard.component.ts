@@ -5,6 +5,9 @@ import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { AlertService } from 'src/app/shared/alert/services/alert.service';
+import { AccountService } from 'src/app/account/services/account.service';
+import { ErrorDialogComponent } from 'src/app/shared/dialogs/error-dialog/error-dialog.component';
 import { WarningDialogComponent } from 'src/app/shared/dialogs/warning-dialog/warning-dialog.component';
 import { User } from 'src/app/shared/models/user.model';
 import { AdminService } from '../services/admin.service';
@@ -16,15 +19,18 @@ import { AdminService } from '../services/admin.service';
 })
 export class AdminDashboardComponent implements OnInit {
 
+  loggedInUser!: User;
   users: User[] = [];
   usersCache!: Observable<User[]>;
 
   searchWord: string = '';
   searchRoleID: number = 0;
 
-  constructor(private titleService: Title, private router: Router, private adminService: AdminService, public dialog: MatDialog) {
-
+  constructor(private titleService: Title, private router: Router, private adminService: AdminService, public dialog: MatDialog, private accountService: AccountService, private alertService: AlertService) {
     this.titleService.setTitle("Admin Dashboard - Smart City Herentals");
+    this.accountService.user.subscribe(result => {
+      this.loggedInUser = result;
+    });
     this.loadUsers();
   }
 
@@ -33,21 +39,17 @@ export class AdminDashboardComponent implements OnInit {
 
   loadUsers() {
     this.usersCache = this.adminService.getUsersWithRoles();
-    //Als dit niet werkt online, gebruik de versie in commentaar (dubbele HTTP request)
     this.usersCache.subscribe(
       result => this.users = result,
+      error => this.alertService.error('Er is iets misgelopen...', 'De gebruikers konden niet worden geladen. Probeer het later opnieuw.')
     )
-    // this.adminService.getUsersWithRole().subscribe(
-    //   result => this.users = result,
-    // )
+
   }
 
   filterUsers() {
     this.usersCache.pipe(
       map(array => {
         return array.filter(user => this.searchRoleID == 0 ? true :
-          //user.user_roles?.toString().includes(this.searchRoleID.toString())
-          //user.user_roles?.forEach(userRole => userRole.role.id == this.searchRoleID)
           this.checkRoles(user, this.searchRoleID)
         )
       }), map(array => {
@@ -58,7 +60,8 @@ export class AdminDashboardComponent implements OnInit {
         ))
       })
     ).subscribe(
-      result => this.users = result
+      result => this.users = result,
+      error => this.alertService.error('Er is iets misgelopen...', 'De gebruikers konden niet worden geladen. Probeer het later opnieuw.')
     );
   }
 
@@ -86,11 +89,13 @@ export class AdminDashboardComponent implements OnInit {
 
   deleteDialog(user: User) {
     //Make sure the user doesn't delete himself
-    // if (user.id == this.authenticatedUser.userID) {
-    //   const dialogRef = this.dialog.open(ErrorDialogComponent, { data: "You can't delete yourself", height: '400px', width: '400px' });
-    // }
+    if (user.id == this.loggedInUser.id) {
+      var errors = ['Je kan jezelf niet verwijderen'];
+      this.dialog.open(ErrorDialogComponent, { data: errors });
+      return;
+    }
     var message: string = "Ben je zeker dat je de gebruiker "
-    + user.first_name.toUpperCase() + " " + user.last_name.toUpperCase() + " wil verwijderen?\n"
+      + user.first_name.toUpperCase() + " " + user.last_name.toUpperCase() + " wil verwijderen?\n"
 
     const dialogRef = this.dialog.open(WarningDialogComponent, {
       data: message,
@@ -107,7 +112,11 @@ export class AdminDashboardComponent implements OnInit {
 
   deleteUser(userID: number) {
     this.adminService.deleteUser(userID).subscribe(
-      () => this.removeFromUserList(userID)
+      () => {
+        this.removeFromUserList(userID)
+        this.alertService.success('Gebruiker verwijderd.', 'De gebruiker werd succesvol verwijderd.')
+      },
+      error => this.alertService.error('Er is iets misgelopen...', 'De gebruiker kon niet worden verwijderd. Probeer het later opnieuw.')
     );
   }
 
