@@ -25,6 +25,7 @@ import { AdminAuthGuard } from './account/guards/admin-auth.guard';
 import { GroendienstAuthGuard } from './account/guards/groendienst-auth.guard';
 import { ParticipatieAuthGuard } from './account/guards/participatie-auth.guard';
 import { CommunicatieAuthGuard } from './account/guards/communicatie-auth.guard';
+import { LogoutComponent } from './account/logout/logout.component';
 
 const routes: Routes = [
   // Login routes
@@ -58,7 +59,7 @@ const routes: Routes = [
 
   // Profiel routes
   { path: 'profiel', component: ProfileComponent, canActivate: [AuthGuard] },
-  { path: 'logout', redirectTo: '', canActivate: [AuthGuard] },
+  { path: 'logout', component: LogoutComponent, canActivate: [AuthGuard] },
 
   // Kiosk routes
   { path: 'kiosk', redirectTo: '/kiosk/home', pathMatch: 'full' },

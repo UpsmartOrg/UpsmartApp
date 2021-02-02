@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class AccountService {
 
-  private userSubject: BehaviorSubject<User>;
+  private userSubject: BehaviorSubject<any>;
   public user: Observable<User>;
   currentUser!: User;
 
@@ -32,8 +32,13 @@ export class AccountService {
   }
 
   logout() {
-    sessionStorage.removeItem('user');
-    this.router.navigate(['/login']);
+    return this.http.post<User>(this.url + '/logout', this.currentUser).subscribe(
+      () => {
+        sessionStorage.removeItem('user');
+        this.userSubject.next(null);
+        console.log(this.currentUser)
+      }
+    );
   }
 
   getUser(user_id: number): Observable<User> {
