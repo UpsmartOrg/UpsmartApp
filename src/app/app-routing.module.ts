@@ -53,9 +53,9 @@ const routes: Routes = [
 
   // Communication routes
   { path: 'communicatie', redirectTo: '/communicatie/dashboard', pathMatch: 'full', canActivate: [CommunicatieAuthGuard, AuthGuard] },
-  { path: 'communicatie/dashboard', component: CommunicationDashboardComponent, canActivate: [ParticipatieAuthGuard, AuthGuard] },
-  { path: 'communicatie/bericht-toevoegen', component: AddMessageComponent, canActivate: [ParticipatieAuthGuard, AuthGuard] },
-  { path: 'communicatie/bericht-wijzigen/:messageID', component: EditMessageComponent, canActivate: [ParticipatieAuthGuard, AuthGuard] },
+  { path: 'communicatie/dashboard', component: CommunicationDashboardComponent, canActivate: [CommunicatieAuthGuard, AuthGuard] },
+  { path: 'communicatie/bericht-toevoegen', component: AddMessageComponent, canActivate: [CommunicatieAuthGuard, AuthGuard] },
+  { path: 'communicatie/bericht-wijzigen/:messageID', component: EditMessageComponent, canActivate: [CommunicatieAuthGuard, AuthGuard] },
 
   // Profiel routes
   { path: 'profiel', component: ProfileComponent, canActivate: [AuthGuard] },
