@@ -1,5 +1,5 @@
 <!-- Heading -->
-<h1 class="mt-5 pt-5">Bericht Wijzigen <em class="float-end far fa-question-circle help mt-3" data-bs-toggle="collapse"
+<h1 class="mt-5 pt-5">Zone Wijzigen <em class="float-end far fa-question-circle help mt-3" data-bs-toggle="collapse"
     data-bs-target="#help" aria-expanded="false" aria-controls="help"></em></h1>
 <hr>
 
@@ -7,7 +7,7 @@
 <!-- TODO: handleiding invullen -->
 <div class="collapse mb-3" id="help">
   <div class="card">
-    <div class="card-header">Handleiding Bericht Wijzigen</div>
+    <div class="card-header">Handleiding Zone Wijzigen</div>
     <div class="card-body">
       <p class="my-2 p-0">Korte handleiding met wat extra uitleg over hoe deze pagina werkt. (+ evt ondersteunende
         afbeeldingen)</p>
@@ -25,28 +25,28 @@
 </div>
 
 <!-- Content -->
-<div *ngIf="message == null">
+<div *ngIf="zone == null">
   <div class="text-center mt-5">
     <div class="spinner-border" role="status">
       <span class="visually-hidden">Loading...</span>
     </div>
   </div>
 </div>
-<div *ngIf="message">
+<div *ngIf="zone">
   <div class="mb-3">
-    <label for="title" class="form-label">Titel</label>
-    <input type="text" class="form-control" id="title" [(ngModel)]="message.title">
+    <label for="name" class="form-label">Naam</label>
+    <input type="text" class="form-control" id="name" [(ngModel)]="zone.name">
   </div>
 
   <div class="mb-3">
-    <label for="message" class="form-label">Bericht</label>
-    <textarea class="form-control" id="message" rows="5" [(ngModel)]="message.body"></textarea>
+    <label for="description" class="form-label">Beschrijving</label>
+    <textarea class="form-control" id="description" rows="2" [(ngModel)]="zone.description"></textarea>
   </div>
 
   <div class="row mb-5">
     <div class="col">
-      <button type="button" class="btn btn-primary mt-3 text-uppercase" (click)="updateMessage()" *ngIf="! loading">
-        <span> Bericht wijzigen</span>
+      <button type="button" class="btn btn-primary mt-3 text-uppercase" (click)="updateZone()" *ngIf="! loading">
+        <span> Zone wijzigen</span>
       </button>
       <button class="btn btn-primary mt-3 text-uppercase" type="button" disabled *ngIf="loading">
         <span class="spinner-border spinner-border-sm mb-1" role="status" aria-hidden="true"></span>

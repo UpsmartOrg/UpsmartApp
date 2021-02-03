@@ -29,6 +29,7 @@ import { LogoutComponent } from './account/logout/logout.component';
 import { ZonesListComponent } from './garbage-collection/zones-list/zones-list.component';
 import { EditBinInfoComponent } from './garbage-collection/edit-bin-info/edit-bin-info.component';
 import { AddZoneComponent } from './garbage-collection/add-zone/add-zone.component';
+import { EditZoneComponent } from './garbage-collection/edit-zone/edit-zone.component';
 
 const routes: Routes = [
   // Login routes
@@ -51,6 +52,7 @@ const routes: Routes = [
   { path: 'groendienst/zones', redirectTo: 'groendienst/zones/overzicht', pathMatch: 'full' },
   { path: 'groendienst/zones/overzicht', component: ZonesListComponent },
   { path: 'groendienst/zones/zone-toevoegen', component: AddZoneComponent },
+  { path: 'groendienst/zones/zone-wijzigen/:zoneID', component: EditZoneComponent },
 
   // Participation routes
   { path: 'participatie', redirectTo: 'participatie/dashboard', pathMatch: 'full', canActivate: [ParticipatieAuthGuard, AuthGuard] },

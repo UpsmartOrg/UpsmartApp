@@ -56,7 +56,7 @@
               <td>{{ zone.name || 'N/A' }}</td>
               <td>{{ zone.description || 'N/A' }}</td>
               <td>
-                <em class="far fa-edit actions mr-4"></em>
+                <em class="far fa-edit actions mr-4" (click)="editZone(zone.id)"></em>
                 <em class="far fa-trash-alt actions mx-3" (click)="deleteDialog(zone)"></em>
               </td>
             </tr>

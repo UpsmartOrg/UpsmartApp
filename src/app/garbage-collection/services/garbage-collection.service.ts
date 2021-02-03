@@ -37,8 +37,16 @@ export class GarbageCollectionService {
     return this.http.get<Zone[]>(this.url + '/zones');
   }
 
+  getZone(zoneID: number): Observable<Zone> {
+    return this.http.get<Zone>(this.url + '/zones/' + zoneID);
+  }
+
   postZone(zone: Zone): Observable<Zone> {
     return this.http.post<Zone>(this.url + '/zones', zone);
+  }
+
+  updateZone(zone: Zone): Observable<Zone> {
+    return this.http.put<Zone>(this.url + '/zones/' + zone.id, zone);
   }
 
   deleteZone(id: number) {

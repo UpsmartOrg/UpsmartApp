@@ -39,10 +39,12 @@ export class EditMessageComponent implements OnInit {
         this.router.navigate(['/communicatie/dashboard'])
         this.alertService.success('Bericht gewijzigd.', 'Het bericht werd succesvol gewijzigd.')
       },
-      error: () => this.alertService.error('Er is iets misgelopen...', 'Het bericht kon niet worden gewijzigd. Probeer het later opnieuw.')
+      error: () => {
+        this.loading = false;
+        this.alertService.error('Er is iets misgelopen...', 'Het bericht kon niet worden gewijzigd. Probeer het later opnieuw.');
+      }
     }
     );
-    ;
   }
 
 }

@@ -28,6 +28,10 @@ export class ZonesListComponent implements OnInit {
     this.router.navigateByUrl(route);
   }
 
+  editZone(zoneID: number) {
+    this.router.navigateByUrl("/groendienst/zones/zone-wijzigen/" + zoneID);
+  }
+
   loadZones() {
     this.garbageCollectionService.getZones().subscribe(
       result => this.zones = result,
