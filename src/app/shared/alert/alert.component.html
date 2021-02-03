@@ -4,7 +4,7 @@
       <div class="alert fade show mb-0 mt-2 {{cssClass(alert)}}" role="alert">
         <button type="button" class="btn-close float-end" (click)="removeAlert(alert)"></button>
         <h4 class="alert-heading">{{ alert.messageTitle }}</h4>
-        {{ alert.messageBody }}
+        <div [innerHTML]="alert.messageBody"></div>
       </div>
     </div>
   </div>
