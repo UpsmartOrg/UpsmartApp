@@ -1,37 +1,41 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
   <div class="container">
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" *ngIf="!hideNav">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <a class="navbar-brand mx-auto" href="#">
+    <a class="navbar-brand mx-auto" routerLink="/kiosk" *ngIf="kiosk">
       <img src="/assets/img/herentals_smart_city.svg" alt=" logo Herentals" width="auto" height="115" class="my-0">
     </a>
-    <div class="collapse navbar-collapse justify-content-end" id="navbar">
+    <a class="navbar-brand mx-auto" routerLink="/home" *ngIf="!kiosk">
+      <img src="/assets/img/herentals_smart_city.svg" alt=" logo Herentals" width="auto" height="115" class="my-0">
+    </a>
+    <div class="collapse navbar-collapse justify-content-end" id="navbar" *ngIf="!hideNav">
       <ul class="navbar-nav">
         <li class="nav-item px-4">
           <a class="nav-link" routerLink="/home" routerLinkActive="active"
             [routerLinkActiveOptions]="{ exact: true }">Home</a>
         </li>
-        <li class="nav-item dropdown  px-4">
+        <li class="nav-item dropdown  px-4"
+          *ngIf="adminRole || groendienstRole || participatieRole || communicatieRole">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
             aria-expanded="false"
             [ngClass]="{'active': dash1.isActive || dash2.isActive || dash3.isActive || dash4.isActive}">
             Dashboard
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li>
+            <li [ngClass]="{'d-none': !adminRole}">
               <a class="dropdown-item" routerLink="/admin/dashboard" routerLinkActive="active"
                 [routerLinkActiveOptions]="{ exact: true }" #dash1="routerLinkActive">Admin</a>
             </li>
-            <li>
+            <li [ngClass]="{'d-none': !groendienstRole}">
               <a class="dropdown-item" routerLink="/groendienst/dashboard" routerLinkActive="active"
                 [routerLinkActiveOptions]="{ exact: true }" #dash2="routerLinkActive">Groendienst</a>
             </li>
-            <li>
+            <li [ngClass]="{'d-none': !participatieRole}">
               <a class="dropdown-item" routerLink="/participatie/dashboard" routerLinkActive="active"
                 [routerLinkActiveOptions]="{ exact: true }" #dash3="routerLinkActive">Participatie</a>
             </li>
-            <li>
+            <li [ngClass]="{'d-none': !communicatieRole}">
               <a class="dropdown-item" routerLink="/communicatie/dashboard" routerLinkActive="active"
                 [routerLinkActiveOptions]="{ exact: true }" #dash4="routerLinkActive">Communicatie</a>
             </li>

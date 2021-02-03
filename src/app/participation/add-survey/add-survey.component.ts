@@ -32,6 +32,8 @@ export class AddSurveyComponent implements OnInit {
   start_date!: string;
   end_date!: string;
 
+  loading: boolean = false;
+
   constructor(private participationService: ParticipationService, private dialog: MatDialog, private router: Router, private accountService: AccountService, private alertService: AlertService) {
     this.accountService.user.subscribe(result => {
       this.user = result;
@@ -142,6 +144,7 @@ export class AddSurveyComponent implements OnInit {
     if (this.hasErrors()) {
       return;
     }
+    this.loading = true;
     this.allQuestions.forEach(question => {
       if (question instanceof MultiplechoiceQuestionAdd) {
         this.survey.multiplechoice_questions.push(question);
@@ -155,7 +158,10 @@ export class AddSurveyComponent implements OnInit {
         this.router.navigate(['/participatie/dashboard'])
         this.alertService.success('Enquête toegevoegd.', 'Enquête succesvol aangemaakt.')
       },
-      error: () => this.alertService.error('Er is iets misgelopen...', 'Enquête kon niet worden aangemaakt. Probeer het later opnieuw.')
+      error: () => {
+        this.alertService.error('Er is iets misgelopen...', 'Enquête kon niet worden aangemaakt. Probeer het later opnieuw.');
+        this.loading = false;
+      }
     }
     );
   }

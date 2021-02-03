@@ -96,107 +96,10 @@
               <td>{{ user.created_at | date:'dd-MM-yyyy'}}</td>
               <td>
                 <em class="far fa-edit actions mr-4" (click)="editUser(user.id)"></em>
-                <em *ngIf="user.id != loggedInUser.id" class="far fa-trash-alt actions mx-3" (click)="deleteDialog(user)"></em>
+                <em *ngIf="user.id != loggedInUser.id" class="far fa-trash-alt actions mx-3"
+                  (click)="deleteDialog(user)"></em>
               </td>
             </tr>
-            <!-- <tr>
-              <th scope="row">1</th>
-              <td>Rita</td>
-              <td>Peeters</td>
-              <td>rita.peeters@herentals.be</td>
-              <td>rita.peeters</td>
-              <td>Communicatie</td>
-              <td>Ja</td>
-              <td>11-04-2008</td>
-              <td>
-                <em class="far fa-edit actions mr-4"></em>
-                <em class="far fa-trash-alt actions mx-3"></em>
-              </td>
-            </tr>
-            <tr>
-              <th scope="row">2</th>
-              <td>Jean</td>
-              <td>Jansen</td>
-              <td>jean.jansens@herentals.be</td>
-              <td>jean.jansens</td>
-              <td>Communicatie</td>
-              <td>Nee</td>
-              <td>11-04-2008</td>
-              <td>
-                <em class="far fa-edit actions mr-4"></em>
-                <em class="far fa-trash-alt actions mx-3"></em>
-              </td>
-            </tr>
-            <tr>
-              <th scope="row">3</th>
-              <td>Emma</td>
-              <td>Timmermans</td>
-              <td>emma.timmermans@herentals.be</td>
-              <td>emma.timmermans</td>
-              <td>Participatie</td>
-              <td>Nee</td>
-              <td>11-04-2008</td>
-              <td>
-                <em class="far fa-edit actions mr-4"></em>
-                <em class="far fa-trash-alt actions mx-3"></em>
-              </td>
-            </tr>
-            <tr>
-              <th scope="row">4</th>
-              <td>Bert</td>
-              <td>Maes</td>
-              <td>bert.maes@herentals.be</td>
-              <td>bert.maes</td>
-              <td>Participatie</td>
-              <td>Ja</td>
-              <td>11-04-2008</td>
-              <td>
-                <em class="far fa-edit actions mr-4"></em>
-                <em class="far fa-trash-alt actions mx-3"></em>
-              </td>
-            </tr>
-            <tr>
-              <th scope="row">5</th>
-              <td>Bob</td>
-              <td>Thijs</td>
-              <td>bob.thijs@herentals.be</td>
-              <td>bob.thijs</td>
-              <td>Groendienst</td>
-              <td>Nee</td>
-              <td>11-04-2008</td>
-              <td>
-                <em class="far fa-edit actions mr-4"></em>
-                <em class="far fa-trash-alt actions mx-3"></em>
-              </td>
-            </tr>
-            <tr>
-              <th scope="row">6</th>
-              <td>Marie</td>
-              <td>Jacobs</td>
-              <td>marie.jacobs@herentals.be</td>
-              <td>marie.jacobs</td>
-              <td>Groendienst</td>
-              <td>Nee</td>
-              <td>11-04-2008</td>
-              <td>
-                <em class="far fa-edit actions mr-4"></em>
-                <em class="far fa-trash-alt actions mx-3"></em>
-              </td>
-            </tr>
-            <tr>
-              <th scope="row">6</th>
-              <td>Karel</td>
-              <td>Simons</td>
-              <td>karelsimons@itbedrijf.be</td>
-              <td>karel.simons</td>
-              <td>Extern</td>
-              <td>Nee</td>
-              <td>20-01-2021</td>
-              <td>
-                <em class="far fa-edit actions mr-4"></em>
-                <em class="far fa-trash-alt actions mx-3"></em>
-              </td>
-            </tr> -->
           </tbody>
         </table>
       </div>
