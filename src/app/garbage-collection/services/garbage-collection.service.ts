@@ -36,4 +36,8 @@ export class GarbageCollectionService {
   getZones(): Observable<Zone[]> {
     return this.http.get<Zone[]>(this.url + '/zones');
   }
+
+  deleteZone(id: number) {
+    return this.http.delete<Zone>(this.url + '/zones/' + id);
+  }
 }
