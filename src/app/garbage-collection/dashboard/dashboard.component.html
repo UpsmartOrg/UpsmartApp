@@ -30,17 +30,17 @@
 <div class="row mb-3">
   <div class="col-12 col-lg-6">
     <div class="form-floating mb-3">
-      <input type="text" class="form-control" id="search" placeholder="Zoeken">
+      <input type="text" class="form-control" id="search" placeholder="Zoeken" 
+      [(ngModel)]="searchWord" (change)="filterBinInfoList()">
       <label for="search">Zoeken</label>
     </div>
   </div>
   <div class="col-12 col-lg-3">
     <div class="form-floating">
-      <select class="form-select" id="floatingSelect">
-        <option selected>Alle locaties</option>
-        <option value="1">Park</option>
-        <option value="2">Kerkstraat</option>
-        <option value="3">Gemeentehuis</option>
+      <select class="form-select" id="floatingSelect" 
+      [(ngModel)]="searchZoneID" (change)="filterBinInfoList()">
+        <option selected value="0">Alle locaties</option>
+        <option *ngFor="let zone of zones" [value]="zone.id">{{zone.name}}</option>
       </select>
       <label for="floatingSelect">Kies locatie</label>
     </div>
@@ -67,40 +67,34 @@
             <tr>
               <th scope="col">#</th>
               <th scope="col">Naam</th>
-              <th scope="col">Type</th>
-              <th scope="col">Locatie</th>
-              <th scope="col">Inhoud</th>
-              <th scope="col">Gewicht</th>
-              <th scope="col">Status</th>
+              <th scope="col">Vuilbak ID</th>
+              <th scope="col">Zone</th>
+              <th scope="col">Adres</th>
+              <th scope="col">Acties</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody *ngIf="binInfoList.length == 0">
             <tr>
-              <th scope="row">1</th>
-              <td>park_vb_01</td>
-              <td>Vuilnisbak</td>
-              <td>Park</td>
-              <td>25%</td>
-              <td>5kg</td>
-              <td class="text-success font-weight-bold">Online</td>
+              <th colspan="9" scope="row">
+                <div class="d-flex justify-content-center my-2">
+                  <div class="d-flex align-items-center">
+                    <div class="spinner-border ms-auto" role="status" aria-hidden="true"></div>
+                  </div>
+                </div>
+              </th>
             </tr>
-            <tr>
-              <th scope="row">2</th>
-              <td>park_vb_02</td>
-              <td>Vuilnisbak</td>
-              <td>Park</td>
-              <td>75%</td>
-              <td>12kg</td>
-              <td class="text-danger font-weight-bold">Offline</td>
-            </tr>
-            <tr>
-              <th scope="row">3</th>
-              <td>gemeentehuis_vb_01</td>
-              <td>Vuilnisbak</td>
-              <td>Gemeentehuis</td>
-              <td>50%</td>
-              <td>16kg</td>
-              <td class="text-success font-weight-bold">Online</td>
+          </tbody>
+          <tbody *ngIf="binInfoList.length > 0">
+            <tr *ngFor="let binInfo of binInfoList; let i = index">
+              <th scope="row">{{ i + 1 }}</th>
+              <td>{{ binInfo.name }}</td>
+              <td>{{ binInfo.bin_id }}</td>
+              <td>{{ binInfo.zone?.name || "N/A" }}</td>
+              <td>{{ binInfo.address || "N/A"}}</td>
+              <td>
+                <em class="far fa-edit actions mr-4" (click)="editBinInfo(binInfo.id)"></em>
+                <em class="far fa-trash-alt actions mx-3" (click)="deleteDialog(binInfo)"></em>
+              </td>
             </tr>
           </tbody>
         </table>
@@ -109,6 +103,6 @@
   </div>
 </div>
 
-<div class="iframe-container">
+<!-- <div class="iframe-container">
   <iframe src="https://testyentl.sinners.be" title="trash-dashboard"></iframe>
-</div>
+</div> -->

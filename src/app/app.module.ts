@@ -12,6 +12,7 @@ import { CommunicationModule } from './communication/communication.module';
 import { AccountModule } from './account/account.module';
 import { KioskModule } from './kiosk/kiosk.module';
 import { ParticipationModule } from './participation/participation.module';
+import { GarbageCollectionModule } from './garbage-collection/garbage-collection.module';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { ParticipationModule } from './participation/participation.module';
     CommunicationModule,
     AccountModule,
     KioskModule,
-    ParticipationModule
+    ParticipationModule,
+    GarbageCollectionModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,
