@@ -26,6 +26,7 @@ import { GroendienstAuthGuard } from './account/guards/groendienst-auth.guard';
 import { ParticipatieAuthGuard } from './account/guards/participatie-auth.guard';
 import { CommunicatieAuthGuard } from './account/guards/communicatie-auth.guard';
 import { LogoutComponent } from './account/logout/logout.component';
+import { EditBinInfoComponent } from './garbage-collection/edit-bin-info/edit-bin-info.component';
 
 const routes: Routes = [
   // Login routes
@@ -44,6 +45,7 @@ const routes: Routes = [
   // Garbage Collection routes
   { path: 'groendienst', redirectTo: 'groendienst/dashboard', pathMatch: 'full', canActivate: [GroendienstAuthGuard, AuthGuard] },
   { path: 'groendienst/dashboard', component: GarbageDashboardComponent, canActivate: [GroendienstAuthGuard, AuthGuard] },
+  { path: 'groendienst/bininfo-wijzigen/:binInfoID', component: EditBinInfoComponent, canActivate: [GroendienstAuthGuard, AuthGuard] },
 
   // Participation routes
   { path: 'participatie', redirectTo: 'participatie/dashboard', pathMatch: 'full', canActivate: [ParticipatieAuthGuard, AuthGuard] },

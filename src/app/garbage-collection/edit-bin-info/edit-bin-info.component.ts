@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AlertService } from 'src/app/shared/alert/services/alert.service';
+import { BinInfo } from 'src/app/shared/models/bin-info.model';
+import { Zone } from 'src/app/shared/models/zone.model';
+import { GarbageCollectionService } from '../services/garbage-collection.service';
 
 @Component({
   selector: 'app-edit-bin-info',
@@ -7,9 +12,49 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EditBinInfoComponent implements OnInit {
 
-  constructor() { }
+  loading: boolean = false;
+
+  zones: Zone[] = [];
+
+  binInfoID!: number;
+  binInfo!: BinInfo;
+
+  constructor(private router: Router, private activeRoute: ActivatedRoute, private garbageCollectionService: GarbageCollectionService, private alertService: AlertService) 
+  { 
+    this.binInfoID = this.activeRoute.snapshot.params['binInfoID'];
+    this.loadBinInfo();
+    this.loadZones();
+  }
 
   ngOnInit(): void {
+  }
+
+  loadBinInfo() {
+    this.garbageCollectionService.getBinInfo(this.binInfoID).subscribe(
+      result => this.binInfo = result,
+      error => this.alertService.error('Er is iets misgelopen...', 'De vuilbak konden niet worden geladen. Probeer het later opnieuw.')
+    )
+  }
+
+  loadZones() {
+    this.garbageCollectionService.getZones().subscribe(
+      result => this.zones = result,
+      error => this.alertService.error('Er is iets misgelopen...', 'De zones konden niet worden geladen. Probeer het later opnieuw.')
+    );
+  }
+
+  updateBinInfo() {
+    this.loading = true;
+    this.garbageCollectionService.updateBinInfo(this.binInfo).subscribe({
+      next: () => {
+        this.router.navigate(['/groendienst/dashboard']);
+        this.alertService.success('Vuilbak gewijzigd', 'De vuilbak werd succesvol gewijzigd.')
+      },
+      error: () => {
+        this.alertService.error('Er is iets misgelopen...', 'De vuilbak kon niet worden gewijzigd. Probeer het later opnieuw.');
+        this.loading = false;
+      }
+    });
   }
 
 }
