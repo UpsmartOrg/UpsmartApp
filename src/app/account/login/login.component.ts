@@ -15,7 +15,9 @@ export class LoginComponent implements OnInit {
   loading = false;
   submitted = false;
 
-  constructor(private formBuilder: FormBuilder, private router: Router, private accountService: AccountService, private alertService: AlertService) { }
+  constructor(private formBuilder: FormBuilder, private router: Router, private accountService: AccountService, private alertService: AlertService) {
+    this.alertService.info('Demo account:', 'Email: dirkd@herentals.be, wachtwoord: testtest')
+  }
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
