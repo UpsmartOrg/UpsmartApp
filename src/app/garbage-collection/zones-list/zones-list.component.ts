@@ -24,6 +24,10 @@ export class ZonesListComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  redirectTo(route: string) {
+    this.router.navigateByUrl(route);
+  }
+
   loadZones() {
     this.garbageCollectionService.getZones().subscribe(
       result => this.zones = result,

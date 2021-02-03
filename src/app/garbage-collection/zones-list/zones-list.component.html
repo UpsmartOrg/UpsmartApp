@@ -53,8 +53,8 @@
           <tbody *ngIf="zones.length > 0">
             <tr *ngFor="let zone of zones; let i = index">
               <th scope="row">{{ i + 1 }}</th>
-              <td>{{ zone.name }}</td>
-              <td>{{ zone.description }}</td>
+              <td>{{ zone.name || 'N/A' }}</td>
+              <td>{{ zone.description || 'N/A' }}</td>
               <td>
                 <em class="far fa-edit actions mr-4"></em>
                 <em class="far fa-trash-alt actions mx-3" (click)="deleteDialog(zone)"></em>
@@ -65,4 +65,6 @@
       </div>
     </div>
   </div>
+  <a class="btn btn-primary btn-md mb-3 text-uppercase" (click)="redirectTo('/groendienst/zones/zone-toevoegen')">Zone
+    toevoegen</a>
 </div>
