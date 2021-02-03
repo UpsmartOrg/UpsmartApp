@@ -15,8 +15,7 @@
           <a class="nav-link" routerLink="/home" routerLinkActive="active"
             [routerLinkActiveOptions]="{ exact: true }">Home</a>
         </li>
-        <li class="nav-item dropdown  px-4"
-          *ngIf="adminRole || groendienstRole || participatieRole || communicatieRole">
+        <li class="nav-item dropdown  px-4">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
             aria-expanded="false"
             [ngClass]="{'active': dash1.isActive || dash2.isActive || dash3.isActive || dash4.isActive}">

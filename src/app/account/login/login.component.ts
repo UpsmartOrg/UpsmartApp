@@ -16,7 +16,8 @@ export class LoginComponent implements OnInit {
   submitted = false;
 
   constructor(private formBuilder: FormBuilder, private router: Router, private accountService: AccountService, private alertService: AlertService) {
-    this.alertService.info('Demo account:', 'Email: dirkd@herentals.be, wachtwoord: testtest')
+    this.alertService.info('Kiosk app:', "<a href=\"http://testpage.seppealaerts.be/kiosk\" class=\"text-body\" target=\"_blank\">testpage.seppealaerts.be/kiosk</a>")
+    this.alertService.info('Demo account:', 'Email: dirkd@herentals.be<br>Wachtwoord: testtest')
   }
 
   ngOnInit(): void {

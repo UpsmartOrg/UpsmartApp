@@ -24,7 +24,7 @@ export class GarbageDashboardComponent implements OnInit {
   searchWord: string = '';
   searchZoneID: number = 0;
 
-  constructor(private titleService: Title, private garbageCollectionService: GarbageCollectionService, 
+  constructor(private titleService: Title, private garbageCollectionService: GarbageCollectionService,
     private alertService: AlertService, private router: Router, private dialog: MatDialog) {
     this.titleService.setTitle("Groendienst Dashboard - Smart City Herentals");
     this.loadZones();
@@ -117,9 +117,13 @@ export class GarbageDashboardComponent implements OnInit {
   }
 
   getZoneName(zoneID: number): string {
-    if(zoneID == -1) {
+    if (zoneID == -1) {
       return "N/A";
     }
     return this.zones[this.zones.findIndex(zone => zone.id == zoneID)].name;
+  }
+
+  redirectTo(route: string) {
+    this.router.navigateByUrl(route);
   }
 }
