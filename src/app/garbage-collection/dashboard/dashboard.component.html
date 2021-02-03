@@ -89,7 +89,7 @@
               <th scope="row">{{ i + 1 }}</th>
               <td>{{ binInfo.name }}</td>
               <td>{{ binInfo.bin_id }}</td>
-              <td>{{ binInfo.zone_id || "N/A" }}</td>
+              <td>{{ binInfo.zone?.name || "N/A" }}</td>
               <td>{{ binInfo.address || "N/A"}}</td>
               <td>
                 <em class="far fa-edit actions mr-4" (click)="editBinInfo(binInfo.id)"></em>

@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { finalize, map, tap } from 'rxjs/operators';
 import { AlertService } from 'src/app/shared/alert/services/alert.service';
 import { WarningDialogComponent } from 'src/app/shared/dialogs/warning-dialog/warning-dialog.component';
 import { BinInfo } from 'src/app/shared/models/bin-info.model';
@@ -27,15 +27,21 @@ export class GarbageDashboardComponent implements OnInit {
   constructor(private titleService: Title, private garbageCollectionService: GarbageCollectionService, 
     private alertService: AlertService, private router: Router, private dialog: MatDialog) {
     this.titleService.setTitle("Groendienst Dashboard - Smart City Herentals");
-    this.loadBinInfo();
     this.loadZones();
+    //LoadBinInfo happens when zone loading is done
   }
 
   ngOnInit(): void {
   }
 
   loadBinInfo() {
-    this.binInfoListCache = this.garbageCollectionService.getBinInfoList();
+    this.binInfoListCache = this.garbageCollectionService.getBinInfoList().pipe(
+      tap(array => {
+        array.map(binInfo => {
+          binInfo.zone = { name: this.getZoneName(binInfo.zone_id || -1) };
+        })
+      })
+    );
     this.binInfoListCache.subscribe(
       result => this.binInfoList = result,
       error => this.alertService.error('Er is iets misgelopen...', 'De vuilbakken konden niet worden geladen. Probeer het later opnieuw.')
@@ -45,8 +51,13 @@ export class GarbageDashboardComponent implements OnInit {
   loadZones() {
     this.garbageCollectionService.getZones().subscribe(
       result => this.zones = result,
-      error => this.alertService.error('Er is iets misgelopen...', 'De zones konden niet worden geladen. Probeer het later opnieuw.')
+      error => this.alertService.error('Er is iets misgelopen...', 'De zones konden niet worden geladen. Probeer het later opnieuw.'),
+      () => this.loadBinInfo()
     );
+  }
+
+  setBinInfoZoneNames() {
+
   }
 
   filterBinInfoList() {
@@ -66,9 +77,6 @@ export class GarbageDashboardComponent implements OnInit {
     );
   }
 
-
-
-
   editBinInfo(binInfoID: number) {
     this.router.navigate(['groendienst/bininfo-wijzigen/' + binInfoID]);
   }
@@ -84,27 +92,34 @@ export class GarbageDashboardComponent implements OnInit {
     dialogRef.afterClosed().subscribe(
       result => {
         if (result == "confirm") {
-          this.deleteUser(binInfo.id);
+          this.deleteBinInfo(binInfo.id);
         }
       });
   }
 
-  deleteUser(binInfoID: number) {
+  deleteBinInfo(binInfoID: number) {
     this.garbageCollectionService.deleteBinInfo(binInfoID).subscribe(
       () => {
-        this.removeFromUserList(binInfoID)
+        this.removeFromBinInfoList(binInfoID)
         this.alertService.success('Vuilbak verwijderd.', 'De vuilbak werd succesvol verwijderd.')
       },
       error => this.alertService.error('Er is iets misgelopen...', 'De vuilbak kon niet worden verwijderd. Probeer het later opnieuw.')
     );
   }
 
-  removeFromUserList(userID: number) {
+  removeFromBinInfoList(binInfoID: number) {
     this.binInfoListCache = this.binInfoListCache.pipe(
       map(array => {
-        return array.filter(user => user.id != userID)
+        return array.filter(binInfo => binInfo.id != binInfoID)
       })
     );
     this.filterBinInfoList();
+  }
+
+  getZoneName(zoneID: number): string {
+    if(zoneID == -1) {
+      return "N/A";
+    }
+    return this.zones[this.zones.findIndex(zone => zone.id == zoneID)].name;
   }
 }
