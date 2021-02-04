@@ -28,12 +28,74 @@
 
 
 <!-- Content -->
-<div class="d-grid">
-  <div class="card mb-3">
-    <div class="card-body text-center py-5">
-      <p class="py-5 my-5">Placeholder voor iframe vuilbakken</p>
-      <a (click)="redirectTo('/groendienst/dashboard')" class="btn btn-primary btn-lg  text-uppercase">Dashboard
-        groendienst</a>
+<div class="d-grid home-card mb-3" *ngIf="groendienstRole">
+  <div class="card">
+    <div class="mx-5">
+      <div class="card-body text-center py-5">
+        <h2 class="h3 mb-4">Groendienst</h2>
+        <table class="table table-hover text-start">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Naam</th>
+              <th scope="col">Vuilbak ID</th>
+              <th scope="col">Zone</th>
+              <th scope="col">Adres</th>
+            </tr>
+          </thead>
+          <tbody *ngIf="binInfoList.length == 0">
+            <tr>
+              <th colspan="9" scope="row">
+                <div class="d-flex justify-content-center my-2">
+                  <div class="d-flex align-items-center">
+                    <div class="spinner-border ms-auto" role="status" aria-hidden="true"></div>
+                  </div>
+                </div>
+              </th>
+            </tr>
+          </tbody>
+          <tbody *ngIf="binInfoList.length > 0">
+            <tr *ngFor="let binInfo of binInfoList; let i = index">
+              <th scope="row">{{ i + 1 }}</th>
+              <td>{{ binInfo.name }}</td>
+              <td>{{ binInfo.bin_id }}</td>
+              <td>{{ binInfo.zone?.name || "N/A" }}</td>
+              <td>{{ binInfo.address || "N/A"}}</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <a (click)="redirectTo('/groendienst/dashboard')" class="btn btn-primary btn-lg  text-uppercase mt-4">Dashboard
+          groendienst</a>
+      </div>
     </div>
+
+  </div>
+</div>
+
+<div class="d-grid home-card mb-3" *ngIf="participatieRole">
+  <div class="card">
+    <div class="mx-5">
+      <div class="card-body text-center py-5">
+        <h2 class="h3">Participatie</h2>
+        <p class="py-5 my-5">Placeholder voor dashboard participatie</p>
+        <a (click)="redirectTo('/participatie/dashboard')" class="btn btn-primary btn-lg  text-uppercase">Dashboard
+          participatie</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="d-grid home-card mb-3" *ngIf="communicatieRole">
+  <div class="card">
+    <div class="mx-5">
+      <div class="card-body text-center py-5">
+        <h2 class="h3">Communicatie</h2>
+        <p class="py-5 my-5">Placeholder voor dashboard communicatie</p>
+        <a (click)="redirectTo('/communicatie/dashboard')" class="btn btn-primary btn-lg  text-uppercase">Dashboard
+          communicatie</a>
+      </div>
+    </div>
+
   </div>
 </div>
