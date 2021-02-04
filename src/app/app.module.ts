@@ -13,6 +13,7 @@ import { AccountModule } from './account/account.module';
 import { KioskModule } from './kiosk/kiosk.module';
 import { ParticipationModule } from './participation/participation.module';
 import { GarbageCollectionModule } from './garbage-collection/garbage-collection.module';
+import { HomeModule } from './home/home.module';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { GarbageCollectionModule } from './garbage-collection/garbage-collection
     SharedModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    HomeModule,
     AdminModule,
     CommunicationModule,
     AccountModule,

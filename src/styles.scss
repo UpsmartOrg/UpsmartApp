@@ -107,4 +107,9 @@ body {
     align-items: center;
   }
 
+  .home-card {
+    max-height: 60vh;
+    overflow: auto;
+  }
+
 }
