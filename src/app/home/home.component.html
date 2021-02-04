@@ -78,7 +78,7 @@
     <div class="mx-5">
       <div class="card-body text-center py-5">
         <h2 class="h3 mb-4">Participatie</h2>
-        <table class="table table-hover">
+        <table class="table table-hover text-start">
           <thead>
             <tr>
               <th scope="col">#</th>
@@ -123,7 +123,35 @@
     <div class="mx-5">
       <div class="card-body text-center py-5">
         <h2 class="h3 mb-4">Communicatie</h2>
-        <p class="py-5 my-5">Placeholder voor dashboard communicatie</p>
+        <table class="table table-hover text-start">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Titel</th>
+              <th scope="col">Toegevoegd door</th>
+              <th scope="col">Toegevoegd op</th>
+            </tr>
+          </thead>
+          <tbody *ngIf="messages.length == 0">
+            <tr>
+              <th colspan="5" scope="row">
+                <div class="d-flex justify-content-center my-2">
+                  <div class="d-flex align-items-center">
+                    <div class="spinner-border ms-auto" role="status" aria-hidden="true"></div>
+                  </div>
+                </div>
+              </th>
+            </tr>
+          </tbody>
+          <tbody *ngIf="messages.length > 0">
+            <tr *ngFor="let message of messages; let i = index">
+              <th scope="row">{{ i + 1 }}</th>
+              <td>{{ message.title }}</td>
+              <td>{{ message.user.first_name }} {{ message.user.last_name }}</td>
+              <td>{{ message.created_at | date:'dd-MM-yyyy' }}</td>
+            </tr>
+          </tbody>
+        </table>
         <a (click)="redirectTo('/communicatie/dashboard')" class="btn btn-primary btn-lg mt-4 text-uppercase">Dashboard
           communicatie</a>
       </div>
