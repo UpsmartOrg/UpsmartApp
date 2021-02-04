@@ -49,10 +49,10 @@ const routes: Routes = [
   { path: 'groendienst', redirectTo: 'groendienst/dashboard', pathMatch: 'full', canActivate: [GroendienstAuthGuard, AuthGuard] },
   { path: 'groendienst/dashboard', component: GarbageDashboardComponent, canActivate: [GroendienstAuthGuard, AuthGuard] },
   { path: 'groendienst/bininfo-wijzigen/:binInfoID', component: EditBinInfoComponent, canActivate: [GroendienstAuthGuard, AuthGuard] },
-  { path: 'groendienst/zones', redirectTo: 'groendienst/zones/overzicht', pathMatch: 'full' },
-  { path: 'groendienst/zones/overzicht', component: ZonesListComponent },
-  { path: 'groendienst/zones/zone-toevoegen', component: AddZoneComponent },
-  { path: 'groendienst/zones/zone-wijzigen/:zoneID', component: EditZoneComponent },
+  { path: 'groendienst/zones', redirectTo: 'groendienst/zones/overzicht', pathMatch: 'full', canActivate: [GroendienstAuthGuard, AuthGuard] },
+  { path: 'groendienst/zones/overzicht', component: ZonesListComponent, canActivate: [GroendienstAuthGuard, AuthGuard] },
+  { path: 'groendienst/zones/zone-toevoegen', component: AddZoneComponent, canActivate: [GroendienstAuthGuard, AuthGuard] },
+  { path: 'groendienst/zones/zone-wijzigen/:zoneID', component: EditZoneComponent, canActivate: [GroendienstAuthGuard, AuthGuard] },
 
   // Participation routes
   { path: 'participatie', redirectTo: 'participatie/dashboard', pathMatch: 'full', canActivate: [ParticipatieAuthGuard, AuthGuard] },
