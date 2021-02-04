@@ -25,14 +25,14 @@
 </div>
 
 <!-- Content -->
-<div *ngIf="zone == null">
+<div *ngIf="zone == null && zoneBins == null && zonelessBins == null">
   <div class="text-center mt-5">
     <div class="spinner-border" role="status">
       <span class="visually-hidden">Loading...</span>
     </div>
   </div>
 </div>
-<div *ngIf="zone">
+<div *ngIf="zone && zoneBins && zonelessBins">
   <div class="mb-3">
     <label for="name" class="form-label">Naam</label>
     <input type="text" class="form-control" id="name" [(ngModel)]="zone.name">
@@ -43,9 +43,27 @@
     <textarea class="form-control" id="description" rows="2" [(ngModel)]="zone.description"></textarea>
   </div>
 
+  <div class="row mb-3 align-items-center">
+    <div class="col-5">
+      <label for="zoneBins" class="form-label">Vuilbakken in zone</label>
+      <select class="form-select bloc green" id="zoneBins" size="10" [(ngModel)]="selectedZoneBinIndex">
+        <option *ngFor="let zoneBin of zoneBins; let i = index" [value]="i">{{ zoneBin.name }}</option>
+      </select>
+    </div>
+    <div class="col-2 text-center">
+        <button class="btn" [disabled]="selectedZonelessBinIndex == -1" (click)="addBinToZone()"><i class="fa fa-arrow-circle-left fa-3x"></i></button>
+        <button class="btn" [disabled]="selectedZoneBinIndex == -1" (click)="removeBinFromZone()"><i class="fa fa-arrow-circle-right fa-3x"></i></button>
+    </div>
+    <div class="col-5">
+      <label for="freeBins" class="form-label">Vuilbakken zonder zone</label>
+      <select class="form-select bloc red" id="freeBins" size="10" [(ngModel)]="selectedZonelessBinIndex">
+        <option *ngFor="let zonelessBin of zonelessBins; let i = index" [value]="i">{{ zonelessBin.name }}</option>
+      </select>
+    </div>
+  </div>
   <div class="row mb-5">
     <div class="col">
-      <button type="button" class="btn btn-primary mt-3 text-uppercase" (click)="updateZone()" *ngIf="! loading">
+      <button type="button" class="btn btn-primary mt-3 text-uppercase" (click)="updateBins()" *ngIf="! loading">
         <span> Zone wijzigen</span>
       </button>
       <button class="btn btn-primary mt-3 text-uppercase" type="button" disabled *ngIf="loading">
