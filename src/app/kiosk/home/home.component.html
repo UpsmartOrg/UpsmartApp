@@ -37,23 +37,61 @@
   </p>
 </div> -->
 
-<h3>Kies een actie:</h3>
-
-<div class="row">
-  <div class="col-lg">
-    <div class="d-grid">
-      <button type="button" class="btn btn-primary mt-3 text-uppercase btn-lg"
-        (click)="redirectTo('/kiosk/bevragingen')">
-        Bevraging invullen
-      </button>
+<div class="row mt-4">
+  <div class="col-6">
+    <div class="card h-100">
+      <div class="card-body d-flex flex-column">
+        <h2 class="h3 text-center text-uppercase mb-0">Snelle bevraging</h2>
+        <hr>
+        test
+        <div class="d-grid mt-auto">
+          <button type="button" class="btn btn-primary text-uppercase btn-lg"
+            (click)="redirectTo('/kiosk/bevragingen')">
+            Alle bevragingen
+          </button>
+        </div>
+      </div>
     </div>
   </div>
-  <div class="col-lg">
-    <div class="d-grid">
-      <button type="button" class="btn btn-primary mt-3 text-uppercase btn-lg"
-        (click)="redirectTo('/kiosk/stadsnieuws')">
-        Stadsnieuws
-      </button>
+  <div class="col-6">
+    <div class="card h-100">
+      <div class="card-body d-flex flex-column">
+        <h2 class="h3 text-center text-uppercase mb-0">Herentals Stadsnieuws</h2>
+        <hr>
+        <div class="card card-body">
+          <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <h2>Test 1</h2>
+                <p class="mb-1">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quod ducimus incidunt
+                  laudantium
+                  quos neque nihil...</p>
+                <a href="">Verder lezen</a>
+              </div>
+              <div class="carousel-item">
+                <h2>Test 2</h2>
+                <p class="mb-1">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quod ducimus incidunt
+                  laudantium
+                  quos neque nihil...</p>
+                <a href="">Verder lezen</a>
+              </div>
+              <div class="carousel-item">
+                <h2>Test 3</h2>
+                <p class="mb-1">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quod ducimus incidunt
+                  laudantium
+                  quos neque nihil...</p>
+                <a href="">Verder lezen</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="d-grid mt-auto">
+          <button type="button" class="btn btn-primary mt-3 text-uppercase btn-lg"
+            (click)="redirectTo('/kiosk/stadsnieuws')">
+            Alle berichten
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 </div>
