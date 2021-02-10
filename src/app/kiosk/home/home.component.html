@@ -59,28 +59,22 @@
         <h2 class="h3 text-center text-uppercase mb-0">Herentals Stadsnieuws</h2>
         <hr>
         <div class="card card-body">
-          <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+          <div *ngIf="messages.length == 0">
+            <div class="text-center">
+              <div class="spinner-border" role="status">
+                <span class="visually-hidden">Loading...</span>
+              </div>
+            </div>
+          </div>
+          <div class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
-              <div class="carousel-item active">
-                <h2>Test 1</h2>
-                <p class="mb-1">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quod ducimus incidunt
-                  laudantium
-                  quos neque nihil...</p>
-                <a href="">Verder lezen</a>
-              </div>
-              <div class="carousel-item">
-                <h2>Test 2</h2>
-                <p class="mb-1">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quod ducimus incidunt
-                  laudantium
-                  quos neque nihil...</p>
-                <a href="">Verder lezen</a>
-              </div>
-              <div class="carousel-item">
-                <h2>Test 3</h2>
-                <p class="mb-1">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quod ducimus incidunt
-                  laudantium
-                  quos neque nihil...</p>
-                <a href="">Verder lezen</a>
+              <div class="carousel-item active clickable-card" *ngFor="let message of messages; let i = index"
+                [class.active]="i == 0" (click)="goToMessage(message.id)">
+                <h2>{{ message.title }}</h2>
+                <h6 class="card-subtitle mb-2 text-muted">{{ message.created_at | date:'dd-MM-yyyy' }}</h6>
+                <p class="mb-1">{{ (message.body.length>100)? (message.body | slice:0:100) + ' ...' : (message.body) }}
+                </p>
+                <p class="link mb-1">{{ (message.body.length>100)? 'Verder lezen' : '' }}</p>
               </div>
             </div>
           </div>
