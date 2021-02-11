@@ -10,6 +10,6 @@ export class Survey {
         public end_date: Date,
         public user: User,
         public created_at: Date,
-        public quick_survey?: boolean,
+        public quick_survey?: number,
     ) { }
 }

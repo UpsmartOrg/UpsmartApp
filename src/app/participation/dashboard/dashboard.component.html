@@ -83,7 +83,7 @@
               <td>{{ (survey.name) || "N/A" }}</td>
               <td>{{ (survey.start_date | date:'dd-MM-yyyy') || "N/A" }}</td>
               <td>{{ (survey.end_date | date:'dd-MM-yyyy') || "N/A" }}</td>
-              <td>{{ survey.quick_survey ? 'Ja' : 'Nee' }}</td>
+              <td>{{ survey.quick_survey==1 ? 'Ja' : 'Nee' }}</td>
               <td>{{ (survey.user.first_name + ' '+ survey.user.last_name) || "N/A" }}</td>
               <td>{{ (survey.created_at | date:'dd-MM-yyyy') || "N/A" }}</td>
               <td>
