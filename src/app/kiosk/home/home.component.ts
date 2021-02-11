@@ -91,6 +91,10 @@ export class KioskHomeComponent implements OnInit {
   onStopLoading() {
     this.loadingPost = false;
     this.alertService.success('Antwoord opgeslagen', 'Bedankt voor uw bijdrage.')
+    this.loadingMQ = this.loadingMQI = this.loadingOQ = true
+    this.question = undefined;
+    this.questions = this.multiItems = [];
+    this.loadQuestions();
   }
 
 }

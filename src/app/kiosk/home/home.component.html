@@ -38,7 +38,7 @@
 </div> -->
 
 <div class="row mt-4">
-  <div class="col-6">
+  <div class="col-lg-6 mb-3 order-2 order-lg-1">
     <div class="card h-100">
       <div class="card-body d-flex flex-column">
         <h2 class="h3 text-center text-uppercase mb-0">Snelle bevraging</h2>
@@ -53,15 +53,15 @@
           </div>
           <div *ngIf="!loadingOQ && !loadingMQ && !loadingMQI">
             <app-question [question]="question" [multiItems]="multiItems" (stopLoading)="onStopLoading()" [index]="0"
-              [surveyID]="question.surveyID">
+              [surveyID]="question.survey_id">
             </app-question>
             <div class="row mb-3">
               <div class="col">
-                <button type="button" class="btn btn-primary mt-3 text-uppercase" (click)="saveAnswers()"
+                <button type="button" class="btn btn-primary text-uppercase" (click)="saveAnswers()"
                   *ngIf="!loadingPost">
                   <span> Opslaan en verzenden</span>
                 </button>
-                <button class="btn btn-primary mt-3 text-uppercase" type="button" disabled *ngIf="loadingPost">
+                <button class="btn btn-primary text-uppercase" type="button" disabled *ngIf="loadingPost">
                   <span class="spinner-border spinner-border-sm mb-1" role="status" aria-hidden="true"></span>
                   Laden...
                 </button>
@@ -78,7 +78,7 @@
       </div>
     </div>
   </div>
-  <div class="col-6">
+  <div class="col-lg-6 mb-3 order-1 order-lg-2">
     <div class="card h-100">
       <div class="card-body d-flex flex-column">
         <h2 class="h3 text-center text-uppercase mb-0">Herentals Stadsnieuws</h2>
