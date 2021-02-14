@@ -13,5 +13,6 @@ export class SurveyAdd {
 
         //Optional
         public id?: number,
+        public quick_survey?: number,
     ) { }
 }

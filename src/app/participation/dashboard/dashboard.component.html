@@ -60,6 +60,7 @@
               <th scope="col">Titel</th>
               <th scope="col">Startdatum</th>
               <th scope="col">Einddatum</th>
+              <th scope="col">Snelle bevraging</th>
               <th scope="col">Aangemaakt door</th>
               <th scope="col">Aangemaakt op</th>
               <th scope="col">Acties</th>
@@ -67,7 +68,7 @@
           </thead>
           <tbody *ngIf="surveys.length == 0">
             <tr>
-              <th colspan="7" scope="row">
+              <th colspan="8" scope="row">
                 <div class="d-flex justify-content-center my-2">
                   <div class="d-flex align-items-center">
                     <div class="spinner-border ms-auto" role="status" aria-hidden="true"></div>
@@ -79,11 +80,12 @@
           <tbody *ngIf="surveys.length > 0">
             <tr *ngFor="let survey of surveys; let i = index">
               <th scope="row">{{ i + 1 }}</th>
-              <td>{{ survey.name }}</td>
-              <td>{{ survey.start_date | date:'dd-MM-yyyy' }}</td>
-              <td>{{ survey.end_date | date:'dd-MM-yyyy' }}</td>
-              <td>{{ survey.user.first_name + ' '+ survey.user.last_name }}</td>
-              <td>{{ survey.created_at | date:'dd-MM-yyyy' }}</td>
+              <td>{{ (survey.name) || "N/A" }}</td>
+              <td>{{ (survey.start_date | date:'dd-MM-yyyy') || "N/A" }}</td>
+              <td>{{ (survey.end_date | date:'dd-MM-yyyy') || "N/A" }}</td>
+              <td>{{ survey.quick_survey==1 ? 'Ja' : 'Nee' }}</td>
+              <td>{{ (survey.user.first_name + ' '+ survey.user.last_name) || "N/A" }}</td>
+              <td>{{ (survey.created_at | date:'dd-MM-yyyy') || "N/A" }}</td>
               <td>
                 <em class="far fa-edit actions mr-4" (click)="editSurvey(survey.id)"></em>
                 <em class="far fa-trash-alt actions mx-3" (click)="deleteDialog(survey)"></em>

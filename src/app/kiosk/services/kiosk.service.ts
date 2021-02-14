@@ -38,8 +38,16 @@ export class KioskService {
     return this.http.get<OpenQuestion[]>(this.url + '/open_questions/from-survey/' + surveyID);
   }
 
+  getOpenQuestionsQuickSurvey(): Observable<OpenQuestion[]> {
+    return this.http.get<OpenQuestion[]>(this.url + '/open_questions/quick-survey');
+  }
+
   getMultiQuestions(surveyID: number): Observable<MultiplechoiceQuestion[]> {
     return this.http.get<MultiplechoiceQuestion[]>(this.url + '/multi_questions/from-survey/' + surveyID);
+  }
+
+  getMultiQuestionsQuickSurvey(): Observable<MultiplechoiceQuestion[]> {
+    return this.http.get<MultiplechoiceQuestion[]>(this.url + '/multi_questions/quick-survey');
   }
 
   getMultiItems(questionID: number): Observable<MultiplechoiceItem[]> {

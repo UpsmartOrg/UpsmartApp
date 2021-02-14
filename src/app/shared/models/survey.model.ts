@@ -9,6 +9,7 @@ export class Survey {
         public start_date: Date,
         public end_date: Date,
         public user: User,
-        public created_at: Date
+        public created_at: Date,
+        public quick_survey?: number,
     ) { }
 }

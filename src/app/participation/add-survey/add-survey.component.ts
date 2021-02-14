@@ -236,6 +236,19 @@ export class AddSurveyComponent implements OnInit {
     });
   }
 
+  isQuickSurvey() {
+    if (this.survey.quick_survey == 1) return true;
+    else return false;
+  }
+
+  changeQuickSurvey() {
+    if (this.survey.quick_survey == 1) {
+      this.survey.quick_survey = 0;
+    } else {
+      this.survey.quick_survey = 1;
+    }
+  }
+
   parseDate(dateString: string): Date {
     return new Date(dateString);
   }
