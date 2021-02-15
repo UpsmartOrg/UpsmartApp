@@ -69,6 +69,7 @@ export class GarbageDashboardComponent implements OnInit {
   }
 
   loadNewBins() {
+    this.binInfoList = [];
     this.loadingBins = true;
     this.garbageCollectionService.loadNewBins().subscribe(
       () => this.loadZones(),
