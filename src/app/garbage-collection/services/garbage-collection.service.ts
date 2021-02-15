@@ -38,7 +38,7 @@ export class GarbageCollectionService {
   }
 
   updateZoneBins(id: number, bin_id_list: number[]): Observable<BinInfo> {
-    return this.http.put<BinInfo>(this.url + '/zones/bins/' + id, { 'bin_id_list': bin_id_list});
+    return this.http.put<BinInfo>(this.url + '/zones/bins/' + id, { 'bin_id_list': bin_id_list });
   }
 
   deleteBinInfo(id: number) {
