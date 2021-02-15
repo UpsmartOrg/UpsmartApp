@@ -71,6 +71,7 @@ export class GarbageDashboardComponent implements OnInit {
 
   filterBinInfoList() {
     this.loadingBins = true;
+    this.binInfoList = [];
     this.binInfoListCache.pipe(
       map(array => {
         return array.filter(binInfo => this.searchZoneID == 0 ? true :
