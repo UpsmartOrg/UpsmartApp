@@ -47,7 +47,10 @@ export class AdminDashboardComponent implements OnInit {
         this.users = result;
         this.loadingUsers = false;
       },
-      error => this.alertService.error('Er is iets misgelopen...', 'De gebruikers konden niet worden geladen. Probeer het later opnieuw.')
+      error => {
+        this.alertService.error('Er is iets misgelopen...', 'De gebruikers konden niet worden geladen. Probeer het later opnieuw.');
+        this.loadingUsers = false;
+      }
     )
 
   }
@@ -72,7 +75,10 @@ export class AdminDashboardComponent implements OnInit {
         this.users = result;
         this.loadingUsers = false;
       },
-      error => this.alertService.error('Er is iets misgelopen...', 'De gebruikers konden niet worden geladen. Probeer het later opnieuw.')
+      error => {
+        this.alertService.error('Er is iets misgelopen...', 'De gebruikers konden niet worden geladen. Probeer het later opnieuw.');
+        this.loadingUsers = false;
+      }
     );
   }
 

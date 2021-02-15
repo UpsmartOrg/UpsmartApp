@@ -70,7 +70,7 @@
               <th scope="col">Acties</th>
             </tr>
           </thead>
-          <tbody *ngIf="binInfoList.length == 0">
+          <tbody *ngIf="binInfoList.length == 0 && loadingBins">
             <tr>
               <th colspan="9" scope="row">
                 <div class="d-flex justify-content-center my-2">
@@ -81,7 +81,16 @@
               </th>
             </tr>
           </tbody>
-          <tbody *ngIf="binInfoList.length > 0">
+          <tbody *ngIf="binInfoList.length == 0 && !loadingBins">
+            <tr>
+              <th colspan="9" scope="row">
+                <div class="d-flex justify-content-center my-2">
+                  <p>Geen vuilnisbakken gevonden.</p>
+                </div>
+              </th>
+            </tr>
+          </tbody>
+          <tbody *ngIf="binInfoList.length > 0 && !loadingBins">
             <tr *ngFor="let binInfo of binInfoList; let i = index">
               <th scope="row">{{ i + 1 }}</th>
               <td>{{ binInfo.name }}</td>
