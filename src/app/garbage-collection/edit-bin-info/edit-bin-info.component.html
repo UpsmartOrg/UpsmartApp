@@ -26,14 +26,19 @@
 </div>
 
 <!-- Content -->
-<div *ngIf="binInfo == null">
+<div *ngIf="binInfo == null && loadingBin">
   <div class="text-center mt-5">
     <div class="spinner-border" role="status">
       <span class="visually-hidden">Loading...</span>
     </div>
   </div>
 </div>
-<div *ngIf="binInfo">
+<div *ngIf="binInfo == null && !loadingBin">
+  <div class="text-center mt-5">
+    <p>Vuilnisbak kon niet worden geladen.</p>
+  </div>
+</div>
+<div *ngIf="binInfo && !loadingBin">
   <div class="row">
     <div class="col-lg">
       <div class="mb-3">

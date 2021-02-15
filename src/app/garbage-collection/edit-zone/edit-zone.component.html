@@ -25,11 +25,16 @@
 </div>
 
 <!-- Content -->
-<div *ngIf="zone == null && zoneBins == null && zonelessBins == null">
+<div *ngIf="zone == null && zoneBins == null && zonelessBins == null && loadingZone">
   <div class="text-center mt-5">
     <div class="spinner-border" role="status">
       <span class="visually-hidden">Loading...</span>
     </div>
+  </div>
+</div>
+<div *ngIf="zone == null && zoneBins == null && zonelessBins == null && !loadingZone">
+  <div class="text-center mt-5">
+    <p>Zone kon niet worden geladen.</p>
   </div>
 </div>
 <div *ngIf="zone && zoneBins && zonelessBins">
@@ -51,8 +56,10 @@
       </select>
     </div>
     <div class="col-2 text-center">
-        <button class="btn" [disabled]="selectedZonelessBinIndex == -1" (click)="addBinToZone()"><i class="fa fa-arrow-circle-left fa-3x"></i></button>
-        <button class="btn" [disabled]="selectedZoneBinIndex == -1" (click)="removeBinFromZone()"><i class="fa fa-arrow-circle-right fa-3x"></i></button>
+      <button class="btn" [disabled]="selectedZonelessBinIndex == -1" (click)="addBinToZone()"><i
+          class="fa fa-arrow-circle-left fa-3x"></i></button>
+      <button class="btn" [disabled]="selectedZoneBinIndex == -1" (click)="removeBinFromZone()"><i
+          class="fa fa-arrow-circle-right fa-3x"></i></button>
     </div>
     <div class="col-5">
       <label for="freeBins" class="form-label">Vuilbakken zonder zone</label>

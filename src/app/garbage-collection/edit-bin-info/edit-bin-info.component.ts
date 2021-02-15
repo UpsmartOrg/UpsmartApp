@@ -13,14 +13,14 @@ import { GarbageCollectionService } from '../services/garbage-collection.service
 export class EditBinInfoComponent implements OnInit {
 
   loading: boolean = false;
+  loadingBin = true;
 
   zones: Zone[] = [];
 
   binInfoID!: number;
   binInfo!: BinInfo;
 
-  constructor(private router: Router, private activeRoute: ActivatedRoute, private garbageCollectionService: GarbageCollectionService, private alertService: AlertService) 
-  { 
+  constructor(private router: Router, private activeRoute: ActivatedRoute, private garbageCollectionService: GarbageCollectionService, private alertService: AlertService) {
     this.binInfoID = this.activeRoute.snapshot.params['binInfoID'];
     this.loadBinInfo();
     this.loadZones();
@@ -30,9 +30,16 @@ export class EditBinInfoComponent implements OnInit {
   }
 
   loadBinInfo() {
+    this.loadingBin = true;
     this.garbageCollectionService.getBinInfo(this.binInfoID).subscribe(
-      result => this.binInfo = result,
-      error => this.alertService.error('Er is iets misgelopen...', 'De vuilbak konden niet worden geladen. Probeer het later opnieuw.')
+      result => {
+        this.binInfo = result;
+        this.loadingBin = false;
+      },
+      error => {
+        this.alertService.error('Er is iets misgelopen...', 'De vuilbak konden niet worden geladen. Probeer het later opnieuw.');
+        this.loadingBin = false;
+      }
     )
   }
 
