@@ -44,7 +44,10 @@ export class EditUserComponent implements OnInit {
         this.user = result;
         this.loadingUser = false;
       },
-      error => this.alertService.error('Er is iets misgelopen...', 'De gebruiker kon niet worden geladen. Probeer het later opnieuw.'),
+      error => {
+        this.alertService.error('Er is iets misgelopen...', 'De gebruiker kon niet worden geladen. Probeer het later opnieuw.');
+        this.loadingUser = false;
+      },
       () => this.loadUserRoles(this.user)
     )
   }
