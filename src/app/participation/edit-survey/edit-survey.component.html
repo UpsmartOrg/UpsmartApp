@@ -27,14 +27,19 @@
 </div>
 
 <!-- Content -->
-<div *ngIf="survey == null">
+<div *ngIf="survey == null && loadingSurvey">
   <div class="text-center mt-5">
     <div class="spinner-border" role="status">
       <span class="visually-hidden">Loading...</span>
     </div>
   </div>
 </div>
-<div *ngIf="survey">
+<div *ngIf="survey == null && !loadingSurvey">
+  <div class="text-center mt-5">
+    <p>De enquête kon niet worden geladen.</p>
+  </div>
+</div>
+<div *ngIf="survey && !loadingSurvey">
   <h2 class="mt-5 h3">Algemeen</h2>
   <hr>
   <!-- Survey Info -->
