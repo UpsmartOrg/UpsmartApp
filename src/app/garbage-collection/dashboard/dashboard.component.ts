@@ -40,7 +40,7 @@ export class GarbageDashboardComponent implements OnInit {
     this.loadingBins = true;
     this.binInfoListCache = this.garbageCollectionService.getBinInfoList().pipe(
       tap(array => {
-        array.map(binInfo => {
+        array.forEach(binInfo => {
           binInfo.zone = { name: this.getZoneName(binInfo.zone_id || -1) };
         })
       })
@@ -60,9 +60,23 @@ export class GarbageDashboardComponent implements OnInit {
   loadZones() {
     this.garbageCollectionService.getZones().subscribe(
       result => this.zones = result,
-      error => this.alertService.error('Er is iets misgelopen...', 'De zones konden niet worden geladen. Probeer het later opnieuw.'),
+      error => {
+        this.alertService.error('Er is iets misgelopen...', 'De vuilbakken konden niet worden geladen. Probeer het later opnieuw.');
+        this.loadingBins = false;
+      },
       () => this.loadBinInfo()
     );
+  }
+
+  loadNewBins() {
+    this.loadingBins = true;
+    this.garbageCollectionService.loadNewBins().subscribe(
+      () => this.loadZones(),
+      error => {
+        this.alertService.error('Er is iets misgelopen...', 'De vuilbakken konden niet worden geladen. Probeer het later opnieuw.');
+        this.loadingBins = false;
+      },
+    )
   }
 
   setBinInfoZoneNames() {
