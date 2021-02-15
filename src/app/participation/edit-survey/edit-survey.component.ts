@@ -29,12 +29,19 @@ export class EditSurveyComponent implements OnInit {
   end_date!: string;
 
   loading: boolean = false;
+  loadingSurvey: boolean = true;
 
   constructor(private participationService: ParticipationService, private dialog: MatDialog, private router: Router, private activeRoute: ActivatedRoute, private alertService: AlertService) {
     this.surveyID = this.activeRoute.snapshot.params['surveyID'];
     this.participationService.getSurveyComplete(this.surveyID).subscribe(
-      result => this.survey = result,
-      error => this.alertService.error('Er is iets misgelopen...', 'Enquête kon niet worden geladen. Probeer het later opnieuw.'),
+      result => {
+        this.survey = result;
+        this.loadingSurvey = false;
+      },
+      error => {
+        this.alertService.error('Er is iets misgelopen...', 'Enquête kon niet worden geladen. Probeer het later opnieuw.');
+        this.loadingSurvey = false;
+      },
       () => {
         this.setupQuestions();
         this.setupDates();

@@ -26,14 +26,19 @@
 </div>
 
 <!-- Content -->
-<div *ngIf="user == null">
+<div *ngIf="user == null && loadingUser">
   <div class="text-center mt-5">
     <div class="spinner-border" role="status">
       <span class="visually-hidden">Loading...</span>
     </div>
   </div>
 </div>
-<div *ngIf="user">
+<div *ngIf="user == null && !loadingUser">
+  <div class="text-center mt-5">
+    <p>Gebruiker kon niet worden geladen.</p>
+  </div>
+</div>
+<div *ngIf="user && !loadingUser">
   <div class="row">
     <div class="col-lg">
       <div class="mb-3">

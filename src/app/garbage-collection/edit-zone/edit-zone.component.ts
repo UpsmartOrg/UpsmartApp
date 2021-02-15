@@ -22,6 +22,7 @@ export class EditZoneComponent implements OnInit {
   selectedZoneBinIndex: number = -1;
 
   loading: boolean = false;
+  loadingZone: boolean = true;
 
   constructor(private titleService: Title, private router: Router, private route: ActivatedRoute, private garbageCollectionService: GarbageCollectionService, private alertService: AlertService) {
     this.titleService.setTitle("Zone Wijzigen - Smart City Herentals");
@@ -35,8 +36,14 @@ export class EditZoneComponent implements OnInit {
 
   loadZone() {
     this.garbageCollectionService.getZone(this.zoneID).subscribe(
-      result => this.zone = result,
-      error => this.alertService.error('Er is iets misgelopen...', 'De zone kon niet worden geladen. Probeer het later opnieuw.')
+      result => {
+        this.zone = result;
+        this.loadingZone = false;
+      },
+      error => {
+        this.alertService.error('Er is iets misgelopen...', 'De zone kon niet worden geladen. Probeer het later opnieuw.');
+        this.loadingZone = false;
+      }
     )
   }
 
@@ -84,22 +91,22 @@ export class EditZoneComponent implements OnInit {
   }
 
   addBinToZone() {
-    if(this.selectedZonelessBinIndex != -1) {
+    if (this.selectedZonelessBinIndex != -1) {
       this.zoneBins.push(this.zonelessBins[this.selectedZonelessBinIndex]);
       this.zonelessBins.splice(this.selectedZonelessBinIndex, 1);
       this.selectedZonelessBinIndex = 0;
-      if(this.zonelessBins.length == 0) {
+      if (this.zonelessBins.length == 0) {
         this.selectedZonelessBinIndex = -1;
       }
     }
   }
 
   removeBinFromZone() {
-    if(this.selectedZoneBinIndex != -1) {
+    if (this.selectedZoneBinIndex != -1) {
       this.zonelessBins.push(this.zoneBins[this.selectedZoneBinIndex]);
       this.zoneBins.splice(this.selectedZoneBinIndex, 1);
       this.selectedZoneBinIndex = 0;
-      if(this.zoneBins.length == 0) {
+      if (this.zoneBins.length == 0) {
         this.selectedZoneBinIndex = -1;
       }
     }

@@ -24,6 +24,8 @@ export class GarbageDashboardComponent implements OnInit {
   searchWord: string = '';
   searchZoneID: number = 0;
 
+  loadingBins: boolean = true;
+
   constructor(private titleService: Title, private garbageCollectionService: GarbageCollectionService,
     private alertService: AlertService, private router: Router, private dialog: MatDialog) {
     this.titleService.setTitle("Groendienst Dashboard - Smart City Herentals");
@@ -35,6 +37,7 @@ export class GarbageDashboardComponent implements OnInit {
   }
 
   loadBinInfo() {
+    this.loadingBins = true;
     this.binInfoListCache = this.garbageCollectionService.getBinInfoList().pipe(
       tap(array => {
         array.map(binInfo => {
@@ -43,8 +46,14 @@ export class GarbageDashboardComponent implements OnInit {
       })
     );
     this.binInfoListCache.subscribe(
-      result => this.binInfoList = result,
-      error => this.alertService.error('Er is iets misgelopen...', 'De vuilbakken konden niet worden geladen. Probeer het later opnieuw.')
+      result => {
+        this.binInfoList = result;
+        this.loadingBins = false;
+      },
+      error => {
+        this.alertService.error('Er is iets misgelopen...', 'De vuilbakken konden niet worden geladen. Probeer het later opnieuw.');
+        this.loadingBins = false;
+      }
     )
   }
 
@@ -61,6 +70,8 @@ export class GarbageDashboardComponent implements OnInit {
   }
 
   filterBinInfoList() {
+    this.loadingBins = true;
+    this.binInfoList = [];
     this.binInfoListCache.pipe(
       map(array => {
         return array.filter(binInfo => this.searchZoneID == 0 ? true :
@@ -72,8 +83,14 @@ export class GarbageDashboardComponent implements OnInit {
         ))
       })
     ).subscribe(
-      result => this.binInfoList = result,
-      error => this.alertService.error('Er is iets misgelopen...', 'De vuilbakken konnen niet worden gefilterd.')
+      result => {
+        this.binInfoList = result;
+        this.loadingBins = false;
+      },
+      error => {
+        this.alertService.error('Er is iets misgelopen...', 'De vuilbakken konnen niet worden gefilterd.');
+        this.loadingBins = false;
+      }
     );
   }
 

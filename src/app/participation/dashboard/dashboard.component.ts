@@ -24,6 +24,8 @@ export class ParticipationDashboardComponent implements OnInit {
   searchUserID: number = 0;
   searchWord: string = '';
 
+  loadingSurveys: boolean = true;
+
   constructor(private titleService: Title, private router: Router, private participationService: ParticipationService, private alertService: AlertService, private dialog: MatDialog) {
     this.titleService.setTitle("Participatie Dashboard - Smart City Herentals");
     this.loadSurveys();
@@ -34,11 +36,18 @@ export class ParticipationDashboardComponent implements OnInit {
   }
 
   loadSurveys() {
+    this.loadingSurveys = true;
     this.surveysCache = this.participationService.getSurveysWithUser();
 
     this.surveysCache.subscribe(
-      result => this.surveys = result,
-      error => this.alertService.error('Er is iets misgelopen...', 'Enquêtes konden niet worden geladen. Probeer het later opnieuw.')
+      result => {
+        this.surveys = result;
+        this.loadingSurveys = false;
+      },
+      error => {
+        this.alertService.error('Er is iets misgelopen...', 'Enquêtes konden niet worden geladen. Probeer het later opnieuw.');
+        this.loadingSurveys = false;
+      }
     );
   }
 
@@ -50,6 +59,8 @@ export class ParticipationDashboardComponent implements OnInit {
   }
 
   filterSurveys() {
+    this.loadingSurveys = true;
+    this.surveys = [];
     this.surveysCache.pipe(
       map(array => {
         return array.filter(survey => this.searchUserID == 0 ? true :
@@ -61,8 +72,14 @@ export class ParticipationDashboardComponent implements OnInit {
         ))
       })
     ).subscribe(
-      result => this.surveys = result,
-      error => this.alertService.error('Er is iets misgelopen...', 'Enquêtes konden niet worden geladen. Probeer het later opnieuw.')
+      result => {
+        this.surveys = result;
+        this.loadingSurveys = false;
+      },
+      error => {
+        this.alertService.error('Er is iets misgelopen...', 'Enquêtes konden niet worden geladen. Probeer het later opnieuw.');
+        this.loadingSurveys = false;
+      }
     );
   }
 

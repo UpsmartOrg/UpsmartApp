@@ -17,6 +17,7 @@ export class EditUserComponent implements OnInit {
   user!: User;
 
   loading: boolean = false;
+  loadingUser: boolean = true;
 
   adminRole = false;
   groendienstRole = false;
@@ -37,8 +38,12 @@ export class EditUserComponent implements OnInit {
   }
 
   loadUser() {
+    this.loadingUser = true;
     this.adminService.getUserWithRoles(this.userID).subscribe(
-      result => this.user = result,
+      result => {
+        this.user = result;
+        this.loadingUser = false;
+      },
       error => this.alertService.error('Er is iets misgelopen...', 'De gebruiker kon niet worden geladen. Probeer het later opnieuw.'),
       () => this.loadUserRoles(this.user)
     )
