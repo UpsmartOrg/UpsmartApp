@@ -59,4 +59,17 @@ export class AddUserComponent implements OnInit {
       this.user.user_roles?.splice(this.user.user_roles.findIndex(ur => ur.role_id == roleid), 1);
     }
   }
+
+  isExternal() {
+    if (this.user.is_extern == 1) return true;
+    else return false;
+  }
+
+  changeExternal() {
+    if (this.user.is_extern == 1) {
+      this.user.is_extern = 0;
+    } else {
+      this.user.is_extern = 1;
+    }
+  }
 }
