@@ -25,14 +25,19 @@
 </div>
 
 <!-- Content -->
-<div *ngIf="message == null">
+<div *ngIf="message == null && loadingMessage">
   <div class="text-center mt-5">
     <div class="spinner-border" role="status">
       <span class="visually-hidden">Loading...</span>
     </div>
   </div>
 </div>
-<div *ngIf="message">
+<div *ngIf="message == null && !loadingMessage">
+  <div class="text-center mt-5">
+    <p>Bericht kon niet worden geladen.</p>
+  </div>
+</div>
+<div *ngIf="message && !loadingMessage">
   <div class="mb-3">
     <label for="title" class="form-label">Titel</label>
     <input type="text" class="form-control" id="title" [(ngModel)]="message.title">

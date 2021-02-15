@@ -14,7 +14,9 @@ export class EditMessageComponent implements OnInit {
 
   messageID!: number;
   message!: Message;
+
   loading: boolean = false;
+  loadingMessage: boolean = true;
 
   constructor(private titleService: Title, private router: Router, private route: ActivatedRoute, private communicationService: CommunicationService, private alertService: AlertService) {
     this.titleService.setTitle("Bericht Wijzigen - Smart City Herentals");
@@ -26,9 +28,16 @@ export class EditMessageComponent implements OnInit {
   }
 
   loadMessage() {
+    this.loadingMessage = true;
     this.communicationService.getMessage(this.messageID).subscribe(
-      result => this.message = result,
-      error => this.alertService.error('Er is iets misgelopen...', 'Het bericht kon niet worden geladen. Probeer het later opnieuw.')
+      result => {
+        this.message = result;
+        this.loadingMessage = false;
+      },
+      error => {
+        this.alertService.error('Er is iets misgelopen...', 'Het bericht kon niet worden geladen. Probeer het later opnieuw.');
+        this.loadingMessage = false;
+      }
     )
   }
 
