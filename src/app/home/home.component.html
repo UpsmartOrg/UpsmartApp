@@ -58,12 +58,15 @@
             <tr>
               <th colspan="5" scope="row">
                 <div class="d-flex justify-content-center my-2">
-                  <p>Geen vuilnisbakken gevonden.</p>
+                  <div class="text-center">
+                    <p class="mb-0 pb-0">Geen vuilnisbakken gevonden.</p>
+                    <p class="link mt-0 pt-0" (click)="loadNewBins()">Vernieuwen</p>
+                  </div>
                 </div>
               </th>
             </tr>
           </tbody>
-          <tbody *ngIf="binInfoList.length > 0 && loadingBins">
+          <tbody *ngIf="binInfoList.length > 0 && !loadingBins">
             <tr *ngFor="let binInfo of binInfoList; let i = index">
               <th scope="row">{{ i + 1 }}</th>
               <td>{{ binInfo.name }}</td>
@@ -113,8 +116,9 @@
             <tr>
               <th colspan="6" scope="row">
                 <div class="d-flex justify-content-center my-2">
-                  <div class="d-flex align-items-center">
-                    <p>Geen enquêtes gevonden.</p>
+                  <div class="text-center">
+                    <p class="mb-0 pb-0">Geen enquêtes gevonden.</p>
+                    <p class="link mt-0 pt-0" (click)="loadSurveys()">Vernieuwen</p>
                   </div>
                 </div>
               </th>
@@ -167,8 +171,9 @@
             <tr>
               <th colspan="5" scope="row">
                 <div class="d-flex justify-content-center my-2">
-                  <div class="d-flex align-items-center">
-                    <p>Geen berichten gevonden</p>
+                  <div class="text-center">
+                    <p class="mb-0 pb-0">Geen berichten gevonden.</p>
+                    <p class="link mt-0 pt-0" (click)="loadMessages()">Vernieuwen</p>
                   </div>
                 </div>
               </th>
