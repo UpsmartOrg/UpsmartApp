@@ -43,7 +43,7 @@
               <th scope="col">Acties</th>
             </tr>
           </thead>
-          <tbody *ngIf="zones.length == 0">
+          <tbody *ngIf="zones.length == 0 && loadingZones">
             <tr>
               <th colspan="5" scope="row">
                 <div class="d-flex justify-content-center my-2">
@@ -54,7 +54,16 @@
               </th>
             </tr>
           </tbody>
-          <tbody *ngIf="zones.length > 0">
+          <tbody *ngIf="zones.length == 0 && !loadingZones">
+            <tr>
+              <th colspan="5" scope="row">
+                <div class="d-flex justify-content-center my-2">
+                  <p>Geen zones gevonden.</p>
+                </div>
+              </th>
+            </tr>
+          </tbody>
+          <tbody *ngIf="zones.length > 0 && !loadingZones">
             <tr *ngFor="let zone of zones; let i = index">
               <th scope="row">{{ i + 1 }}</th>
               <td>{{ zone.name || 'N/A' }}</td>

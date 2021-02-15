@@ -16,6 +16,8 @@ export class ZonesListComponent implements OnInit {
 
   zones: Zone[] = [];
 
+  loadingZones: boolean = true;
+
   constructor(private titleService: Title, private garbageCollectionService: GarbageCollectionService, private alertService: AlertService, private router: Router, private dialog: MatDialog) {
     this.titleService.setTitle("Groendienst Dashboard - Smart City Herentals");
     this.loadZones();
@@ -33,9 +35,16 @@ export class ZonesListComponent implements OnInit {
   }
 
   loadZones() {
+    this.loadingZones = true;
     this.garbageCollectionService.getZones().subscribe(
-      result => this.zones = result,
-      error => this.alertService.error('Er is iets misgelopen...', 'De zones konden niet worden geladen. Probeer het later opnieuw.'),
+      result => {
+        this.zones = result;
+        this.loadingZones = false;
+      },
+      error => {
+        this.alertService.error('Er is iets misgelopen...', 'De zones konden niet worden geladen. Probeer het later opnieuw.');
+        this.loadingZones = false;
+      }
     );
   }
 
