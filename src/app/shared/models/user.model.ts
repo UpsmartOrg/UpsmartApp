@@ -1,14 +1,13 @@
-import { Role } from "./role.model";
 import { UserRole } from "./user-role.model";
 
 export class User {
     constructor(
-        public id: number, 
-        public first_name: string, 
+        public id: number,
+        public first_name: string,
         public last_name: string,
-        public email: string, 
+        public email: string,
         public username: string,
-        public is_extern: boolean,
+        public is_extern: any,
 
         //Optioneel
         public password?: string,
@@ -16,5 +15,5 @@ export class User {
         public created_at?: Date,
         public user_roles?: UserRole[]
     ) { }
-    
+
 }
