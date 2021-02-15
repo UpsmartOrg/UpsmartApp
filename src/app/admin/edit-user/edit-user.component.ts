@@ -91,4 +91,17 @@ export class EditUserComponent implements OnInit {
     }
   }
 
+  isExternal() {
+    if (this.user.is_extern == 1) return true;
+    else return false;
+  }
+
+  changeExternal() {
+    if (this.user.is_extern == 1) {
+      this.user.is_extern = 0;
+    } else {
+      this.user.is_extern = 1;
+    }
+  }
+
 }
