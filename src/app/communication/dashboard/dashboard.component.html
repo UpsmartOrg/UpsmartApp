@@ -62,7 +62,7 @@
               <th scope="col">Acties</th>
             </tr>
           </thead>
-          <tbody *ngIf="messages.length == 0">
+          <tbody *ngIf="messages.length == 0 && loadingMessages">
             <tr>
               <th colspan="5" scope="row">
                 <div class="d-flex justify-content-center my-2">
@@ -73,7 +73,16 @@
               </th>
             </tr>
           </tbody>
-          <tbody *ngIf="messages.length > 0">
+          <tbody *ngIf="messages.length == 0 && !loadingMessages">
+            <tr>
+              <th colspan="5" scope="row">
+                <div class="d-flex justify-content-center my-2">
+                  <p>Geen berichten gevonden.</p>
+                </div>
+              </th>
+            </tr>
+          </tbody>
+          <tbody *ngIf="messages.length > 0 && !loadingMessages">
             <tr *ngFor="let message of messages; let i = index">
               <th scope="row">{{ i + 1 }}</th>
               <td>{{ message.title }}</td>

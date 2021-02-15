@@ -24,6 +24,8 @@ export class CommunicationDashboardComponent implements OnInit {
   searchWord: string = '';
   searchUserID: number = 0;
 
+  loadingMessages: boolean = true;
+
   constructor(private titleService: Title, private router: Router, private communicationService: CommunicationService, public dialog: MatDialog, private alertService: AlertService) {
     this.titleService.setTitle("Communicatie Dashboard - Smart City Herentals");
     this.loadMessages();
@@ -38,10 +40,17 @@ export class CommunicationDashboardComponent implements OnInit {
   }
 
   loadMessages() {
+    this.loadingMessages = true;
     this.messagesCache = this.communicationService.getMessagesWithUser();
     this.messagesCache.subscribe(
-      result => { this.messages = result },
-      error => this.alertService.error('Er is iets misgelopen...', 'De berichten konden niet worden geladen. Probeer het later opnieuw.')
+      result => {
+        this.messages = result;
+        this.loadingMessages = false;
+      },
+      error => {
+        this.alertService.error('Er is iets misgelopen...', 'De berichten konden niet worden geladen. Probeer het later opnieuw.');
+        this.loadingMessages = false;
+      }
       ,
     )
   }
@@ -54,6 +63,7 @@ export class CommunicationDashboardComponent implements OnInit {
   }
 
   filterMessages() {
+    this.loadingMessages = true;
     this.messages = [];
     this.messagesCache.pipe(
       map(array => {
@@ -68,7 +78,14 @@ export class CommunicationDashboardComponent implements OnInit {
         )
       })
     ).subscribe(
-      result => this.messages = result
+      result => {
+        this.messages = result;
+        this.loadingMessages = false;
+      },
+      error => {
+        this.alertService.error('Er is iets misgelopen...', 'De berichten konden niet worden geladen. Probeer het later opnieuw.');
+        this.loadingMessages = false;
+      }
     )
   }
 
