@@ -43,7 +43,7 @@
               <th scope="col">Adres</th>
             </tr>
           </thead>
-          <tbody *ngIf="binInfoList.length == 0">
+          <tbody *ngIf="binInfoList.length == 0 && loadingBins">
             <tr>
               <th colspan="5" scope="row">
                 <div class="d-flex justify-content-center my-2">
@@ -54,7 +54,16 @@
               </th>
             </tr>
           </tbody>
-          <tbody *ngIf="binInfoList.length > 0">
+          <tbody *ngIf="binInfoList.length == 0 && !loadingBins">
+            <tr>
+              <th colspan="5" scope="row">
+                <div class="d-flex justify-content-center my-2">
+                  <p>Geen vuilnisbakken gevonden.</p>
+                </div>
+              </th>
+            </tr>
+          </tbody>
+          <tbody *ngIf="binInfoList.length > 0 && loadingBins">
             <tr *ngFor="let binInfo of binInfoList; let i = index">
               <th scope="row">{{ i + 1 }}</th>
               <td>{{ binInfo.name }}</td>
@@ -89,7 +98,7 @@
               <th scope="col">Aangemaakt op</th>
             </tr>
           </thead>
-          <tbody *ngIf="surveys.length == 0">
+          <tbody *ngIf="surveys.length == 0 && loadingSurveys">
             <tr>
               <th colspan="6" scope="row">
                 <div class="d-flex justify-content-center my-2">
@@ -100,7 +109,18 @@
               </th>
             </tr>
           </tbody>
-          <tbody *ngIf="surveys.length > 0">
+          <tbody *ngIf="surveys.length == 0 && !loadingSurveys">
+            <tr>
+              <th colspan="6" scope="row">
+                <div class="d-flex justify-content-center my-2">
+                  <div class="d-flex align-items-center">
+                    <p>Geen enquêtes gevonden.</p>
+                  </div>
+                </div>
+              </th>
+            </tr>
+          </tbody>
+          <tbody *ngIf="surveys.length > 0 && ! loadingSurveys">
             <tr *ngFor="let survey of surveys; let i = index">
               <th scope="row">{{ i + 1 }}</th>
               <td>{{ survey.name }}</td>
@@ -132,7 +152,7 @@
               <th scope="col">Toegevoegd op</th>
             </tr>
           </thead>
-          <tbody *ngIf="messages.length == 0">
+          <tbody *ngIf="messages.length == 0 && loadingMessages">
             <tr>
               <th colspan="5" scope="row">
                 <div class="d-flex justify-content-center my-2">
@@ -143,7 +163,18 @@
               </th>
             </tr>
           </tbody>
-          <tbody *ngIf="messages.length > 0">
+          <tbody *ngIf="messages.length == 0 && !loadingMessages">
+            <tr>
+              <th colspan="5" scope="row">
+                <div class="d-flex justify-content-center my-2">
+                  <div class="d-flex align-items-center">
+                    <p>Geen berichten gevonden</p>
+                  </div>
+                </div>
+              </th>
+            </tr>
+          </tbody>
+          <tbody *ngIf="messages.length > 0 && !loadingMessages">
             <tr *ngFor="let message of messages; let i = index">
               <th scope="row">{{ i + 1 }}</th>
               <td>{{ message.title }}</td>

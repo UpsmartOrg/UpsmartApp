@@ -37,6 +37,10 @@ export class HomeComponent implements OnInit {
   participatieRole: boolean = false;
   communicatieRole: boolean = false;
 
+  loadingBins: boolean = true;
+  loadingSurveys: boolean = true;
+  loadingMessages: boolean = true;
+
   constructor(private titleService: Title, private router: Router, private accountService: AccountService, private alertService: AlertService, private garbageCollectionService: GarbageCollectionService, private participationService: ParticipationService, private communicationService: CommunicationService) {
     this.titleService.setTitle("Home - Smart City Herentals");
     this.accountService.userRoles.subscribe({
@@ -69,6 +73,7 @@ export class HomeComponent implements OnInit {
   }
 
   loadBinInfo() {
+    this.loadingBins = true;
     this.binInfoListCache = this.garbageCollectionService.getBinInfoList().pipe(
       tap(array => {
         array.map(binInfo => {
@@ -77,8 +82,14 @@ export class HomeComponent implements OnInit {
       })
     );
     this.binInfoListCache.subscribe(
-      result => this.binInfoList = result,
-      error => this.alertService.error('Er is iets misgelopen...', 'De vuilbakken konden niet worden geladen. Probeer het later opnieuw.')
+      result => {
+        this.binInfoList = result;
+        this.loadingBins = false;
+      },
+      error => {
+        this.alertService.error('Er is iets misgelopen...', 'De vuilbakken konden niet worden geladen. Probeer het later opnieuw.');
+        this.loadingBins = false;
+      }
     )
   }
 
@@ -98,20 +109,33 @@ export class HomeComponent implements OnInit {
   }
 
   loadSurveys() {
+    this.loadingSurveys = true;
     this.surveysCache = this.participationService.getSurveysWithUser();
 
     this.surveysCache.subscribe(
-      result => this.surveys = result,
-      error => this.alertService.error('Er is iets misgelopen...', 'Enquêtes konden niet worden geladen. Probeer het later opnieuw.')
+      result => {
+        this.surveys = result;
+        this.loadingSurveys = false;
+      },
+      error => {
+        this.alertService.error('Er is iets misgelopen...', 'Enquêtes konden niet worden geladen. Probeer het later opnieuw.');
+        this.loadingSurveys = false;
+      }
     );
   }
 
   loadMessages() {
+    this.loadingMessages = true;
     this.messagesCache = this.communicationService.getMessagesWithUser();
     this.messagesCache.subscribe(
-      result => { this.messages = result },
-      error => this.alertService.error('Er is iets misgelopen...', 'De berichten konden niet worden geladen. Probeer het later opnieuw.')
-      ,
+      result => {
+        this.messages = result;
+        this.loadingMessages = false;
+      },
+      error => {
+        this.alertService.error('Er is iets misgelopen...', 'De berichten konden niet worden geladen. Probeer het later opnieuw.');
+        this.loadingMessages = false;
+      }
     )
   }
 
