@@ -69,7 +69,7 @@
               <th scope="col">Acties</th>
             </tr>
           </thead>
-          <tbody *ngIf="users.length == 0">
+          <tbody *ngIf="users.length == 0 && loadingUsers">
             <tr>
               <th colspan="9" scope="row">
                 <div class="d-flex justify-content-center my-2">
@@ -80,7 +80,18 @@
               </th>
             </tr>
           </tbody>
-          <tbody *ngIf="users.length > 0">
+          <tbody *ngIf="users.length == 0 && !loadingUsers">
+            <tr>
+              <th colspan="9" scope="row">
+                <div class="d-flex justify-content-center my-2">
+                  <div class="d-flex align-items-center">
+                    <p>Geen gebruikers gevonden.</p>
+                  </div>
+                </div>
+              </th>
+            </tr>
+          </tbody>
+          <tbody *ngIf="users.length > 0 && !loadingUsers">
             <tr *ngFor="let user of users; let i = index">
               <td>{{ i + 1 }}</td>
               <td>{{ user.first_name }}</td>

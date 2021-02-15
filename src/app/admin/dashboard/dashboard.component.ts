@@ -26,6 +26,8 @@ export class AdminDashboardComponent implements OnInit {
   searchWord: string = '';
   searchRoleID: number = 0;
 
+  loadingUsers: boolean = true;
+
   constructor(private titleService: Title, private router: Router, private adminService: AdminService, public dialog: MatDialog, private accountService: AccountService, private alertService: AlertService) {
     this.titleService.setTitle("Admin Dashboard - Smart City Herentals");
     this.accountService.user.subscribe(result => {
@@ -38,15 +40,21 @@ export class AdminDashboardComponent implements OnInit {
   }
 
   loadUsers() {
+    this.loadingUsers = true;
     this.usersCache = this.adminService.getUsersWithRoles();
     this.usersCache.subscribe(
-      result => this.users = result,
+      result => {
+        this.users = result;
+        this.loadingUsers = false;
+      },
       error => this.alertService.error('Er is iets misgelopen...', 'De gebruikers konden niet worden geladen. Probeer het later opnieuw.')
     )
 
   }
 
   filterUsers() {
+    this.loadingUsers = true;
+    this.users = [];
     this.usersCache.pipe(
       map(array => {
         return array.filter(user => this.searchRoleID == 0 ? true :
@@ -60,7 +68,10 @@ export class AdminDashboardComponent implements OnInit {
         ))
       })
     ).subscribe(
-      result => this.users = result,
+      result => {
+        this.users = result;
+        this.loadingUsers = false;
+      },
       error => this.alertService.error('Er is iets misgelopen...', 'De gebruikers konden niet worden geladen. Probeer het later opnieuw.')
     );
   }
