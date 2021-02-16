@@ -1,4 +1,4 @@
-<div class="text-center vertical-center">
+<div class="text-center vertical-center" *ngIf="isConnected">
   <main class="form-signin">
     <h1 class="h3 mb-4 fw-normal text-uppercase">Inloggen</h1>
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
@@ -28,4 +28,8 @@
       </button>
     </form>
   </main>
+</div>
+
+<div class="d-flex justify-content-center mt-5" *ngIf="!isConnected">
+  Je bent offline. Ga online om de app te gebruiken.
 </div>

@@ -14,6 +14,8 @@ import { KioskModule } from './kiosk/kiosk.module';
 import { ParticipationModule } from './participation/participation.module';
 import { GarbageCollectionModule } from './garbage-collection/garbage-collection.module';
 import { HomeModule } from './home/home.module';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,8 @@ import { HomeModule } from './home/home.module';
     AccountModule,
     KioskModule,
     ParticipationModule,
-    GarbageCollectionModule
+    GarbageCollectionModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,
