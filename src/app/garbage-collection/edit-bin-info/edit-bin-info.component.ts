@@ -40,7 +40,7 @@ export class EditBinInfoComponent implements OnInit {
         this.alertService.error('Er is iets misgelopen...', 'De vuilbak konden niet worden geladen. Probeer het later opnieuw.');
         this.loadingBin = false;
       }
-    )
+    );
   }
 
   loadZones() {
@@ -48,6 +48,18 @@ export class EditBinInfoComponent implements OnInit {
       result => this.zones = result,
       error => this.alertService.error('Er is iets misgelopen...', 'De zones konden niet worden geladen. Probeer het later opnieuw.')
     );
+  }
+
+  loadLatestCoords() {
+    this.garbageCollectionService.loadLatestBinCoords(this.binInfoID).subscribe({
+      next: (result) => {
+        this.binInfo = result;
+        this.alertService.error('Vuilbak is aangepast', 'De meest recent coördinaten zijn ingeladen.');
+      },
+      error: () => {
+        this.alertService.error('Er is iets misgelopen...', 'De coordinaten konden niet worden geladen. Probeer het later opnieuw.');
+      }
+    });
   }
 
   updateBinInfo() {

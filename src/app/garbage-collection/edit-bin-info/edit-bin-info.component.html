@@ -42,14 +42,17 @@
   <div class="row">
     <div class="col-lg">
       <div class="mb-3">
-        <label for="name" class="form-label">Voornaam</label>
+        <label for="name" class="form-label">Naam</label>
         <input type="text" class="form-control" id="name" [(ngModel)]="binInfo.name">
       </div>
     </div>
     <div class="col-lg">
       <div class="mb-3">
-        <label for="address" class="form-label">Adres</label>
-        <input type="text" class="form-control" id="address" [(ngModel)]="binInfo.address">
+        <label for="zone" class="form-label">Kies zone</label>
+        <select class="form-select" id="zone" [(ngModel)]="binInfo.zone_id">
+          <option selected value="0">Geen zone</option>
+          <option *ngFor="let zone of zones" [value]="zone.id">{{zone.name}}</option>
+        </select>
       </div>
     </div>
   </div>
@@ -62,23 +65,40 @@
     </div>
     <div class="col-lg">
       <div class="mb-3">
-        <label for="zone">Kies locatie</label>
-        <select class="form-select" id="zone" [(ngModel)]="binInfo.zone_id">
-          <option selected value="0">Geen zone</option>
-          <option *ngFor="let zone of zones" [value]="zone.id">{{zone.name}}</option>
-        </select>
+        <label for="address" class="form-label">Locatie</label>
+        <input type="text" class="form-control" id="address" [(ngModel)]="binInfo.address">
+      </div>
+    </div>
+  </div>
+  <div class="row input group">
+    <div class="col-lg">
+      <div class="mb-3">
+        <label for="binLat" class="form-label">Longitude</label>
+        <input type="text" class="form-control" id="binLat" readonly [(ngModel)]="binInfo.latitude">
+      </div>
+    </div>
+    <div class="col-lg">
+      <div class="mb-3">
+        <label for="bingLon" class="form-label">Latitude </label>
+        <input type="text" class="form-control" id="bingLon" readonly [(ngModel)]="binInfo.longitude">
       </div>
     </div>
   </div>
   <div class="row mb-5">
     <div class="col">
-      <button type="button" class="btn btn-primary mt-3 text-uppercase" (click)="updateBinInfo()" *ngIf="! loading">
+      <button type="button" class="btn btn-primary text-uppercase" (click)="updateBinInfo()"
+        *ngIf="! loading">
         <span>Vuilbak wijzigen</span>
       </button>
-      <button class="btn btn-primary mt-3 text-uppercase" type="button" disabled *ngIf="loading">
-        <span class="spinner-border spinner-border-sm mb-1" role="status" aria-hidden="true"></span>
-        Laden...
+    </div>
+    <div class="col d-flex justify-content-end">
+      <button type="button" class="btn btn-primary text-uppercase" (click)="loadLatestCoords()" title="Herlaad coördinaten">
+        <i class="fas fa-sync-alt"></i>
       </button>
     </div>
+    <button class="btn btn-primary mt-3 text-uppercase" type="button" disabled *ngIf="loading">
+      <span class="spinner-border spinner-border-sm mb-1" role="status" aria-hidden="true"></span>
+      Laden...
+    </button>
   </div>
 </div>

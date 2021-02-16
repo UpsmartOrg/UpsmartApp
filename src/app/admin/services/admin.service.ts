@@ -11,7 +11,8 @@ export class AdminService {
 
   constructor(private http: HttpClient) { }
 
-  private url = "http://smartcityapi.seppealaerts.be/api";
+  private url = "https://laravel-smartcity.azurewebsites.net/api";
+  //private url = "http://localhost:8000/api";
 
   getUsers(): Observable<User[]> {
     return this.http.get<User[]>(this.url + '/users');
