@@ -9,19 +9,9 @@
   <div class="card">
     <div class="card-header">Handleiding Vuilbak Wijzigen</div>
     <div class="card-body">
-      <p class="my-2 p-0">Korte handleiding met wat extra uitleg over hoe deze pagina werkt. (+ evt ondersteunende
-        afbeeldingen)</p>
-      <p class="my-2 p-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut iste animi id ducimus ea obcaecati
-        nesciunt, suscipitest necessitatibus culpa quis odit, quod optio officia sequi amet laboriosam consequatur
-        deleniti.</p>
-      <p class="my-2 p-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut iste animi id ducimus ea obcaecati
-        nesciunt, suscipitest necessitatibus culpa quis odit, quod optio officia sequi amet laboriosam consequatur
-        deleniti.</p>
-      <p class="my-2 p-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut iste animi id ducimus ea obcaecati
-        nesciunt, suscipitest necessitatibus culpa quis odit, quod optio officia sequi amet laboriosam consequatur
-        deleniti.</p>
+      <p class="my-2 p-0">In dit formulier kan een bestaande vuilbak worden gewijzigd.</p>
+      <p class="my-2 p-0">Door onderaan op de knop "vuilbak wijzigen" te klikken, sla je de vuilbak op.</p>
     </div>
-
   </div>
 </div>
 
@@ -62,7 +52,7 @@
     </div>
     <div class="col-lg">
       <div class="mb-3">
-        <label for="zone">Kies locatie</label>
+        <label for="zone" class="form-label">Kies zone</label>
         <select class="form-select" id="zone" [(ngModel)]="binInfo.zone_id">
           <option selected value="0">Geen zone</option>
           <option *ngFor="let zone of zones" [value]="zone.id">{{zone.name}}</option>
