@@ -8,5 +8,7 @@ export class BinInfo {
         public zone_id?: number,
         public address?: string,
         public zone?: { name: string },
+        public longitude?: number,
+        public latitude?: number,
     ) { }
 }

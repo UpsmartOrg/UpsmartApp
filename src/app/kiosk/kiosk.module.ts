@@ -1,5 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { HttpClientJsonpModule } from '@angular/common/http';
+import { GoogleMapsModule } from '@angular/google-maps';
+
 import { KioskHomeComponent } from './home/home.component';
 import { SurveyComponent } from './survey/survey.component';
 import { SurveyListComponent } from './survey-list/survey-list.component';
@@ -15,7 +18,9 @@ import { DatePipe } from '@angular/common'
   imports: [
     CommonModule,
     MaterialModule,
-    FormsModule
+    FormsModule,
+    HttpClientJsonpModule,
+    GoogleMapsModule
   ],
   providers: [DatePipe]
 })

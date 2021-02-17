@@ -11,7 +11,7 @@
   </p>
 </div>
 
-<div class="row mt-4">
+<div class="row mt-4 mb-5">
   <div class="col-lg-6 mb-3 order-2 order-lg-1">
     <div class="card h-100">
       <div class="card-body d-flex flex-column">
@@ -87,5 +87,21 @@
         </div>
       </div>
     </div>
+  </div>
+</div>
+
+<!-- Google Map -->
+<div class="row mb-5" *ngIf="apiLoaded | async">
+  <div class="col-12 justify-content-center">
+    <div class="card shadow-sm">
+      <!-- Card header/collapse button -->
+      <div class="card-header text-center" role="button" data-bs-toggle="collapse" href="#collapseMap" aria-expanded="false">
+        Toon Kaart
+      </div>
+      <!-- Card body/collapse area -->
+      <div class="collapse" id="collapseMap">
+        <google-map [options]="options" width="100%">
+        </google-map>
+      </div>
   </div>
 </div>

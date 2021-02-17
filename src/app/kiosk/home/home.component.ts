@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { AlertService } from 'src/app/shared/alert/services/alert.service';
 import { Message } from 'src/app/shared/models/message.model';
 import { QuestionComponent } from '../question/question.component';
@@ -27,10 +28,17 @@ export class KioskHomeComponent implements OnInit {
   loadingMQI: boolean = true;
   loadingPost: boolean = false;
 
+  apiLoaded!: Observable<boolean>;
+  options!: google.maps.MapOptions;
+  //Coords for location in Herentals
+  lat: number = 51.177151;
+  lng: number = 4.836314;
+
   constructor(private titleService: Title, private kioskService: KioskService, private router: Router, private alertService: AlertService) {
     this.titleService.setTitle("Kiosk Homepage - Smart City Herentals");
     this.loadMessages();
     this.loadQuestions();
+    this.loadGoogleMapOptions();
   }
 
   ngOnInit(): void {
@@ -77,6 +85,14 @@ export class KioskHomeComponent implements OnInit {
       },
       error => this.alertService.error('Er is iets misgelopen...', 'Bevraging kon niet worden opgehaald. Probeer het later opnieuw.')
     );
+  }
+
+  loadGoogleMapOptions() {
+    this.apiLoaded = this.kioskService.getGoogleAPIKey();
+    this.options = {
+      center: { lat: this.lat, lng: this.lng },
+      zoom: 16
+    };
   }
 
   redirectTo(route: string) {

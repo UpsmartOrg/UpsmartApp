@@ -12,7 +12,7 @@ export class ParticipationService {
 
   constructor(private http: HttpClient) { }
 
-  private url = "http://smartcityapi.seppealaerts.be/api";
+  private url = "https://laravel-smartcity.azurewebsites.net/api";
 
   getSurveysWithUser(): Observable<Survey[]> {
     return this.http.get<Survey[]>(this.url + '/surveys/withuser');

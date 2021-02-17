@@ -1,6 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient  } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 import { BinInfo } from 'src/app/shared/models/bin-info.model';
 import { Zone } from 'src/app/shared/models/zone.model';
 
@@ -11,7 +12,7 @@ export class GarbageCollectionService {
 
   constructor(private http: HttpClient) { }
 
-  private url = "http://smartcityapi.seppealaerts.be/api";
+  private url = "https://laravel-smartcity.azurewebsites.net/api";
 
   getBinInfoList(): Observable<BinInfo[]> {
     return this.http.get<BinInfo[]>(this.url + '/bininfo');
@@ -31,6 +32,10 @@ export class GarbageCollectionService {
 
   loadNewBins(): Observable<BinInfo[]> {
     return this.http.post<BinInfo[]>(this.url + '/bininfo/update', null);
+  }
+
+  loadLatestBinCoords(id: number): Observable<BinInfo> {
+    return this.http.put<BinInfo>(this.url + '/bininfo/update/coords/' + id, null);
   }
 
   updateBinInfo(binInfo: BinInfo): Observable<BinInfo> {
@@ -63,5 +68,13 @@ export class GarbageCollectionService {
 
   deleteZone(id: number) {
     return this.http.delete<Zone>(this.url + '/zones/' + id);
+  }
+
+  getGoogleAPIKey(): Observable<boolean> {
+    return this.http.jsonp('https://maps.googleapis.com/maps/api/js?key=AIzaSyDfT7wBNXL5JBXhA7LI6TwIPKQqG1JQ29Q', 'callback')
+    .pipe(
+      map(() => true),
+      catchError(() => of(false)),
+    );
   }
 }

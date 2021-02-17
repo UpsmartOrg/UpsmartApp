@@ -68,7 +68,9 @@
               <th scope="col">Naam</th>
               <th scope="col">Vuilbak ID</th>
               <th scope="col">Zone</th>
-              <th scope="col">Adres</th>
+              <th scope="col">Lon</th>
+              <th scope="col">Lat</th>
+              <th scope="col">Locatie</th>
               <th scope="col">Acties</th>
             </tr>
           </thead>
@@ -101,6 +103,8 @@
               <td>{{ binInfo.name }}</td>
               <td>{{ binInfo.bin_id }}</td>
               <td>{{ binInfo.zone?.name || "N/A" }}</td>
+              <td>{{ binInfo.longitude || "N/A" }}</td>
+              <td>{{ binInfo.latitude || "N/A" }}</td>
               <td>{{ binInfo.address || "N/A"}}</td>
               <td>
                 <em class="far fa-edit actions mr-4" (click)="editBinInfo(binInfo.id)"></em>
