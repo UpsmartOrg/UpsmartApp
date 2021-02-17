@@ -9,5 +9,6 @@ export class Message {
         public body: string,
         public user: User,
         public created_at?: Date,
+        public updated_at?: Date,
     ) { }
 }

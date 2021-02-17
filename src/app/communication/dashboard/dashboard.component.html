@@ -53,7 +53,7 @@
               <th scope="col">#</th>
               <th scope="col">Titel</th>
               <th scope="col">Toegevoegd door</th>
-              <th scope="col">Toegevoegd op</th>
+              <th scope="col">Laatst aangepast op</th>
               <th scope="col">Acties</th>
             </tr>
           </thead>
@@ -83,9 +83,9 @@
           <tbody *ngIf="messages.length > 0 && !loadingMessages">
             <tr *ngFor="let message of messages; let i = index">
               <th scope="row">{{ i + 1 }}</th>
-              <td>{{ message.title }}</td>
+              <td>{{ message.title || "N/A" }}</td>
               <td>{{ message.user.first_name }} {{ message.user.last_name }}</td>
-              <td>{{ message.created_at | date:'dd-MM-yyyy' }}</td>
+              <td>{{ (message.updated_at | date:'dd-MM-yyyy') || "N/A" }}</td>
               <td>
                 <em class="far fa-edit actions mr-4" (click)="editMessage(message.id)"></em>
                 <em class="far fa-trash-alt actions mx-3" (click)="deleteDialog(message)"></em>

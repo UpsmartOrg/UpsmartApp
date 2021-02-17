@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder, private router: Router, private accountService: AccountService, private alertService: AlertService, private connectionService: ConnectionService) {
     this.alertService.info('Kiosk app:', "<a href=\"http://smartcity.seppealaerts.be/kiosk\" class=\"text-body\" target=\"_blank\">smartcity.seppealaerts.be/kiosk</a>")
-    this.alertService.info('Demo account:', 'Email: dirkd@herentals.be<br>Wachtwoord: testtest')
+    this.alertService.info('Demo account:', 'Username: dirk.d<br>Email: dirkd@herentals.be<br>Wachtwoord: testtest')
 
     this.connectionService.monitor().subscribe(isConnected => {
       this.isConnected = isConnected;
