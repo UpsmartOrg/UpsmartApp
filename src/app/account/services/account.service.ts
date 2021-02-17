@@ -134,7 +134,9 @@ export class AccountService {
         this.userRolesSubject = new BehaviorSubject<User>(result)
         this.userRoles = this.userSubject.asObservable();
         this.userSubject.next(result);
-      }
+      },
+      error => this.adminRole = this.groendienstRole = this.communicatieRole = this.participatieRole = false
     )
+
   }
 }

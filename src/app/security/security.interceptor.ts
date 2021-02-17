@@ -3,13 +3,12 @@ import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor } from '@angular/c
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { User } from '../shared/models/user.model';
-import { AccountService } from '../account/services/account.service';
+import { AlertService } from '../shared/alert/services/alert.service';
 
 @Injectable()
 export class SecurityInterceptor implements HttpInterceptor {
 
-    constructor(private router: Router) {
+    constructor(private router: Router, private alertService: AlertService) {
     }
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         let user = JSON.parse(sessionStorage.getItem('user') || '{}')
@@ -24,7 +23,7 @@ export class SecurityInterceptor implements HttpInterceptor {
         return next.handle(request).pipe(
             catchError(err => {
                 if (err.status === 401) {
-                    this.router.navigate(['403']);
+                    this.alertService.error('Er is iets misgelopen...', 'Je hebt geen toestemming om deze actie te ondernemen.')
                 }
                 return throwError("unauthorized");
             }));
