@@ -17,14 +17,14 @@ export class KioskService {
 
   constructor(private http: HttpClient) { }
 
-  private url = "https://laravel-smartcity.azurewebsites.net/api";
+  private url = "http://localhost:8000/api";
 
   getSurveys(): Observable<Survey[]> {
     return this.http.get<Survey[]>(this.url + '/surveys');
   }
 
   getSurvey(surveyID: number): Observable<Survey> {
-    return this.http.get<Survey>(this.url + '/surveys/' + surveyID);
+    return this.http.get<Survey>(this.url + '/surveys/get/' + surveyID);
   }
 
   getMessages(): Observable<Message[]> {
@@ -32,7 +32,7 @@ export class KioskService {
   }
 
   getMessage(messageID: number): Observable<Message> {
-    return this.http.get<Message>(this.url + '/information/' + messageID);
+    return this.http.get<Message>(this.url + '/information/get/' + messageID);
   }
 
   getOpenQuestions(surveyID: number): Observable<OpenQuestion[]> {

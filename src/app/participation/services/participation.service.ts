@@ -12,14 +12,14 @@ export class ParticipationService {
 
   constructor(private http: HttpClient) { }
 
-  private url = "https://laravel-smartcity.azurewebsites.net/api";
+  private url = "http://localhost:8000/api";
 
   getSurveysWithUser(): Observable<Survey[]> {
     return this.http.get<Survey[]>(this.url + '/surveys/withuser');
   }
 
   getSurveyComplete(id: number): Observable<SurveyAdd> {
-    return this.http.get<SurveyAdd>(this.url + '/surveys/complete/' + id);
+    return this.http.get<SurveyAdd>(this.url + '/surveys/get/' + id + '/complete');
   }
 
   updateSurveyComplete(survey: SurveyAdd): Observable<Survey> {

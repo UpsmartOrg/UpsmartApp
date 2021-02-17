@@ -11,7 +11,7 @@ export class AdminService {
 
   constructor(private http: HttpClient) { }
 
-  private url = "https://laravel-smartcity.azurewebsites.net/api";
+  private url = "http://localhost:8000/api";
 
   getUsers(): Observable<User[]> {
     return this.http.get<User[]>(this.url + '/users');
@@ -22,11 +22,11 @@ export class AdminService {
   }
 
   getUser(user_id: number): Observable<User> {
-    return this.http.get<User>(this.url + '/users/' + user_id);
+    return this.http.get<User>(this.url + '/users/get/' + user_id);
   }
 
   getUserWithRoles(user_id: number): Observable<User> {
-    return this.http.get<User>(this.url + '/users/withroles/' + user_id);
+    return this.http.get<User>(this.url + '/users/get/' + user_id + '/withroles');
   }
 
   addUserWithRoles(user: User): Observable<User> {

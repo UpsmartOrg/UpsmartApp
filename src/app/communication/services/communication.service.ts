@@ -12,14 +12,14 @@ export class CommunicationService {
 
   constructor(private http: HttpClient) { }
 
-  private url = "https://laravel-smartcity.azurewebsites.net/api";
+  private url = "http://localhost:8000/api";
 
   getMessagesWithUser(): Observable<Message[]> {
-    return this.http.get<Message[]>(this.url + '/information/withUser');
+    return this.http.get<Message[]>(this.url + '/information/withuser');
   }
 
   getMessage(messageID: number): Observable<Message> {
-    return this.http.get<Message>(this.url + '/information/' + messageID);
+    return this.http.get<Message>(this.url + '/information/get/' + messageID);
   }
 
   postMessage(message: MessageAdd): Observable<MessageAdd> {

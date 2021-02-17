@@ -12,7 +12,7 @@ export class GarbageCollectionService {
 
   constructor(private http: HttpClient) { }
 
-  private url = "https://laravel-smartcity.azurewebsites.net/api";
+  private url = "http://localhost:8000/api";
 
   getBinInfoList(): Observable<BinInfo[]> {
     return this.http.get<BinInfo[]>(this.url + '/bininfo');
@@ -27,7 +27,7 @@ export class GarbageCollectionService {
   }
 
   getBinInfo(id: number): Observable<BinInfo> {
-    return this.http.get<BinInfo>(this.url + '/bininfo/' + id);
+    return this.http.get<BinInfo>(this.url + '/bininfo/get/' + id);
   }
 
   loadNewBins(): Observable<BinInfo[]> {
@@ -55,7 +55,7 @@ export class GarbageCollectionService {
   }
 
   getZone(zoneID: number): Observable<Zone> {
-    return this.http.get<Zone>(this.url + '/zones/' + zoneID);
+    return this.http.get<Zone>(this.url + '/zones/get/' + zoneID);
   }
 
   postZone(zone: Zone): Observable<Zone> {
