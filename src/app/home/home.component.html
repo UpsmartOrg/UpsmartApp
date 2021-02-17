@@ -117,11 +117,11 @@
           <tbody *ngIf="surveys.length > 0 && ! loadingSurveys">
             <tr *ngFor="let survey of surveys; let i = index">
               <th scope="row">{{ i + 1 }}</th>
-              <td>{{ survey.name }}</td>
-              <td>{{ survey.start_date | date:'dd-MM-yyyy' }}</td>
-              <td>{{ survey.end_date | date:'dd-MM-yyyy' }}</td>
-              <td>{{ survey.user.first_name + ' '+ survey.user.last_name }}</td>
-              <td>{{ survey.created_at | date:'dd-MM-yyyy' }}</td>
+              <td>{{ survey.name || "N/A" }}</td>
+              <td>{{ (survey.start_date | date:'dd-MM-yyyy') || "N/A" }}</td>
+              <td>{{ (survey.end_date | date:'dd-MM-yyyy') || "N/A" }}</td>
+              <td>{{ (survey.user.first_name + ' '+ survey.user.last_name) || "N/A" }}</td>
+              <td>{{ (survey.created_at | date:'dd-MM-yyyy') || "N/A" }}</td>
             </tr>
           </tbody>
         </table>
@@ -174,7 +174,7 @@
               <th scope="row">{{ i + 1 }}</th>
               <td>{{ message.title }}</td>
               <td>{{ message.user.first_name }} {{ message.user.last_name }}</td>
-              <td>{{ message.created_at | date:'dd-MM-yyyy' }}</td>
+              <td>{{ (message.updated_at | date:'dd-MM-yyyy') || "N/A" }}</td>
             </tr>
           </tbody>
         </table>
