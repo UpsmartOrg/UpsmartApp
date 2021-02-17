@@ -22,9 +22,12 @@
     "@angular/platform-browser": "~11.0.4",
     "@angular/platform-browser-dynamic": "~11.0.4",
     "@angular/router": "~11.0.4",
+    "@angular/service-worker": "~11.0.4",
     "@popperjs/core": "^2.6.0",
     "bootstrap": "^5.0.0-beta1",
+    "http-server": "^0.12.3",
     "jquery": "^3.5.1",
+    "ng-connection-service": "^1.0.4",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.2"
