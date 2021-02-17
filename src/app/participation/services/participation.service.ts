@@ -19,7 +19,7 @@ export class ParticipationService {
   }
 
   getSurveyComplete(id: number): Observable<SurveyAdd> {
-    return this.http.get<SurveyAdd>(this.url + '/surveys/complete/' + id);
+    return this.http.get<SurveyAdd>(this.url + '/surveys/get/' + id + '/complete');
   }
 
   updateSurveyComplete(survey: SurveyAdd): Observable<Survey> {

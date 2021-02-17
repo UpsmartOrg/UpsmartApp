@@ -55,11 +55,11 @@ export class AccountService {
   }
 
   getUser(user_id: number): Observable<User> {
-    return this.http.get<User>(this.url + '/users/' + user_id);
+    return this.http.get<User>(this.url + '/users/get/' + user_id);
   }
 
   getUserWithRoles(user_id: number): Observable<User> {
-    return this.http.get<User>(this.url + '/users/withroles/' + user_id);
+    return this.http.get<User>(this.url + '/users/get/' + user_id + '/withroles');
   }
 
   updateUser(user: User): Observable<User> {
