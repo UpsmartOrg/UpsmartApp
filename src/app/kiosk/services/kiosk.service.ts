@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 import { Message } from 'src/app/shared/models/message.model';
 import { MultiAnswerAdd } from 'src/app/shared/models/multi-answer-add.model';
 import { MultiplechoiceItem } from 'src/app/shared/models/multiplechoice-item.model';
@@ -16,7 +17,7 @@ export class KioskService {
 
   constructor(private http: HttpClient) { }
 
-  private url = "http://smartcityapi.seppealaerts.be/api";
+  private url = "https://laravel-smartcity.azurewebsites.net/api";
 
   getSurveys(): Observable<Survey[]> {
     return this.http.get<Survey[]>(this.url + '/surveys');
@@ -62,4 +63,11 @@ export class KioskService {
     return this.http.post<MultiAnswerAdd>(this.url + '/answers', answer);
   }
 
+  getGoogleAPIKey(): Observable<boolean> {
+    return this.http.jsonp('https://maps.googleapis.com/maps/api/js?key=AIzaSyDfT7wBNXL5JBXhA7LI6TwIPKQqG1JQ29Q', 'callback')
+    .pipe(
+      map(() => true),
+      catchError(() => of(false)),
+    );
+  }
 }

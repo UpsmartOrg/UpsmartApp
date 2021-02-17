@@ -101,12 +101,22 @@
       Laden...
     </button>
   </div>
+
+  <!-- Google Map -->
   <div class="row mb-5" *ngIf="apiLoaded | async">
     <div class="col-12 justify-content-center">
-      <google-map [options]="options" width="100%">
-        <map-marker [position]="markerPosition">
-        </map-marker>
-      </google-map>
+      <div class="card shadow-sm">
+        <!-- Card header/collapse button -->
+        <div class="card-header text-center" role="button" data-bs-toggle="collapse" href="#collapseMap" aria-expanded="true">
+          Vuilbak op kaart
+        </div>
+        <!-- Card body/collapse area -->
+        <div class="collapse show" id="collapseMap">
+          <google-map [options]="options" width="100%">
+            <map-marker [position]="markerPosition">
+            </map-marker>
+          </google-map>
+        </div>
     </div>
   </div>
 </div>

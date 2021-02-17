@@ -48,7 +48,7 @@ const routes: Routes = [
   // Garbage Collection routes
   { path: 'groendienst', redirectTo: 'groendienst/dashboard', pathMatch: 'full', canActivate: [GroendienstAuthGuard, AuthGuard] },
   { path: 'groendienst/dashboard', component: GarbageDashboardComponent, canActivate: [GroendienstAuthGuard, AuthGuard] },
-  { path: 'groendienst/bininfo-wijzigen/:binInfoID', component: EditBinInfoComponent },
+  { path: 'groendienst/bininfo-wijzigen/:binInfoID', component: EditBinInfoComponent, canActivate: [GroendienstAuthGuard, AuthGuard] },
   { path: 'groendienst/zones', redirectTo: 'groendienst/zones/overzicht', pathMatch: 'full', canActivate: [GroendienstAuthGuard, AuthGuard] },
   { path: 'groendienst/zones/overzicht', component: ZonesListComponent, canActivate: [GroendienstAuthGuard, AuthGuard] },
   { path: 'groendienst/zones/zone-toevoegen', component: AddZoneComponent, canActivate: [GroendienstAuthGuard, AuthGuard] },
