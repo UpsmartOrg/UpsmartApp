@@ -101,4 +101,12 @@
       Laden...
     </button>
   </div>
+  <div class="row mb-5" *ngIf="apiLoaded | async">
+    <div class="col-12 justify-content-center">
+      <google-map [options]="options" width="100%">
+        <map-marker [position]="markerPosition">
+        </map-marker>
+      </google-map>
+    </div>
+  </div>
 </div>
