@@ -36,7 +36,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
 
   // Home routes
-  { path: '', component: HomeComponent, canActivate: [AuthGuard] },
+  { path: '', redirectTo: 'admin/dashboard', pathMatch: 'full', canActivate: [AuthGuard] },
   { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
 
   // Admin routes

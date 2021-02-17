@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { ConnectionService } from 'ng-connection-service';
 import { AlertService } from 'src/app/shared/alert/services/alert.service';
@@ -18,7 +19,8 @@ export class LoginComponent implements OnInit {
 
   isConnected: boolean = true;
 
-  constructor(private formBuilder: FormBuilder, private router: Router, private accountService: AccountService, private alertService: AlertService, private connectionService: ConnectionService) {
+  constructor(private titleService: Title, private formBuilder: FormBuilder, private router: Router, private accountService: AccountService, private alertService: AlertService, private connectionService: ConnectionService) {
+    this.titleService.setTitle("Smart City Herentals");
     this.alertService.info('Kiosk app:', "<a href=\"http://smartcity.seppealaerts.be/kiosk\" class=\"text-body\" target=\"_blank\">smartcity.seppealaerts.be/kiosk</a>")
     this.alertService.info('Demo account:', 'Username: dirk.d<br>Email: dirkd@herentals.be<br>Wachtwoord: testtest')
 

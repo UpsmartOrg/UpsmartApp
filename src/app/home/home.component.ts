@@ -44,17 +44,21 @@ export class HomeComponent implements OnInit {
   constructor(private titleService: Title, private router: Router, private accountService: AccountService, private alertService: AlertService, private garbageCollectionService: GarbageCollectionService, private participationService: ParticipationService, private communicationService: CommunicationService) {
     this.titleService.setTitle("Home - Smart City Herentals");
     this.accountService.userRoles.subscribe({
-      next: () => {
-        this.checkRoles();
-        if (this.groendienstRole) {
-          this.loadZones();
+      next: result => {
+        if (result.id) {
+          this.checkRoles();
+          if (this.groendienstRole) {
+            this.loadZones();
+          }
+          if (this.participatieRole) {
+            this.loadSurveys();
+          }
+          if (this.communicatieRole) {
+            this.loadMessages();
+          }
         }
-        if (this.participatieRole) {
-          this.loadSurveys();
-        }
-        if (this.communicatieRole) {
-          this.loadMessages();
-        }
+        console.log(result);
+
       }
     })
   }

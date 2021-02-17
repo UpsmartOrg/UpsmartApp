@@ -10,7 +10,7 @@ import { AccountService } from '../services/account.service';
 export class LogoutComponent implements OnInit {
 
   constructor(private accountService: AccountService, private router: Router) {
-    this.router.navigate(['/login']);
+    this.router.navigate(['login']);
     this.accountService.logout();
   }
 
