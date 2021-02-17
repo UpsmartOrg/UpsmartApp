@@ -88,7 +88,6 @@
               <th scope="col">Startdatum</th>
               <th scope="col">Einddatum</th>
               <th scope="col">Aangemaakt door</th>
-              <th scope="col">Aangemaakt op</th>
             </tr>
           </thead>
           <tbody *ngIf="surveys.length == 0 && loadingSurveys">
@@ -121,7 +120,6 @@
               <td>{{ (survey.start_date | date:'dd-MM-yyyy') || "N/A" }}</td>
               <td>{{ (survey.end_date | date:'dd-MM-yyyy') || "N/A" }}</td>
               <td>{{ (survey.user.first_name + ' '+ survey.user.last_name) || "N/A" }}</td>
-              <td>{{ (survey.created_at | date:'dd-MM-yyyy') || "N/A" }}</td>
             </tr>
           </tbody>
         </table>
