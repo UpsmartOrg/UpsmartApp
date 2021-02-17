@@ -17,7 +17,7 @@ export class KioskService {
 
   constructor(private http: HttpClient) { }
 
-  private url = "http://localhost:8000/api";
+  private url = "https://laravel-smartcity.azurewebsites.net/api";
 
   getSurveys(): Observable<Survey[]> {
     return this.http.get<Survey[]>(this.url + '/surveys');

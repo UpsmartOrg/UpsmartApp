@@ -12,7 +12,7 @@ export class GarbageCollectionService {
 
   constructor(private http: HttpClient) { }
 
-  private url = "http://localhost:8000/api";
+  private url = "https://laravel-smartcity.azurewebsites.net/api";
 
   getBinInfoList(): Observable<BinInfo[]> {
     return this.http.get<BinInfo[]>(this.url + '/bininfo');
