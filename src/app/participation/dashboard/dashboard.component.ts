@@ -107,11 +107,20 @@ export class ParticipationDashboardComponent implements OnInit {
       });
   }
 
-  deleteSurvey(survey: Survey) {
-    this.participationService.deleteSurvey(survey.id).subscribe({
+  deleteSurvey(deleteSurvey: Survey) {
+    this.participationService.deleteSurvey(deleteSurvey.id).subscribe({
       next: () => this.alertService.success('Enquête verwijderd.', 'Enquête werd succesvol verwijderd.'),
       error: () => this.alertService.error('Er is iets misgelopen...', 'Enquête kon niet worden verwijderd. Probeer het later opnieuw.')
     });
+
+    this.loadingSurveys = true;
+
+    this.surveysCache = this.surveysCache.pipe(
+      map(array => {
+        return array.filter(survey => survey.id != deleteSurvey.id)
+      })
+    );
+    this.filterSurveys();
   }
 
 }
