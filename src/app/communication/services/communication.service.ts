@@ -12,7 +12,7 @@ export class CommunicationService {
 
   constructor(private http: HttpClient) { }
 
-  private url = "http://smartcityapi.seppealaerts.be/api";
+  private url = "http://smartcityapi.seppealaerts.site/api";
 
   getMessagesWithUser(): Observable<Message[]> {
     return this.http.get<Message[]>(this.url + '/information/withuser');

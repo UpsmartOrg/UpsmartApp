@@ -12,7 +12,7 @@ export class ParticipationService {
 
   constructor(private http: HttpClient) { }
 
-  private url = "http://smartcityapi.seppealaerts.be/api";
+  private url = "http://smartcityapi.seppealaerts.site/api";
 
   getSurveysWithUser(): Observable<Survey[]> {
     return this.http.get<Survey[]>(this.url + '/surveys/withuser');

@@ -1,6 +1,8 @@
 # Herentals Smart City
 Smart City project by [UPSMART](http://upsmart.seppealaerts.be)
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/5275ee29-1ff2-4e3c-bde1-ea9aaa22b375/deploy-status)](https://app.netlify.com/sites/smartcityherentals/deploys)
+
 Backend api: https://github.com/JasperGuldentops/upsmart-app-api
 
 

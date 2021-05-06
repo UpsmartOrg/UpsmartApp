@@ -11,7 +11,7 @@ export class AdminService {
 
   constructor(private http: HttpClient) { }
 
-  private url = "http://smartcityapi.seppealaerts.be/api";
+  private url = "http://smartcityapi.seppealaerts.site/api";
 
   getUsers(): Observable<User[]> {
     return this.http.get<User[]>(this.url + '/users');
