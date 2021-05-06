@@ -17,7 +17,7 @@ export class KioskService {
 
   constructor(private http: HttpClient) { }
 
-  private url = "https://laravel-smartcity.azurewebsites.net/api";
+  private url = "http://smartcityapi.seppealaerts.site/api";
 
   getSurveys(): Observable<Survey[]> {
     return this.http.get<Survey[]>(this.url + '/surveys');
@@ -65,9 +65,9 @@ export class KioskService {
 
   getGoogleAPIKey(): Observable<boolean> {
     return this.http.jsonp('https://maps.googleapis.com/maps/api/js?key=AIzaSyDfT7wBNXL5JBXhA7LI6TwIPKQqG1JQ29Q', 'callback')
-    .pipe(
-      map(() => true),
-      catchError(() => of(false)),
-    );
+      .pipe(
+        map(() => true),
+        catchError(() => of(false)),
+      );
   }
 }

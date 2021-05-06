@@ -31,7 +31,7 @@ export class AccountService {
     this.loadRoles();
   }
 
-  private url = "https://laravel-smartcity.azurewebsites.net/api";
+  private url = "http://smartcityapi.seppealaerts.site/api";
 
   login(username: string, password: string) {
     return this.http.post<User>(this.url + "/login", { "email": username, "password": password })
