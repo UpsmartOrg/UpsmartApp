@@ -12,7 +12,7 @@ export class CommunicationService {
 
   constructor(private http: HttpClient) { }
 
-  private url = "https://pacific-castle-78822.herokuapp.com";
+  private url = "https://smartcityapi.seppealaerts.site/api";
 
   getMessagesWithUser(): Observable<Message[]> {
     return this.http.get<Message[]>(this.url + '/information/withuser');

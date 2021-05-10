@@ -12,7 +12,7 @@ export class ParticipationService {
 
   constructor(private http: HttpClient) { }
 
-  private url = "https://pacific-castle-78822.herokuapp.com";
+  private url = "https://smartcityapi.seppealaerts.site/api";
 
   getSurveysWithUser(): Observable<Survey[]> {
     return this.http.get<Survey[]>(this.url + '/surveys/withuser');
