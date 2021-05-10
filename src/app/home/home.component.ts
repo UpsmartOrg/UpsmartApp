@@ -57,8 +57,6 @@ export class HomeComponent implements OnInit {
             this.loadMessages();
           }
         }
-        console.log(result);
-
       }
     })
   }

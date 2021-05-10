@@ -49,7 +49,6 @@ export class EditBinInfoComponent implements OnInit {
         this.loadingBin = false;
       },
       () => {
-        console.log(this.binInfo);
         this.loadGoogleMapOptions();
       }
     );

@@ -44,7 +44,6 @@ export class QuestionComponent implements OnInit {
     if (this.question.multiple_answers == 1) {
       this.options.forEach(option => {
         const newAnswer = new MultiAnswerAdd(this.surveyID, option)
-        console.log(newAnswer)
         this.kioskService.postMultiAnswer(newAnswer).subscribe({
           next: () => this.stopLoading.emit(true),
           error: () => this.alertService.error('Er is iets misgelopen...', 'Antwoord kon niet worden geregistreerd. Probeer het later opnieuw.')
