@@ -31,7 +31,7 @@ export class AccountService {
     this.loadRoles();
   }
 
-  private url = "http://smartcityapi.seppealaerts.site/api";
+  private url = "https://pacific-castle-78822.herokuapp.com";
 
   login(username: string, password: string) {
     return this.http.post<User>(this.url + "/login", { "email": username, "password": password })
